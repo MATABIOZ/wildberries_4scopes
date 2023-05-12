@@ -1,0 +1,14 @@
+.footer
+	.container
+		.footer__wrapper
+			.footer__social-list
+				.footer__social-list-item x4
+			.footer__content
+				.footer__content-title
+				.footer__content-list
+					.footer__content-list-item x6
+			.footer__content
+				.footer__content-title
+				.footer__content-list
+					.footer__content-list-item x5
+			.footer__btn-up

@@ -1,0 +1,24 @@
+.user
+	.user__submenu .user__submenu_active
+		.modal-header
+			.user__submenu-text
+			.btn-close
+		.user__submenu-btn-login .btn
+		.user__submenu-btn-registration
+	.user__login .user__login_active
+		.modal-header
+			.modal-header__title
+			.btn-close
+		.user__login-form
+			.user__input
+			.user__input
+			.user__btn
+	.user__registration .user__registration_active
+		.modal-header
+			.modal-header__title
+			.btn-close
+		.user__registration-form
+			.user__input
+			.user__input
+			.user__input
+			.user__btn

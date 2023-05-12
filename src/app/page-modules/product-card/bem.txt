@@ -1,0 +1,23 @@
+.card
+	.card__view
+		.card__img
+		.card__btn-quick-view
+			.card-modal
+				.card-modal__img
+				.card-modal__inner
+					.modal-header
+						.modal-header__title
+						.btn-close
+					.card-modal__info
+					.card-modal__subinfo
+						.card-modal__price
+						.card-modal__old-price
+					.card-modal__btn-add-basket .btn
+	.card__inner
+		.card__info
+			.card__title
+			.card__price
+		.card__subinfo
+			.card__discount
+			.card__old-price
+	.card__btn-add-basket .btn
