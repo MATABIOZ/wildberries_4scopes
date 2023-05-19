@@ -60,3 +60,24 @@ body {
 		}
 	}
 }
+
+.btn {
+	width: 100%;
+	max-width: 110px;
+	padding: 7px 0;
+	display: block;
+	background-color: @color-parchment;
+	font-family: @sub-font;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 22px;
+	border-radius: 5px;
+	border: 1px solid transparent;
+	.transition (@prop, @time, @ease);
+
+	&:hover{
+		background-color: transparent;
+		border: 1px solid @color-black;
+	}
+
+}

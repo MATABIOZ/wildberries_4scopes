@@ -62,7 +62,7 @@
     height: 50px;
     margin: 0 30px;
 
-    @media screen and (@max768) {
+    @media screen and (@max576) {
         height: 40px;
     }
 
@@ -135,23 +135,69 @@
 }
 
 .user {
-    cursor: pointer;
-    margin-right: 30px;
+    position: relative;
 
-    &:hover::before {
-        color: @color-transparent-black;
+    &-btn {
+        cursor: pointer;
+        margin-right: 30px;
+
+        &:hover::before {
+            color: @color-transparent-black;
+        }
+
+        &::before {
+            content: @icon-user;
+            font-family: @icomoon-font-family;
+            color: @color-black;
+            display: block;
+            font-size: 35px;
+            .transition(@prop, @time, @ease);
+
+            @media screen and (@max768) {
+                font-size: 30px;
+            }
+        }
+
+        &_active::before {
+            color: @color-transparent-black;
+        }
     }
 
-    &::before {
-        content: @icon-user;
-        font-family: @icomoon-font-family;
-        color: @color-black;
-        display: block;
-        font-size: 35px;
-        .transition(@prop, @time, @ease);
+    &__submenu {
+        position: absolute;
+        width: 230px;
+        background-color: @color-white;
+        padding: 20px;
+        border-radius: 5px;
+        top: 60px;
+        right: 0;
+        display: none;
 
-        @media screen and (@max768) {
-            font-size: 30px;
+        &_active {
+            display: block;
+        }
+
+        .modal-header__title {
+            max-width: 150px;
+            padding-bottom: 40px;
+
+            h2 {
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 19px;
+            }
+        }
+
+        &-btn-registration {
+            max-width: 188px;
+            margin-top: 20px;
+            background-color: transparent;
+            border: 1px solid @color-translucent-black;
+            .transition (@prop, @time, @ease);
+
+            &:hover {
+                border: 1px solid @color-black;
+            }
         }
     }
 }
@@ -179,7 +225,7 @@
 
 .sidebar {
     position: absolute;
-    width: 430px;
+    width: 440px;
     height: 100vh;
     background-color: @color-parchment;
     left: 0;
@@ -187,7 +233,9 @@
     z-index: 3;
     padding: 60px 70px 0 70px;
     transform: translate(-100%, 0);
-    .transition(@prop, @time, @ease);
+    opacity: 0;
+    visibility: hidden;
+    .transition(opacity, 0.3s, @ease);
 
     @media screen and (@max768) {
         max-width: 320px;
@@ -202,6 +250,8 @@
 
     &_active {
         transform: translate(0, 0);
+        opacity: 1;
+        visibility: visible;
     }
 
     &__list {

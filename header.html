@@ -52,11 +52,28 @@
                     <input type="search" placeholder="Поиск">
                     <button class="btn-close search-btn-close"></button>
                 </div>
-                <div class="user"></div>
+                <div class="user">
+                    <button class="user-btn">
+
+                    </button>
+                    <div class="user__submenu">
+                        <div class="modal-header">
+                            <div class="modal-header__title">
+                                <h2>Здравствуйте!<br>
+                                    У Вас уже есть аккаунт? Войдите в систему, чтобы облегчить процесс покупок.
+                                </h2>
+                            </div>
+                            <button class="btn-close user__submenu-btn-close"></button>
+                        </div>
+                        <button type="button" class="btn user__submenu-btn-login">Войти</button>
+                        <button type="button" class="btn user__submenu-btn-registration">Регистрироваться</button>
+                    </div>
+                </div>
                 <div class="basket"></div>
             </div>
         </div>
     </header>
+    <script type="module" src="./src/app/page-modules/registration/submenu.js"></script>
     <script type="module" src="./src/app/page-modules/burger/burger.js"></script>
     <script type="module" src="./src/app/index.js"></script>
 </body>
