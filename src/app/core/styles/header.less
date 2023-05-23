@@ -204,7 +204,8 @@
         }
     }
 
-    &__registration {
+    &__registration,
+    &__login {
         max-width: 512px;
         width: 100vw;
         background-color: @color-white;
@@ -215,17 +216,20 @@
         display: none;
 
 
-        &_active {
+        &_active,
+        &__login {
             display: block;
         }
     }
 
-    &__registration-form {
+    &__registration-form,
+    &__login-form {
         padding-top: 40px;
         position: relative;
     }
 
-    &__input {
+    &__input,
+    &__login-input {
         padding: 20px;
         border: 1px solid @color-martini;
         margin-top: 30px;
@@ -241,7 +245,8 @@
         }
     }
 
-    .registration__btn {
+    .registration__btn,
+    .login-btn  {
         max-width: 100%;
         height: 50px;
         font-size: 18px;

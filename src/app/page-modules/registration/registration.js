@@ -72,12 +72,12 @@ function createForm() {
 function createFormElements(form) {
     options.forEach(option => {
         const element = document.createElement(option.type)
-        element.classList.add(option.class);
+        
 
         if (Array.isArray(option.class) && option.class.length > 0) {
-            option.class.forEach(className => {
-                element.classList.add(className);
-            });
+            option.class.forEach(className => element.classList.add(className));
+        } else {
+            element.classList.add(option.class);
         }
 
         if (option.id) {
@@ -108,6 +108,8 @@ function createFormElements(form) {
 function addInputsValues() {
     let inputs = document.querySelectorAll('.user__input')
     let values = []
+    let SpecialSymbolsArray = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=', '{', '}', '[', ']', '|', '\\', ';', ':', "'", '"', '<', '>', ',', '.', '?', '/', '`', '~', ' ']
+    const  SpecialSymbols = "!@#$%^&*()-_+={}[]|\\;:'\"<>.,/?`~";
 
     inputs.forEach(element => {
         values.push(element.value)
@@ -122,10 +124,10 @@ function addInputsValues() {
         alert('Пароль не совпадает')
     } else if (person.login.length < 3) {
         alert('логин должен состоять не менее чем из 3 символов')
-    } else if (person.login.includes(' ') || person.password.includes(' ')) {
-        alert('логин и пароль не должены содержать пробелы')
-    } else if (person.password.length < 8) {
-        alert('пароль должен состоять не менее чем из 8 символов')
+    } else if (SpecialSymbolsArray.some(symbol => person.login.includes(symbol)) || SpecialSymbolsArray.some(symbol => person.password.includes(symbol))) {
+        alert(`логин и пароль не должены содержать пробелы и символы: ${SpecialSymbols}`)
+    } else if (person.password.length < 8 || person.password.length > 20 || person.login.length < 8 || person.login.length > 20) {
+        alert('пароль и логин должен содержать от 8 до 20 символов')
     } else if (getStore(person.login) !== null) {
         alert('такой пользователь зарегестрирован')
     } else {

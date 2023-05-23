@@ -1,9 +1,11 @@
 import { registrationWrapperAddClassActive } from './registration.js';
+import { loginWrapperAddClassActive } from './login.js';
 
 const userBtn = document.querySelector('.user-btn')
 const submenu = document.querySelector('.user__submenu')
 const submenuBtnClose = document.querySelector('.user__submenu-btn-close')
 const btnRegistration = document.querySelector('.user__submenu-btn-registration')
+const btnLogin = document.querySelector('.user__submenu-btn-login')
 
 userBtn.addEventListener('click', function () {
     submenu.classList.toggle('user__submenu_active')
@@ -40,4 +42,10 @@ btnRegistration.addEventListener('click', function () {
     submenu.classList.remove('user__submenu_active')
     checkSubmenuClass()
     registrationWrapperAddClassActive()
+})
+
+btnLogin.addEventListener('click', function () {
+    submenu.classList.remove('user__submenu_active')
+    checkSubmenuClass()
+    loginWrapperAddClassActive()
 })
