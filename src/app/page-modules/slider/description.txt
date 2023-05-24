@@ -1,1 +1,1 @@
-Подключена библиотека https://kenwheeler.github.io/slick/
+Подключена библиотека https://getbootstrap.com/docs/5.3/components/carousel/
