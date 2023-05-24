@@ -4,4 +4,80 @@ html {
 
 body {
 	font-family: @main-font;
+	background-color: @color-parchment;
+	overflow-y: scroll;
+}
+
+.container {
+	max-width: 1140px;
+	margin: 0 auto;
+	padding: 0 15px;
+}
+
+.btn-close {
+	width: 19px;
+	height: 19px;
+	position: relative;
+
+	@media screen and (@max768) {
+		width: 14px;
+		height: 14px;
+	}
+
+	&::before,
+	&::after {
+		content: '';
+		position: absolute;
+		width: 100%;
+		height: 2px;
+		border-radius: 20px;
+		background-color: @color-black;
+		left: 0;
+		transform: translateY(-50%);
+	}
+
+	&::before {
+		transform: rotate(45deg);
+	}
+
+	&::after {
+		transform: rotate(-45deg);
+	}
+}
+
+.modal-header {
+	display: flex;
+	justify-content: space-between;
+
+	&__title h2 {
+		font-weight: 500;
+		font-size: 25px;
+		line-height: 29px;
+
+		@media screen and (@max576) {
+			font-size: 20px;
+			line-height: 23px;
+		}
+	}
+}
+
+.btn {
+	width: 100%;
+	max-width: 110px;
+	padding: 7px 0;
+	display: block;
+	background-color: @color-parchment;
+	font-family: @sub-font;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 22px;
+	border-radius: 5px;
+	border: 1px solid transparent;
+	.transition (@prop, @time, @ease);
+
+	&:hover{
+		background-color: transparent;
+		border: 1px solid @color-black;
+	}
+
 }
