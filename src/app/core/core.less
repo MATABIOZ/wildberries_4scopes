@@ -9,14 +9,20 @@ body {
 }
 
 .container {
-	max-width: 1170px;
+	max-width: 1140px;
 	margin: 0 auto;
+	padding: 0 15px;
 }
 
 .btn-close {
 	width: 19px;
 	height: 19px;
 	position: relative;
+
+	@media screen and (@max768) {
+		width: 14px;
+		height: 14px;
+	}
 
 	&::before,
 	&::after {
@@ -47,5 +53,31 @@ body {
 		font-weight: 500;
 		font-size: 25px;
 		line-height: 29px;
+
+		@media screen and (@max576) {
+			font-size: 20px;
+			line-height: 23px;
+		}
 	}
+}
+
+.btn {
+	width: 100%;
+	max-width: 110px;
+	padding: 7px 0;
+	display: block;
+	background-color: @color-parchment;
+	font-family: @sub-font;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 22px;
+	border-radius: 5px;
+	border: 1px solid transparent;
+	.transition (@prop, @time, @ease);
+
+	&:hover{
+		background-color: transparent;
+		border: 1px solid @color-black;
+	}
+
 }
