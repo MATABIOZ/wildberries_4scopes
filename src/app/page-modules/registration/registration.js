@@ -1,3 +1,5 @@
+import { setApi, getApi } from '../../core/API/registrationApi.js'
+
 const registrationWrapper = document.querySelector('.user__registration')
 const btnClose = document.querySelector('.user__registration-btn-close')
 const btnRegistration = document.querySelector('.user__submenu-btn-registration')
@@ -72,7 +74,6 @@ function createForm() {
 function createFormElements(form) {
     options.forEach(option => {
         const element = document.createElement(option.type)
-        
 
         if (Array.isArray(option.class) && option.class.length > 0) {
             option.class.forEach(className => element.classList.add(className));
@@ -105,11 +106,11 @@ function createFormElements(form) {
     });
 }
 
-function addInputsValues() {
+async function addInputsValues() {
     let inputs = document.querySelectorAll('.user__input')
     let values = []
     let SpecialSymbolsArray = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=', '{', '}', '[', ']', '|', '\\', ';', ':', "'", '"', '<', '>', ',', '.', '?', '/', '`', '~', ' ']
-    const  SpecialSymbols = "!@#$%^&*()-_+={}[]|\\;:'\"<>.,/?`~";
+    const SpecialSymbols = "!@#$%^&*()-_+={}[]|\\;:'\"<>.,/?`~";
 
     inputs.forEach(element => {
         values.push(element.value)
@@ -120,20 +121,28 @@ function addInputsValues() {
         password: values[1],
     }
 
+    let userData = await getApi(person.login);
+    const minLogin = 3;
+    const minPassword = 8;
+    const maxSymbols = 20;
+    const getCredentialAlertText = (min, max, credentialName) => `${credentialName} должен содержать от ${min} до ${max} символов`
+    const currentPasswordLength = person.password.length;
+    const currentLoginLength = person.login.length;
+
     if (values[1] !== values[2]) {
         alert('Пароль не совпадает')
-    } else if (person.login.length < 3) {
-        alert('логин должен состоять не менее чем из 3 символов')
     } else if (SpecialSymbolsArray.some(symbol => person.login.includes(symbol)) || SpecialSymbolsArray.some(symbol => person.password.includes(symbol))) {
-        alert(`логин и пароль не должены содержать пробелы и символы: ${SpecialSymbols}`)
-    } else if (person.password.length < 8 || person.password.length > 20 || person.login.length < 8 || person.login.length > 20) {
-        alert('пароль и логин должен содержать от 8 до 20 символов')
-    } else if (getStore(person.login) !== null) {
-        alert('такой пользователь зарегестрирован')
+        alert(`Логин и пароль не должны содержать пробелы и символы: ${SpecialSymbols}`)
+    } else if (currentPasswordLength < minPassword || currentPasswordLength > maxSymbols) {
+        alert(getCredentialAlertText(minPassword, maxSymbols, 'Пароль'))
+    } else if (currentLoginLength < minLogin || currentLoginLength > maxSymbols) {
+        alert(getCredentialAlertText(minLogin, maxSymbols, 'Логин'))
+    } else if (userData !== undefined) {
+        alert('Такой пользователь зарегистрирован')
     } else {
         alert('Регистрация прошла успешно')
         UserData.push(person)
-        setStore(person.login, person.password)
+        setApi(person.login, person.password)
         resetForm()
     }
 }
@@ -155,19 +164,6 @@ function showPassword() {
             btn.text = neededText
         });
     });
-}
-
-function setStore(login, val) {
-    localStorage.setItem(`${login}`, JSON.stringify(val))
-}
-
-function getStore(login) {
-    let storeLogin = JSON.parse(localStorage.getItem(login))
-    if (storeLogin) {
-        return storeLogin
-    } else {
-        return null
-    }
 }
 
 btnClose.addEventListener('click', function () {
@@ -203,4 +199,3 @@ function init() {
 document.addEventListener('DOMContentLoaded', init);
 
 export { registrationWrapperAddClassActive };
-
