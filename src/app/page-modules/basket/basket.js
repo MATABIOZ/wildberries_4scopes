@@ -18,7 +18,6 @@ function checkBasketModalClass() {
         basketBtn.classList.remove('basket-btn_active')
         document.removeEventListener('click', removeBasketModalClassList);
     }
-
 }
 
 function removeBasketModalClassList(event) {
@@ -26,10 +25,7 @@ function removeBasketModalClassList(event) {
     if (!basketModal.contains(event.target) && !basketBtn.contains(event.target)) {
         basketModal.classList.remove('basket__modal_active')
         checkBasketModalClass()
-
-        //console.log(event.target)
     }
-
 }
 
 basketModalBtnClose.addEventListener('click', function () {
