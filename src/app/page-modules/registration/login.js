@@ -1,3 +1,5 @@
+import { getApi } from '../../core/API/registrationApi.js'
+
 const loginWrapper = document.querySelector('.user__login')
 const btnClose = document.querySelector('.user__login-btn-close')
 const btnLogin = document.querySelector('.user__submenu-btn-login')
@@ -99,21 +101,22 @@ function createLoginFormElements(form) {
     }); 
 }
 
-function singIn() {
+async function singIn() {
     let inputs = document.querySelectorAll('.user__login-input')
     let inputsValue = []
-
+    
     inputs.forEach(el => {
         inputsValue.push(el.value)
     })
 
-    if(!getStore(inputsValue[0]) && getStore(inputsValue[0]) !== inputsValue[1]) {
-        alert('неверный логин или пароль')
+    let userData = await getApi(inputsValue[0])
+
+    if(!userData || userData.password !== inputsValue[1]) {
+        alert('Неверный логин или пароль')
     } else {
-        alert('вы вошли')
+        alert('Вы вошли')
         resetLoginForm()
     }
-
 }
 
 function showLoginPassword() {
@@ -128,27 +131,16 @@ function showLoginPassword() {
     })
 }
 
-function getStore(login) {
-    let storeLogin = JSON.parse(localStorage.getItem(login))
-    if (storeLogin) {
-        return storeLogin
-    } else {
-        return null
-    }
-}
-
 function resetLoginForm() {
     document.querySelector('.user__login-form').reset()
     const btn = document.querySelector('[data-btn="password"]').text = 'показать пароль'
     const input = document.querySelector('[data-input="input"]').type = 'password'
 }
 
-
 function submitLoginForm(event) {
     event.preventDefault()
     singIn() 
 }
-
 
 function init() {
     createLoginForm()
