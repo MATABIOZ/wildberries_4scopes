@@ -5,8 +5,6 @@ const btnClose = document.querySelector('.user__registration-btn-close')
 const btnRegistration = document.querySelector('.user__submenu-btn-registration')
 const userBtn = document.querySelector('.user-btn')
 
-const UserData = []
-
 function registrationWrapperAddClassActive() {
     registrationWrapper.classList.add('user__registration_active')
     checkRegistrationClass()
@@ -141,9 +139,11 @@ async function addInputsValues() {
         alert('Такой пользователь зарегистрирован')
     } else {
         alert('Регистрация прошла успешно')
-        UserData.push(person)
+      
         setApi(person.login, person.password)
-        resetForm()
+        registrationWrapper.classList.remove('user__registration_active')
+        userBtn.classList.remove('user-btn_active')
+       
     }
 }
 
@@ -181,6 +181,7 @@ function removeRegistrationClassList(event) {
         userBtn.classList.remove('user-btn_active')
         resetForm()
     }
+
 }
 
 function resetForm() {
