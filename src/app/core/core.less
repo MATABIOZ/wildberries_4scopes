@@ -18,6 +18,11 @@ body {
 	width: 19px;
 	height: 19px;
 	position: relative;
+	.transition (@prop, @time, @ease);
+
+	&:hover {
+		transform: scale(1.5, 1.5);
+	}
 
 	@media screen and (@max768) {
 		width: 14px;
