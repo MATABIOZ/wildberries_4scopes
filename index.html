@@ -8,8 +8,10 @@
     <title>Document</title>
     <link rel="shortcut icon" href="./src/assets/images/favicon.png" type="image/png">
     <link rel="stylesheet" href="./src/app/index.less">
+    <!--
     <link rel="stylesheet" href="./src/app/page-modules/slider/slick.css">
     <link rel="stylesheet/less" type="text/css" href="./src/app/page-modules/slider/slider.less" />
+    -->
 </head>
 
 <body id="body">
@@ -86,7 +88,82 @@
                         </div>
                     </div>
                 </div>
-                <div class="basket"></div>
+                <div class="basket">
+                    <button class="basket-btn"></button>
+                    <div class="basket__modal">
+                        <div class="modal-header">
+                            <div class="modal-header__title">
+                                <h2>Корзина</h2>
+                            </div>
+                            <button class="btn-close basket__modal-btn-close"></button>
+                        </div>
+                        <div class="basket__list">
+                            <div class="basket__list-item">
+                                <div class="basket__list-item-title">
+                                    <h5>Название товара</h5>
+                                </div>
+                                <div class="basket__list-item-wrapper">
+                                    <div class="basket__list-item-price">
+                                        <h5>135$</h5>
+                                    </div>
+                                    <div class="basket__list-item-btn-remove">
+                                        <button class="icon-trash"></button>
+                                    </div>	
+                                </div>
+                            </div>
+                            <div class="basket__list-item">
+                                <div class="basket__list-item-title">
+                                    <h5>Название товара</h5>
+                                </div>
+                                <div class="basket__list-item-wrapper">
+                                    <div class="basket__list-item-price">
+                                        <h5>135$</h5>
+                                    </div>
+                                    <div class="basket__list-item-btn-remove">
+                                        <button class="icon-trash"></button>
+                                    </div>	
+                                </div>
+                            </div>
+                            <div class="basket__list-item">
+                                <div class="basket__list-item-title">
+                                    <h5>Название товара</h5>
+                                </div>
+                                <div class="basket__list-item-wrapper">
+                                    <div class="basket__list-item-price">
+                                        <h5>135$</h5>
+                                    </div>
+                                    <div class="basket__list-item-btn-remove">
+                                        <button class="icon-trash"></button>
+                                    </div>	
+                                </div>
+                            </div>
+                            <div class="basket__list-item">
+                                <div class="basket__list-item-title">
+                                    <h5>Название товара</h5>
+                                </div>
+                                <div class="basket__list-item-wrapper">
+                                    <div class="basket__list-item-price">
+                                        <h5>135$</h5>
+                                    </div>
+                                    <div class="basket__list-item-btn-remove">
+                                        <button class="icon-trash"></button>
+                                    </div>	
+                                </div>
+                            </div>	
+                            <div class="basket__btn-delete-all">
+                                <button>Очистить корзину</button>
+                            </div>
+                            <div class="basket__footer">
+                                <div class="basket__btn-order">
+                                    <button>Заказать</button>
+                                </div>
+                                <div class="basket__total-price">
+                                    <h4>Итого: 400$</h4>
+                                </div>
+                            </div>	
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -111,20 +188,20 @@
     <footer class="footer">
         <div class="container">
             <div class="footer__wrapper">
-                <div class="footer__social-list">
-                    <div class="footer__social-list-item">
+                <ul class="footer__social-list">
+                    <li class="footer__social-list-item">
                         <a class="icon-facebook" href="#"></a>
-                    </div>
-                    <div class="footer__social-list-item">
+                    </li>
+                    <li class="footer__social-list-item">
                         <a class="icon-instagram" href="#"></a>
-                    </div>
-                    <div class="footer__social-list-item">
+                    </li>
+                    <li class="footer__social-list-item">
                         <a class="icon-twitter" href="#"></a>
-                    </div>
-                    <div class="footer__social-list-item">
+                    </li>
+                    <li class="footer__social-list-item">
                         <a class="icon-whatsapp" href="#"></a>
-                    </div>
-                </div>
+                    </li>
+                </ul>
                 <span></span>
                 <div class="footer__content customers">
                     <div class="footer__content-title">
@@ -181,15 +258,20 @@
             </div>
         </div>
     </footer>
+    <!--
     <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script src="./src/app/page-modules/slider/slick.min.js"></script>
     <script src="//src/app/page-modules/slider/slider.js"></script>
+    -->
     <script type="module" src="./src/app/page-modules/registration/registration.js"></script>
     <script type="module" src="./src/app/page-modules/registration/submenu.js"></script>
     <script type="module" src="./src/app/page-modules/burger/burger.js"></script>
+    <script type="module" src="./src/app/page-modules/basket/basket.js"></script>
     <script type="module" src="./src/app/index.js"></script>
+    <!--
     <script src="https://cdn.jsdelivr.net/npm/less"></script>
+    -->
 
 
 </body>
