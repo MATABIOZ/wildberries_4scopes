@@ -8,33 +8,35 @@
 	<link rel="shortcut icon" href="./src/assets/images/favicon.png" type="image/png">
 	<link rel="stylesheet" href="./src/app/index.less">
 
-   <link rel="stylesheet" href="./src/app/page-modules/slider/slick.css">
-   <link rel="stylesheet/less" type="text/css" href="./src/app/page-modules/slider/slider.less" />
+   <link rel="stylesheet" href="./src/app/page-modules/slider/swiper-bundle.min.css">
+   <link rel="stylesheet" href="./src/app/page-modules/slider/slider.css">
 </head>
 <body>
-	<section class="slider">
+   <section class="slider">
       <div class="container">
-         <div class="slider__inner">
-            <a class="slider__link">
-               <img class="slider__img" src="./src/assets/images/slider-page1.png" alt="slide">
-            </a>
-            <a class="slider__link">
-               <img class="slider__img" src="./src/assets/images/slider-page2.png" alt="slide">
-            </a>
-            <a class="slider__link">
-               <img class="slider__img" src="./src/assets/images/slider-page3.png" alt="slide">
-            </a>
-            <a class="slider__link">
-               <img class="slider__img" src="./src/assets/images/slider-page4.png" alt="slide">
-            </a>
+         <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+               <img src="./src/assets/images/slider-page1.png" alt="">
+              </div>
+              <div class="swiper-slide">
+               <img src="./src/assets/images/slider-page2.png" alt="">
+              </div>
+              <div class="swiper-slide">
+               <img src="./src/assets/images/slider-page3.png" alt="">
+              </div>
+              <div class="swiper-slide">
+               <img src="./src/assets/images/slider-page4.png" alt="">
+              </div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+          </div>
          </div>
       </div>
    </section>
-   <script src="https://cdn.jsdelivr.net/npm/less"></script>
-	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-   <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-	<script src="./src/app/page-modules/slider/slick.min.js"></script>
+   <script src="./src/app/page-modules/slider/swiper-bundle.min.js"></script>
    <script src="./src/app/page-modules/slider/slider.js"></script>
-	<script type="module" src="./src/app/index.js"></script>
 </body>
 </html>
