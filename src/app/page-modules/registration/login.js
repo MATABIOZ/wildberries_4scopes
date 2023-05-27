@@ -33,33 +33,37 @@ const options = [
 
 function loginWrapperAddClassActive() {
     loginWrapper.classList.add('user__login_active')
-    checkLoginWrapperClass()
+    addDocumentEvent()
     userBtn.classList.add('user-btn_active')
     document.querySelector('.login-btn').addEventListener('click', submitLoginForm)
     showLoginPassword()
 }
 
-btnClose.addEventListener('click', function() {
-    loginWrapper.classList.remove('user__login_active')
-    userBtn.classList.remove('user-btn_active')
+btnClose.addEventListener('click', function () {
+    removeLoginWrapperClassList()
 })
 
-function checkLoginWrapperClass() {
-
-    if(loginWrapper.classList.contains('user__login_active'))  {
-        document.addEventListener('click', removeLoginWrapperClassList)
-    } 
-    
+function removeLoginWrapperClassList() {
+    loginWrapper.classList.remove('user__login_active')
+    userBtn.classList.remove('user-btn_active')
 }
 
-function removeLoginWrapperClassList(event) {
+function addDocumentEvent() {
 
-    if(!loginWrapper.contains(event.target) && !btnLogin.contains(event.target)){
+    if (loginWrapper.classList.contains('user__login_active')) {
+        document.addEventListener('click', checkLoginWrapperClass)
+    }
+
+}
+
+function checkLoginWrapperClass(event) {
+
+    if (!loginWrapper.contains(event.target) && !btnLogin.contains(event.target)) {
         loginWrapper.classList.remove('user__login_active')
     }
 
-    if(!loginWrapper.classList.contains('user__login_active')) {
-        document.removeEventListener('click', removeLoginWrapperClassList)
+    if (!loginWrapper.classList.contains('user__login_active')) {
+        document.removeEventListener('click', checkLoginWrapperClass)
         userBtn.classList.remove('user-btn_active')
         resetLoginForm()
     }
@@ -76,13 +80,13 @@ function createLoginFormElements(form) {
     options.forEach(option => {
         const element = document.createElement(option.type)
 
-        if(Array.isArray(option.class) && option.class.length > 0) {
+        if (Array.isArray(option.class) && option.class.length > 0) {
             option.class.forEach(className => element.classList.add(className))
         } else {
             element.classList.add(option.class)
         }
 
-        if(option.text) {
+        if (option.text) {
             element.text = option.text
         }
 
@@ -90,7 +94,7 @@ function createLoginFormElements(form) {
             element.textContent = option.content
         }
 
-        if(option.attributes && option.attributes.length > 0) {
+        if (option.attributes && option.attributes.length > 0) {
             option.attributes.forEach(attribute => {
                 const [firstClass, secondClass] = Object.entries(attribute)[0];
                 element.setAttribute(firstClass, secondClass);
@@ -98,24 +102,25 @@ function createLoginFormElements(form) {
         }
 
         form.appendChild(element)
-    }); 
+    });
 }
 
 async function singIn() {
     let inputs = document.querySelectorAll('.user__login-input')
     let inputsValue = []
-    
+
     inputs.forEach(el => {
         inputsValue.push(el.value)
     })
 
     let userData = await getApi(inputsValue[0])
 
-    if(!userData || userData.password !== inputsValue[1]) {
+    if (!userData || userData.password !== inputsValue[1]) {
         alert('Неверный логин или пароль')
     } else {
         alert('Вы вошли')
         resetLoginForm()
+        removeLoginWrapperClassList()
     }
 }
 
@@ -123,7 +128,7 @@ function showLoginPassword() {
     const btn = document.querySelector('[data-btn="password"]')
     const input = document.querySelector('[data-input="input"]')
 
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function () {
         neededType = input.type === 'password' ? 'text' : 'password';
         input.type = neededType
         neededText = btn.text === 'показать пароль' ? 'скрыть пароль' : 'показать пароль'
@@ -139,7 +144,7 @@ function resetLoginForm() {
 
 function submitLoginForm(event) {
     event.preventDefault()
-    singIn() 
+    singIn()
 }
 
 function init() {
