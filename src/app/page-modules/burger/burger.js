@@ -1,6 +1,6 @@
-const burgerBtn = document.querySelector('.burger')
+const burgerBtn = document.querySelectorAll('.burger_btn')
 const sidebar = document.querySelector('.sidebar')
-const closeBtn = document.querySelector('.btn-close')
+const closeBtn = document.querySelector('.sidebar .btn-close')
 const body = document.getElementById('body')
 
 function setBodyStyles(position, width, overflowY) {
@@ -9,23 +9,46 @@ function setBodyStyles(position, width, overflowY) {
     body.style.overflowY = overflowY
 }
 
-burgerBtn.addEventListener('click', function () {
-    if (!sidebar.classList.contains('sidebar_active')) {
-        setBodyStyles('fixed', '100%', 'scroll')
-        sidebar.classList.add('sidebar_active');
-    }
-});
+burgerBtn.forEach(element => {
+    element.addEventListener('click', function () {
+
+        if (!sidebar.classList.contains('sidebar_active')) {
+            setBodyStyles('fixed', '100%', 'scroll')
+            sidebar.classList.add('sidebar_active');
+            checkSidebarClass()
+        }
+    
+    });
+})
 
 closeBtn.addEventListener('click', function () {
+
     if (sidebar.classList.contains('sidebar_active')) {
         sidebar.classList.remove('sidebar_active')
         setBodyStyles('', '', '')
     }
+
 });
 
-document.addEventListener('click', function (event) {
+function checkSidebarClass() {
+
+    if (sidebar.classList.contains('sidebar_active')) {
+        document.addEventListener('click', removeSidebarClass)
+    }
+
+}
+
+function removeSidebarClass(event) {
+
     if (!sidebar.contains(event.target) && !burgerBtn.contains(event.target)) {
         sidebar.classList.remove('sidebar_active')
         setBodyStyles('', '', '')
     }
-});
+
+    if (!sidebar.classList.contains('sidebar_active')) {
+        document.removeEventListener('click', removeSidebarClass)
+    }
+
+}
+
+export { setBodyStyles }
