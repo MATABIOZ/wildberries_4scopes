@@ -11,29 +11,34 @@ function registrationWrapperAddClassActive() {
 }
 
 function checkRegistrationClass() {
+
     if (registrationWrapper.classList.contains('user__registration_active')) {
         document.addEventListener('click', removeRegistrationClassList)
         userBtn.classList.add('user-btn_active')
         document.querySelector('.registration__btn').addEventListener('click', submitForm)
     }
+
 }
 
 function submitForm(event) {
     event.preventDefault()
     addInputsValues()
+    resetErrorMessage()
 }
 
 const options = [
     {
         type: 'input',
         class: 'user__input',
-        id: 1,
         attributes: [{ required: true }, { placeholder: "Логин" }, { type: "text" }]
+    },
+    {
+        type: 'span',
+        class: ['error-message', 'error-message_registration-login']
     },
     {
         type: 'input',
         class: 'user__input',
-        id: 2,
         attributes: [{ required: true }, { placeholder: "Пароль" }, { type: "password" }, { 'data-input': '1' }]
     },
     {
@@ -43,9 +48,12 @@ const options = [
         text: 'показать пароль'
     },
     {
+        type: 'span',
+        class: ['error-message', 'error-message_registration-password-first']
+    },
+    {
         type: 'input',
         class: 'user__input',
-        id: 3,
         attributes: [{ required: true }, { placeholder: "Повторите пароль" }, { type: "password" }, { 'data-input': '2' }]
     },
     {
@@ -53,6 +61,10 @@ const options = [
         class: 'btn-show-password',
         attributes: [{ href: '#' }, { 'data-btn': '2' }],
         text: 'показать пароль'
+    },
+    {
+        type: 'span',
+        class: ['error-message', 'error-message_registration-password-second']
     },
     {
         type: 'button',
@@ -109,6 +121,9 @@ async function addInputsValues() {
     let values = []
     let SpecialSymbolsArray = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=', '{', '}', '[', ']', '|', '\\', ';', ':', "'", '"', '<', '>', ',', '.', '?', '/', '`', '~', ' ']
     const SpecialSymbols = "!@#$%^&*()-_+={}[]|\\;:'\"<>.,/?`~";
+    const errorMessageRegistrationLogin = document.querySelector('.error-message_registration-login')
+    const errorMessageRegistrationPasswordFirst = document.querySelector('.error-message_registration-password-first')
+    const errorMessageRegistrationPasswordSecond = document.querySelector('.error-message_registration-password-second')
 
     inputs.forEach(element => {
         values.push(element.value)
@@ -123,28 +138,52 @@ async function addInputsValues() {
     const minLogin = 3;
     const minPassword = 8;
     const maxSymbols = 20;
-    const getCredentialAlertText = (min, max, credentialName) => `${credentialName} должен содержать от ${min} до ${max} символов`
+    const showSymbolsLengthErrorMessage = (element, min, max, credentialName) => element.textContent = `${credentialName} должен содержать от ${min} до ${max} символов`
     const currentPasswordLength = person.password.length;
     const currentLoginLength = person.login.length;
 
     if (values[1] !== values[2]) {
-        alert('Пароль не совпадает')
-    } else if (SpecialSymbolsArray.some(symbol => person.login.includes(symbol)) || SpecialSymbolsArray.some(symbol => person.password.includes(symbol))) {
-        alert(`Логин и пароль не должны содержать пробелы и символы: ${SpecialSymbols}`)
+        errorMessageRegistrationPasswordFirst.textContent = 'Пароль не совпадает'
+        errorMessageRegistrationPasswordSecond.textContent = 'Пароль не совпадает'
+    } else if (SpecialSymbolsArray.some(symbol => person.login.includes(symbol))) {
+        errorMessageRegistrationLogin.textContent = `Логин не должны содержать пробелы и символы: ${SpecialSymbols}`
     } else if (currentPasswordLength < minPassword || currentPasswordLength > maxSymbols) {
-        alert(getCredentialAlertText(minPassword, maxSymbols, 'Пароль'))
+        showSymbolsLengthErrorMessage(errorMessageRegistrationPasswordFirst, minPassword, maxSymbols, 'Пароль')
     } else if (currentLoginLength < minLogin || currentLoginLength > maxSymbols) {
-        alert(getCredentialAlertText(minLogin, maxSymbols, 'Логин'))
+        showSymbolsLengthErrorMessage(errorMessageRegistrationLogin, minLogin, maxSymbols, 'Логин')
     } else if (userData !== undefined) {
-        alert('Такой пользователь зарегистрирован')
+        errorMessageRegistrationLogin.textContent = `Пользователь с логином "${person.login}" уже зарегистрирован`
     } else {
-        alert('Регистрация прошла успешно')
-      
+
+        successRegistration()
         setApi(person.login, person.password)
-        registrationWrapper.classList.remove('user__registration_active')
-        userBtn.classList.remove('user-btn_active')
+        setTimeout( function() {
+            location.reload()
+        }, 1000)
        
     }
+}
+
+function successRegistration() {
+    const form = document.querySelector('.user__registration-form');
+    const successContainer = document.createElement('div');
+    const successMessage = document.createElement('span');
+    successContainer.classList.add('success-container');
+    successMessage.classList.add('success-message');
+    successMessage.textContent = 'Регистрация прошла успешно \u2705';
+    successContainer.appendChild(successMessage);
+    const parent = form.parentNode;
+    parent.replaceChild(successContainer, form);
+}
+
+function resetErrorMessage() {
+    const errorMessageRegistrationLogin = document.querySelector('.error-message_registration-login')
+    const errorMessageRegistrationPasswordFirst = document.querySelector('.error-message_registration-password-first')
+    const errorMessageRegistrationPasswordSecond = document.querySelector('.error-message_registration-password-second')
+    errorMessageRegistrationLogin.textContent = ''
+    errorMessageRegistrationPasswordFirst.textContent = ''
+    errorMessageRegistrationPasswordSecond.textContent = ''
+    
 }
 
 function showPassword() {
@@ -190,6 +229,7 @@ function resetForm() {
     document.querySelector('[data-input="2"]').type = 'password'
     const btnShow1 = document.querySelector('[data-btn="1"]').text = 'показать пароль'
     const btnShow2 = document.querySelector('[data-btn="2"]').text = 'показать пароль'
+    resetErrorMessage()
 }
 
 function init() {
