@@ -39,16 +39,14 @@ function checkSidebarClass() {
 }
 
 function removeSidebarClass(event) {
-
-    if (!sidebar.contains(event.target) && !burgerBtn.contains(event.target)) {
-        sidebar.classList.remove('sidebar_active')
-        setBodyStyles('', '', '')
+    if (!sidebar.contains(event.target) && !Array.from(burgerBtn).some(btn => btn.contains(event.target))) {
+        sidebar.classList.remove('sidebar_active');
+        setBodyStyles('', '', '');
     }
 
     if (!sidebar.classList.contains('sidebar_active')) {
-        document.removeEventListener('click', removeSidebarClass)
+        document.removeEventListener('click', removeSidebarClass);
     }
-
 }
 
 export { setBodyStyles }
