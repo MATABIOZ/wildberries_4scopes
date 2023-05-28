@@ -16,6 +16,7 @@ function checkRegistrationClass() {
         document.addEventListener('click', removeRegistrationClassList)
         userBtn.classList.add('user-btn_active')
         document.querySelector('.registration__btn').addEventListener('click', submitForm)
+
     }
 
 }
@@ -107,13 +108,13 @@ function createFormElements(form) {
 
         if (option.attributes && option.attributes.length > 0) {
             option.attributes.forEach(attribute => {
-                const [firstClass, secondClass] = Object.entries(attribute)[0];
-                element.setAttribute(firstClass, secondClass);
+                const [firstClass, secondClass] = Object.entries(attribute)[0]
+                element.setAttribute(firstClass, secondClass)
             });
         }
 
         form.appendChild(element)
-    });
+    })
 }
 
 async function addInputsValues() {
@@ -127,7 +128,7 @@ async function addInputsValues() {
 
     inputs.forEach(element => {
         values.push(element.value)
-    });
+    })
 
     const person = {
         login: values[0],
@@ -187,19 +188,19 @@ function resetErrorMessage() {
 }
 
 function showPassword() {
-    const inputPassword = document.querySelector('[data-input="1"]');
-    const inputRepeatPassword = document.querySelector('[data-input="2"]');
+    const inputPassword = document.querySelector('[data-input="1"]')
+    const inputRepeatPassword = document.querySelector('[data-input="2"]')
     const btnShow1 = document.querySelector('[data-btn="1"]')
     const btnShow2 = document.querySelector('[data-btn="2"]')
     const btns = document.querySelectorAll('.btn-show-password')
 
     btns.forEach(btn => {
         btn.addEventListener('click', function (event) {
-            let input = event.target.getAttribute('data-btn') === '1' ? inputPassword : inputRepeatPassword;
-            let neededType = input.type === 'password' ? 'text' : 'password';
-            input.type = neededType;
-            let btn = event.target.getAttribute('data-btn') === '1' ? btnShow1 : btnShow2;
-            let neededText = btn.text === 'показать пароль' ? 'скрыть пароль' : 'показать пароль';
+            let input = event.target.getAttribute('data-btn') === '1' ? inputPassword : inputRepeatPassword
+            let neededType = input.type === 'password' ? 'text' : 'password'
+            input.type = neededType
+            let btn = event.target.getAttribute('data-btn') === '1' ? btnShow1 : btnShow2
+            let neededText = btn.text === 'показать пароль' ? 'скрыть пароль' : 'показать пароль'
             btn.text = neededText
         });
     });
@@ -224,7 +225,7 @@ function removeRegistrationClassList(event) {
 }
 
 function resetForm() {
-    document.querySelector('.user__registration-form').reset();
+    document.querySelector('.user__registration-form').reset()
     document.querySelector('[data-input="1"]').type = 'password'
     document.querySelector('[data-input="2"]').type = 'password'
     const btnShow1 = document.querySelector('[data-btn="1"]').text = 'показать пароль'
@@ -237,6 +238,6 @@ function init() {
     showPassword()
 }
 
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', init)
 
-export { registrationWrapperAddClassActive };
+export { registrationWrapperAddClassActive }

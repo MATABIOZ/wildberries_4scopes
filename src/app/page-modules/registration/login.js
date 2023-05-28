@@ -104,8 +104,8 @@ function createLoginFormElements(form) {
 
         if (option.attributes && option.attributes.length > 0) {
             option.attributes.forEach(attribute => {
-                const [firstClass, secondClass] = Object.entries(attribute)[0];
-                element.setAttribute(firstClass, secondClass);
+                const [firstClass, secondClass] = Object.entries(attribute)[0]
+                element.setAttribute(firstClass, secondClass)
             });
         }
 

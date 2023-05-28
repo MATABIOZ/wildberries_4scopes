@@ -1,3 +1,4 @@
+import { setBodyStyles } from '../burger/burger.js'
 
 const basketBtn = document.querySelector('.basket-btn')
 const basketModal = document.querySelector('.basket__modal')
@@ -10,6 +11,18 @@ const basketBtnDeleteAll = document.querySelector('.basket__btn-delete-all')
 const basketBLock = document.querySelector('.basket-block')
 const basketFooter = document.querySelector('.basket__footer')
 const basketTotalPriceValue = document.querySelector('.basket__total-price-value')
+
+const footerBarBasketBtn = document.querySelector('.footer-bar__basket-btn')
+
+footerBarBasketBtn.addEventListener('click', function() {
+    if (!basketModal.classList.contains('basket__modal_active')) {
+        basketModal.classList.add('basket__modal_active')
+        setBodyStyles('fixed', '100%', 'scroll')
+    } else {
+        basketModal.classList.remove('basket__modal_active')
+        setBodyStyles('', '', '')
+    }
+})
 
 basketBtn.addEventListener('click', function () {
     basketModal.classList.toggle('basket__modal_active')

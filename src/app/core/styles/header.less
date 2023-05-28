@@ -473,11 +473,20 @@
             color: @color-black;
             display: block;
             font-size: 35px;
-            .transition(@prop, @time, @ease);
 
             @media screen and (@max768) {
                 font-size: 30px;
             }
+        }
+    }
+
+    &__basket-btn {
+        &::before {
+            content: @icon-basket;
+            font-family: @icomoon-font-family;
+            color: @color-black;
+            display: block;
+            font-size: 30px;
         }
     }
 }

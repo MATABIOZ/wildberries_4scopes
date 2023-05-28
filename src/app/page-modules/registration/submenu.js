@@ -1,5 +1,5 @@
-import { registrationWrapperAddClassActive } from './registration.js';
-import { loginWrapperAddClassActive } from './login.js';
+import { registrationWrapperAddClassActive } from './registration.js'
+import { loginWrapperAddClassActive } from './login.js'
 
 const userBtn = document.querySelector('.user-btn')
 const submenu = document.querySelector('.user__submenu')
