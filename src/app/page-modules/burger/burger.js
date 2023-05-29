@@ -10,36 +10,21 @@ function setBodyStyles(position, width, overflowY) {
     body.style.overflowY = overflowY
 }
 
-burgerBtn.addEventListener('click', function () {
+burgerBtn.addEventListener('click', chengeSidebarClass)
+burgerFooterBarBtn.addEventListener('click', chengeSidebarClass)
+
+function chengeSidebarClass() {
 
     if (!sidebar.classList.contains('sidebar_active')) {
         sidebar.classList.add('sidebar_active')
         setBodyStyles('fixed', '100%', 'scroll')
         checkSidebarClass()
-    }
-
-})
-
-burgerFooterBarBtn.addEventListener('click', function() {
-
-    if (!sidebar.classList.contains('sidebar_active')) {
-        sidebar.classList.add('sidebar_active')
-        setBodyStyles('fixed', '100%', 'scroll')
     } else {
         sidebar.classList.remove('sidebar_active')
         setBodyStyles('', '', '')
     }
-
-});
-
-closeBtn.addEventListener('click', function () {
-
-    if (sidebar.classList.contains('sidebar_active')) {
-        sidebar.classList.remove('sidebar_active')
-        setBodyStyles('', '', '')
-    }
-
-})
+    
+}
 
 function checkSidebarClass() {
 
@@ -53,12 +38,21 @@ function checkSidebarClass() {
 
 function removeSidebarClass(event) {
 
-    if (!sidebar.contains(event.target) && !burgerBtn.contains(event.target)) {
+    if (!sidebar.contains(event.target) && !burgerBtn.contains(event.target) && !burgerFooterBarBtn.contains(event.target)) {
         sidebar.classList.remove('sidebar_active')
         setBodyStyles('', '', '')
         checkSidebarClass()
     }
 
 }
+
+closeBtn.addEventListener('click', function () {
+
+    if (sidebar.classList.contains('sidebar_active')) {
+        sidebar.classList.remove('sidebar_active')
+        setBodyStyles('', '', '')
+    }
+
+})
 
 export { setBodyStyles }

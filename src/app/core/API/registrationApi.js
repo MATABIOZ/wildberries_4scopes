@@ -1,6 +1,6 @@
 const userUrl = 'https://646e07219c677e23218ae1e2.mockapi.io/users/user'
 
-function setApi(login, password, id) {
+function setApi(login, password) {
     fetch(userUrl, {
         method: 'POST',
         headers: {
@@ -8,8 +8,7 @@ function setApi(login, password, id) {
         },
         body: JSON.stringify({
             login: login,
-            password: password,
-            id: id
+            password: password,           
         })
     })
         .then(response => response.json())

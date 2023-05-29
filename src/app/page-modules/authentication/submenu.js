@@ -6,6 +6,7 @@ const submenu = document.querySelector('.user__submenu')
 const submenuBtnClose = document.querySelector('.user__submenu-btn-close')
 const btnRegistration = document.querySelector('.user__submenu-btn-registration')
 const btnLogin = document.querySelector('.user__submenu-btn-login')
+const userFooterBarBtn = document.querySelector('.footer-bar__user')
 
 userBtn.addEventListener('click', function () {
     submenu.classList.toggle('user__submenu_active')
@@ -26,7 +27,7 @@ function checkSubmenuClass() {
 
 function removeSubmenuClassList(event) {
 
-    if (!submenu.contains(event.target) && !userBtn.contains(event.target)) {
+    if (!submenu.contains(event.target) && !userBtn.contains(event.target) && !userFooterBarBtn.contains(event.target)) {
         submenu.classList.remove('user__submenu_active')
         checkSubmenuClass()
     }
@@ -49,3 +50,5 @@ btnLogin.addEventListener('click', function () {
     checkSubmenuClass()
     loginWrapperAddClassActive()
 })
+
+export { checkSubmenuClass } 
