@@ -1,21 +1,23 @@
 import { setBodyStyles } from '../burger/burger.js'
 
-const userBtn = document.querySelector('.footer-bar__user')
+const userFooterBarBtn = document.querySelector('.footer-bar__user')
 const submenu = document.querySelector('.user__submenu')
 const btnClose = document.querySelectorAll('.btn-close')
+const registrationWrapper = document.querySelector('.user__registration')
+const loginWrapper = document.querySelector('.user__login')
 
-userBtn.addEventListener('click', function () {
-    submenu.classList.toggle('user__submenu_active')
-    checkSubmenuClass()
+userFooterBarBtn.addEventListener('click', function () {
+    
+    if (!submenu.classList.contains('user__submenu_active') && !registrationWrapper.classList.contains('user__registration_active') && !loginWrapper.classList.contains('user__login_active')) {
+        submenu.classList.add('user__submenu_active')
+        setBodyStyles('fixed', '100%', 'scroll') 
+    } else if (submenu.classList.contains('user__submenu_active')) {
+        submenu.classList.remove('user__submenu_active')
+        setBodyStyles('', '', '')
+    } 
+    
 })
 
-function checkSubmenuClass() {
-    if (submenu.classList.contains('user__submenu_active')) {
-        setBodyStyles('fixed', '100%', 'scroll')
-    } else {
-        setBodyStyles('', '', '')
-    }
-}
 
 btnClose.forEach(el => el.addEventListener('click', () => setBodyStyles('', '', '')))
 
