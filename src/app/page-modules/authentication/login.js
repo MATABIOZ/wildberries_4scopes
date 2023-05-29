@@ -11,7 +11,6 @@ function loginWrapperAddClassActive() {
     addDocumentEvent()
     userBtn.classList.add('user-btn_active')
     document.querySelector('.login-btn').addEventListener('click', submitLoginForm)
-    showLoginPassword()
 }
 
 btnClose.addEventListener('click', function () {
@@ -151,6 +150,7 @@ function submitLoginForm(event) {
 
 function init() {
     createLoginForm()
+    showLoginPassword()
 }
 
 document.addEventListener('DOMContentLoaded', init)
