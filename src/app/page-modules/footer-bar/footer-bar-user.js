@@ -1,4 +1,5 @@
 import { setBodyStyles } from '../burger/burger.js'
+import { checkSubmenuClass } from '../authentication/submenu.js'
 
 const userFooterBarBtn = document.querySelector('.footer-bar__user')
 const submenu = document.querySelector('.user__submenu')
@@ -11,9 +12,12 @@ userFooterBarBtn.addEventListener('click', function () {
     if (!submenu.classList.contains('user__submenu_active') && !registrationWrapper.classList.contains('user__registration_active') && !loginWrapper.classList.contains('user__login_active')) {
         submenu.classList.add('user__submenu_active')
         setBodyStyles('fixed', '100%', 'scroll') 
+        checkSubmenuClass()
+
     } else if (submenu.classList.contains('user__submenu_active')) {
         submenu.classList.remove('user__submenu_active')
         setBodyStyles('', '', '')
+        checkSubmenuClass()
     } 
     
 })
