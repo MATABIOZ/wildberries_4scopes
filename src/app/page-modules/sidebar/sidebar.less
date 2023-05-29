@@ -1,0 +1,60 @@
+.sidebar {
+    position: fixed;
+    width: 440px;
+    height: 100vh;
+    background-color: @color-parchment;
+    left: 0;
+    top: 0;
+    z-index: 3;
+    padding: 60px 70px 0 70px;
+    transform: translate(-100%, 0);
+    opacity: 0;
+    visibility: hidden;
+    .transition(opacity, 0.3s, @ease);
+
+    @media screen and (@max768) {
+        max-width: 320px;
+        padding: 40px 50px 0 50px;
+    }
+
+    @media screen and (@max576) {
+        max-width: 100%;
+        width: 100%;
+        padding: 40px 50px 0 50px;
+    }
+
+    &_active {
+        transform: translate(0, 0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    &__list {
+        padding-top: 40px !important;
+
+        li {
+            padding-bottom: 30px;
+
+            &:last-child {
+                padding: 0;
+            }
+
+            a {
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 19px;
+                color: @color-black;
+                .transition (@prop, 0.5s, @ease);
+
+                @media screen and (@max768) {
+                    font-size: 15px;
+                    line-height: 18px;
+                }
+
+                &:hover {
+                    color: @color-pale-oyster;
+                }
+            }
+        }
+    }
+}

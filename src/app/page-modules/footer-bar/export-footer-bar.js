@@ -1,0 +1,1 @@
+export * as footerBarUser from './footer-bar-user.js'
