@@ -1,0 +1,86 @@
+.footer-bar {
+    width: 100%;
+    padding: 13px 21px;
+    position: fixed;
+    bottom: 0;
+    background-color: @color-white;
+    z-index: 5;
+    border-top: 1px solid @color-translucent-black;
+    display: none;
+
+    @media screen and (@max576) {
+        display: block;
+    }
+
+    &__list {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__item {
+        width: 30px;
+        height: 30px;
+
+        button {
+            width: 30px;
+            height: 30px;
+
+            &::before {
+                font-size: 25px;
+            }
+        }
+    }
+
+    &__sidebar-btn {
+        width: 30px;
+        height: 30px;
+        padding: 10px 5px;
+        border: 1px solid @color-translucent-black;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 34px;
+        padding: 5px 5px;
+
+        span {
+            width: 28px;
+            height: 3px;
+            background-color: @color-black;
+            display: block;
+            border-radius: 20px;
+
+            @media screen and (@max768) {
+                width: 17px;
+                height: 2px;
+            }
+        }
+    }
+
+    &__user {
+        &::before {
+            content: @icon-user;
+            font-family: @icomoon-font-family;
+            color: @color-black;
+            display: block;
+            font-size: 35px;
+
+            @media screen and (@max768) {
+                font-size: 30px;
+            }
+        }
+    }
+
+    &__basket-btn {
+        &::before {
+            content: @icon-basket;
+            font-family: @icomoon-font-family;
+            color: @color-black;
+            display: block;
+            font-size: 30px;
+        }
+    }
+}

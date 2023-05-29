@@ -18,6 +18,4 @@ userFooterBarBtn.addEventListener('click', function () {
     
 })
 
-
 btnClose.forEach(el => el.addEventListener('click', () => setBodyStyles('', '', '')))
-
