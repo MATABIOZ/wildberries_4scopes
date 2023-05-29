@@ -1,50 +1,16 @@
 import { getApi } from '../../core/API/registrationApi.js'
+import { LOGIN_OPTIONS } from '../../core/consts/options.js'
 
 const loginWrapper = document.querySelector('.user__login')
 const btnClose = document.querySelector('.user__login-btn-close')
 const btnLogin = document.querySelector('.user__submenu-btn-login')
-const btnRegistration = document.querySelector('.user__submenu-btn-registration')
 const userBtn = document.querySelector('.user-btn')
-
-const options = [
-    {
-        type: 'input',
-        class: 'user__login-input',
-        attributes: [{ required: true }, { placeholder: "Логин" }, { type: "text" }]
-    },
-    {
-        type: 'span',
-        class: ['error-message', 'error-message_login']
-    },
-    {
-        type: 'input',
-        class: 'user__login-input',
-        attributes: [{ required: true }, { placeholder: "Введите пароль" }, { type: "password" }, { 'data-input': 'input' }]
-    },
-    {
-        type: 'a',
-        class: 'btn-show-password',
-        attributes: [{ href: '#' }, { 'data-btn': 'password' }],
-        text: 'показать пароль'
-    },
-    {
-        type: 'span',
-        class: ['error-message', 'error-message_password']
-    },
-    {
-        type: 'button',
-        class: ['btn', 'login-btn'],
-        content: 'Войти',
-        attributes: [{ type: "submit" }]
-    }
-]
 
 function loginWrapperAddClassActive() {
     loginWrapper.classList.add('user__login_active')
     addDocumentEvent()
     userBtn.classList.add('user-btn_active')
     document.querySelector('.login-btn').addEventListener('click', submitLoginForm)
-    showLoginPassword()
 }
 
 btnClose.addEventListener('click', function () {
@@ -85,7 +51,7 @@ function createLoginForm() {
 }
 
 function createLoginFormElements(form) {
-    options.forEach(option => {
+    LOGIN_OPTIONS.forEach(option => {
         const element = document.createElement(option.type)
 
         if (Array.isArray(option.class) && option.class.length > 0) {
@@ -184,6 +150,7 @@ function submitLoginForm(event) {
 
 function init() {
     createLoginForm()
+    showLoginPassword()
 }
 
 document.addEventListener('DOMContentLoaded', init)

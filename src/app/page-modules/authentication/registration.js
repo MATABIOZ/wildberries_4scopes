@@ -1,4 +1,5 @@
 import { setApi, getApi } from '../../core/API/registrationApi.js'
+import { REGISTRATION_OPTIONS } from '../../core/consts/options.js'
 
 const registrationWrapper = document.querySelector('.user__registration')
 const btnClose = document.querySelector('.user__registration-btn-close')
@@ -27,54 +28,6 @@ function submitForm(event) {
     resetErrorMessage()
 }
 
-const options = [
-    {
-        type: 'input',
-        class: 'user__input',
-        attributes: [{ required: true }, { placeholder: "Логин" }, { type: "text" }]
-    },
-    {
-        type: 'span',
-        class: ['error-message', 'error-message_registration-login']
-    },
-    {
-        type: 'input',
-        class: 'user__input',
-        attributes: [{ required: true }, { placeholder: "Пароль" }, { type: "password" }, { 'data-input': '1' }]
-    },
-    {
-        type: 'a',
-        class: 'btn-show-password',
-        attributes: [{ href: '#' }, { 'data-btn': '1' }],
-        text: 'показать пароль'
-    },
-    {
-        type: 'span',
-        class: ['error-message', 'error-message_registration-password-first']
-    },
-    {
-        type: 'input',
-        class: 'user__input',
-        attributes: [{ required: true }, { placeholder: "Повторите пароль" }, { type: "password" }, { 'data-input': '2' }]
-    },
-    {
-        type: 'a',
-        class: 'btn-show-password',
-        attributes: [{ href: '#' }, { 'data-btn': '2' }],
-        text: 'показать пароль'
-    },
-    {
-        type: 'span',
-        class: ['error-message', 'error-message_registration-password-second']
-    },
-    {
-        type: 'button',
-        class: ['btn', 'registration__btn'],
-        content: 'Зарегистрироваться',
-        attributes: [{ type: "submit" }]
-    }
-]
-
 function createForm() {
     const form = document.createElement('form')
     form.classList.add('user__registration-form')
@@ -83,7 +36,7 @@ function createForm() {
 }
 
 function createFormElements(form) {
-    options.forEach(option => {
+    REGISTRATION_OPTIONS.forEach(option => {
         const element = document.createElement(option.type)
 
         if (Array.isArray(option.class) && option.class.length > 0) {
