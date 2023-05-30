@@ -1,28 +1,8 @@
-// import { getCards } from "../../core/API/cardsApi.js"
+import { alyaStore ,getCards } from "../../core/API/cardsApi.js"
 
 const cardsBox = document.querySelector(".cards__inner")
 
-let alyaStore = []
-
-function getCards() {
-	fetch("https://646f451109ff19b12086e48a.mockapi.io/wildberries/cards")
-		.then((response) => {
-			if (response.status === 200) {
-				return response.json()
-			} else {
-				throw Error(response)
-			}
-		})
-		.then((arrayElements) => {
-			alyaStore = arrayElements
-			addCards(arrayElements)
-		})
-		.catch((error) => {
-			alert(error)
-		})
-}
-
-function addCards(arrayElements) {
+export function addCards(arrayElements) {
 	for (let element of arrayElements) {
 		cardsBox.appendChild(createCardElement(element))
 	}

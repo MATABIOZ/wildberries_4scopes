@@ -1,4 +1,5 @@
 import { setBodyStyles } from '../burger/burger.js'
+import { alyaStore ,getCards } from "../../core/API/cardsApi.js"
 
 const basketBtn = document.querySelector('.basket-btn')
 const basketModal = document.querySelector('.basket__modal')
