@@ -15,6 +15,9 @@ const basketTotalPriceValue = document.querySelector('.basket__total-price-value
 
 const footerBarBasketBtn = document.querySelector('.footer-bar__basket-btn')
 
+
+
+
 footerBarBasketBtn.addEventListener('click', function() {
     if (!basketModal.classList.contains('basket__modal_active')) {
         basketModal.classList.add('basket__modal_active')
@@ -27,19 +30,19 @@ footerBarBasketBtn.addEventListener('click', function() {
 
 basketBtn.addEventListener('click', function () {
     basketModal.classList.toggle('basket__modal_active')
-    checkBasketModalClass()
+    // checkBasketModalClass()
 })
 
-function checkBasketModalClass() {
+// function checkBasketModalClass() {
 
-    if (basketModal.classList.contains('basket__modal_active')) {
-        basketBtn.classList.add('basket-btn_active')
-        document.addEventListener('click', removeBasketModalClassList)
-    } else {
-        basketBtn.classList.remove('basket-btn_active')
-        document.removeEventListener('click', removeBasketModalClassList);
-    }
-}
+//     if (basketModal.classList.contains('basket__modal_active')) {
+//         basketBtn.classList.add('basket-btn_active')
+//         document.addEventListener('click', removeBasketModalClassList)
+//     } else {
+//         basketBtn.classList.remove('basket-btn_active')
+//         document.removeEventListener('click', removeBasketModalClassList);
+//     }
+// }
 /*
 function removeBasketModalClassList(event) {
 
@@ -54,12 +57,20 @@ basketModalBtnClose.addEventListener('click', function () {
     checkBasketModalClass()
 });
 
-const cardList = [
-    { id: 0, title: "Кепка", price: "123"},
-    { id: 1, title: "Футболка", price: "234"},
-    { id: 2, title: "Худи", price: "456"},
-    { id: 3, title: "Джинсы", price: "567"},
-]
+// const cardList = [
+//     { id: 0, title: "Кепка", price: "123"},
+//     { id: 1, title: "Футболка", price: "234"},
+//     { id: 2, title: "Худи", price: "456"},
+//     { id: 3, title: "Джинсы", price: "567"},
+// ]
+
+const basketStr = localStorage.getItem("basketStore")
+const cardList = JSON.parse(basketStr)
+// console.log(basketArr)
+
+// for (let element of basketArr) {
+// 	console.log(element)
+// }
 
 function init() {
     createBasketList();
@@ -81,13 +92,17 @@ function createBasketList() {
         });
     }
 
-    basketList.addEventListener('click', function(event) {
-        if (event.target.className === "icon-trash") {
-            event.target.parentNode.parentNode.parentNode.remove();
-        }
-    })
+    // basketList.addEventListener('click', function(event) {
+    //     if (event.target.className === "icon-trash") {
+    //         event.target.parentNode.parentNode.parentNode.remove();
+    //     }
+    // })
     basketBLock.appendChild(basketList);
+	basketList.addEventListener("click", removeFromBasketClick)
+
 }
+
+
 
 function createBasketListItem(element) {
     const basketListItem = document.createElement("li");
@@ -103,12 +118,41 @@ function createBasketListItem(element) {
                     <h5>${element.price}</h5>
                 </div>
                 <div class="basket__list-item-btn-remove">
-                    <button class="icon-trash"></button>
-                </div>	
+                    <button class="icon-trash" type="button" data-id="${element.id}"></button>
+                </div>
             </div>
     `;
     return basketListItem;
 }
+
+
+
+
+function removeFromBasket(cardId) {
+	let basketStore = localStorage.getItem("basketStore")
+	if (basketStore) {
+		let basketArray = JSON.parse(basketStore)
+		const cardIndex = basketArray.findIndex((card) => card.id === cardId)
+		if (cardIndex !== -1) {
+			console.log(cardIndex)
+			basketArray.splice(cardIndex, 1)
+			localStorage.setItem("basketStore", JSON.stringify(basketArray))
+		}
+	}
+}
+
+function removeFromBasketClick(event) {
+	if (event.target.classList.contains("icon-trash")) {
+		const cardId = event.target.dataset.id
+		removeFromBasket(cardId)
+		event.target.closest(".basket__list-item").remove()
+		getBasketTotalPrice()
+	}
+}
+
+
+
+
 
 basketModal.addEventListener("click", function (event) {
 
@@ -120,19 +164,18 @@ basketModal.addEventListener("click", function (event) {
     }
 })
 
-function getBasketTotalPrice (element) {
+function getBasketTotalPrice () {
 
-    localStorage.setItem("cardList", JSON.stringify(cardList));
-    const newCardList = JSON.parse(localStorage.getItem("cardList"));
+    // localStorage.setItem("basketStore", JSON.stringify(cardList));
+    const newCardList = JSON.parse(localStorage.getItem("basketStore"));
     let basketTotalPrice = 0;
 
     newCardList.forEach(element => {
-        basketTotalPrice += Number(element.price);
+        basketTotalPrice += element.price;
     });
+
     return basketTotalPrice;
 }
-getBasketTotalPrice ()
-console.log(getBasketTotalPrice())
 
 let totalPrice = getBasketTotalPrice ();
 basketTotalPriceValue.innerText = `${totalPrice}`
