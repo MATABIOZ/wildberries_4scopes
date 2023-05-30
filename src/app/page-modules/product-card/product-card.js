@@ -98,24 +98,24 @@ function addToBasketClick(event) {
 	}
 }
 
-function removeFromBasket(cardId) {
-	let basketStore = localStorage.getItem("basketStore")
-	if (basketStore) {
-		let basketArray = JSON.parse(basketStore)
-		const cardIndex = basketArray.findIndex((card) => card.id === cardId)
-		if (cardIndex !== -1) {
-			basketArray.splice(cardIndex, 1)
-			localStorage.setItem("basketStore", JSON.stringify(basketArray))
-		}
-	}
-}
+// function removeFromBasket(cardId) {
+// 	let basketStore = localStorage.getItem("basketStore")
+// 	if (basketStore) {
+// 		let basketArray = JSON.parse(basketStore)
+// 		const cardIndex = basketArray.findIndex((card) => card.id === cardId)
+// 		if (cardIndex !== -1) {
+// 			basketArray.splice(cardIndex, 1)
+// 			localStorage.setItem("basketStore", JSON.stringify(basketArray))
+// 		}
+// 	}
+// }
 
-function removeFromBasketClick(event) {
-	if (event.target.classList.contains("card__btn-del-basket")) {
-		const cardId = event.target.dataset.id
-		removeFromBasket(cardId)
-	}
-}
+// function removeFromBasketClick(event) {
+// 	if (event.target.classList.contains("card__btn-del-basket")) {
+// 		const cardId = event.target.dataset.id
+// 		removeFromBasket(cardId)
+// 	}
+// }
 
 function removeAllFromBasketClick(event) {
 	if (event.target.classList.contains("card__btn-del-all-basket")) {
@@ -160,7 +160,7 @@ function cardTitleClick(event) {
 window.addEventListener("DOMContentLoaded", getCards)
 cardsBox.addEventListener("click", quickViewClick)
 cardsBox.addEventListener("click", addToBasketClick)
-cardsBox.addEventListener("click", removeFromBasketClick)
+// cardsBox.addEventListener("click", removeFromBasketClick)
 cardsBox.addEventListener("click", cardTitleClick)
 cardsBox.addEventListener("click", removeAllFromBasketClick)
 cardsBox.addEventListener("click", removeCardModal)
