@@ -6,7 +6,6 @@
 .swiper-slide {
    text-align: center;
    font-size: 18px;
-   background: #fff;
    display: flex;
    justify-content: center;
    align-items: center;
@@ -37,4 +36,10 @@
    .swiper-button-next, .swiper-button-prev {
       display: none;
    } 
+}
+
+.swiper-button-next:after, 
+.swiper-button-prev:after {
+   color: @color-white;
+   -webkit-text-stroke: 1px @color-transparent-black;
 }
