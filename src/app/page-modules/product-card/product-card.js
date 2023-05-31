@@ -1,4 +1,6 @@
-import { alyaStore ,getCards } from "../../core/API/cardsApi.js"
+import { alyaStore, getCards } from "../../core/API/cardsApi.js"
+
+// import { updateBasketTotalPrice } from "../basket/basket.js"
 
 const cardsBox = document.querySelector(".cards__inner")
 
@@ -15,7 +17,9 @@ function createCardElement(element) {
 	item.innerHTML = `
 	<div class="card__view">
 		<img src="${element.image}" alt="image" class="card__img">
-		<button type="button" class="card__btn-quick-view" data-id="${element.id}">Быстрый просмотр</button>
+		<button type="button" class="card__btn-quick-view" data-id="${
+			element.id
+		}">Быстрый просмотр</button>
 	</div>
 	<div class="card__inner">
 		<div class="card__info">
@@ -27,13 +31,15 @@ function createCardElement(element) {
 			<span class="card__old-price">${element.old_price + "$"}</span>
 		</div>
 	</div>
-	<button type="button" class="card__btn-add-basket" data-id="${element.id}">В корзину</button>`
+	<button type="button" class="card__btn-add-basket" data-id="${
+		element.id
+	}">В корзину</button>`
 
 	return item
 }
 
-	// <button type="button" class="card__btn-del-basket" data-id="${element.id}">Удалить</button>
-	// <button type="button" class="card__btn-del-all-basket" data-id="${element.id}">Удалить все</button>
+// <button type="button" class="card__btn-del-basket" data-id="${element.id}">Удалить</button>
+// <button type="button" class="card__btn-del-all-basket" data-id="${element.id}">Удалить все</button>
 
 function createCardModal(element) {
 	const item = document.createElement("div")
@@ -53,10 +59,12 @@ function createCardModal(element) {
 						<h3 class="card-modal__price">${element.price + "$"}</h3>
 						<h4 class="card-modal__old-price">${element.old_price + "$"}</h4>
 					</div>
-					<button type="button" class="card-modal__btn-add-basket" data-id="${element.id}">Добавить в корзину</button>
+					<button type="button" class="card-modal__btn-add-basket" data-id="${
+						element.id
+					}">Добавить в корзину</button>
 				</div>
 			</div>
-		</div>`;
+		</div>`
 
 	return item
 }
@@ -72,15 +80,19 @@ function quickViewClick(event) {
 	}
 }
 
-function removeCardModal (event) {
+function removeCardModal(event) {
 	if (event.target.classList.contains("btn-close")) {
-		const cardModal = event.target.closest(".card-modal");
-		cardModal.remove();
+		const cardModal = event.target.closest(".card-modal")
+		cardModal.remove()
 	}
 }
+// console.log(alyaStore)
 
 function addToBasketClick(event) {
-	if (event.target.classList.contains("card__btn-add-basket") || event.target.classList.contains("card-modal__btn-add-basket")) {
+	if (
+		event.target.classList.contains("card__btn-add-basket") ||
+		event.target.classList.contains("card-modal__btn-add-basket")
+	) {
 		const cardId = event.target.dataset.id
 		const selectedCard = alyaStore.find((card) => card.id === cardId)
 		if (selectedCard) {
