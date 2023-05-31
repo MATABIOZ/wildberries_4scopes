@@ -4,3 +4,5 @@ import { registration } from "./page-modules/authentication/export-authenticatio
 import { submenu } from "./page-modules/authentication/export-authentication";
 import { login } from "./page-modules/authentication/export-authentication";
 import { basket } from "./page-modules/basket/export-basket";
+import { slider } from "./page-modules/slider/export-slider";
+import { sliderSwiper } from "./page-modules/slider/export-slider";
