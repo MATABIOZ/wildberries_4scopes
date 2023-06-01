@@ -1,13 +1,15 @@
-var swiper = new Swiper(".mySwiper", {
-   slidesPerView: 1,
-   spaceBetween: 0,
-   loop: true,
-   pagination: {
-     el: ".swiper-pagination",
-     clickable: true,
-   },
-   navigation: {
-     nextEl: ".swiper-button-next",
-     prevEl: ".swiper-button-prev",
-   },
- });
+import { sliderApi } from "../../core/API/sliderApi.js";
+
+const imageContainer = document.querySelectorAll('.swiper-slide')
+
+function createImage(url, index) {
+    const container = imageContainer[index];
+    const elementImage = document.createElement('img');
+    elementImage.alt = 'image';
+    elementImage.src = url;
+    container.appendChild(elementImage);
+}
+
+document.addEventListener('DOMContentLoaded', sliderApi.getImages())
+
+export { createImage }

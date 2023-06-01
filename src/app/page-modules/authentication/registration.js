@@ -1,4 +1,4 @@
-import { setApi, getApi } from '../../core/API/registrationApi.js'
+import { Api } from '../../core/API/registrationApi.js'
 import { REGISTRATION_OPTIONS } from '../../core/consts/options.js'
 
 const registrationWrapper = document.querySelector('.user__registration')
@@ -37,7 +37,7 @@ function createForm() {
 
 function createFormElements(form) {
     REGISTRATION_OPTIONS.forEach(option => {
-        const element = document.createElement(option.type)
+        const element = document.createElement(option.tag)
 
         if (Array.isArray(option.class) && option.class.length > 0) {
             option.class.forEach(className => element.classList.add(className));
@@ -61,8 +61,8 @@ function createFormElements(form) {
 
         if (option.attributes && option.attributes.length > 0) {
             option.attributes.forEach(attribute => {
-                const [firstClass, secondClass] = Object.entries(attribute)[0]
-                element.setAttribute(firstClass, secondClass)
+                const [key, value] = Object.entries(attribute)[0]
+                element.setAttribute(key, value)
             });
         }
 
@@ -88,7 +88,7 @@ async function addInputsValues() {
         password: values[1],
     }
 
-    let userData = await getApi(person.login);
+    let userData = await Api.getApi(person.login);
     const minLogin = 3;
     const minPassword = 8;
     const maxSymbols = 20;
@@ -110,7 +110,7 @@ async function addInputsValues() {
     } else {
 
         successRegistration()
-        setApi(person.login, person.password)
+        Api.setApi(person.login, person.password)
         setTimeout( function() {
             location.reload()
         }, 1000)

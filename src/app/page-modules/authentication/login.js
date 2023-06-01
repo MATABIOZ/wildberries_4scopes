@@ -1,5 +1,5 @@
-import { getApi } from '../../core/API/registrationApi.js'
 import { LOGIN_OPTIONS } from '../../core/consts/options.js'
+import { Api } from '../../core/API/registrationApi.js'
 
 const loginWrapper = document.querySelector('.user__login')
 const btnClose = document.querySelector('.user__login-btn-close')
@@ -52,7 +52,7 @@ function createLoginForm() {
 
 function createLoginFormElements(form) {
     LOGIN_OPTIONS.forEach(option => {
-        const element = document.createElement(option.type)
+        const element = document.createElement(option.tag)
 
         if (Array.isArray(option.class) && option.class.length > 0) {
             option.class.forEach(className => element.classList.add(className))
@@ -89,7 +89,7 @@ async function singIn() {
         inputsValue.push(el.value)
     })
 
-    let userData = await getApi(inputsValue[0])
+    let userData = await Api.getApi(inputsValue[0])
 
     if (!userData || userData.password !== inputsValue[1]) {
         errorMessageLogin.textContent = 'Неверный логин или пароль'
