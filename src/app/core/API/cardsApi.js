@@ -20,4 +20,4 @@ function getCards() {
 		})
 }
 
-export {alyaStore, getCards}
+export { alyaStore, getCards }
