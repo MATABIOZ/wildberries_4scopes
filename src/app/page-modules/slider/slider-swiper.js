@@ -16,5 +16,5 @@ var swiper = new Swiper(".mySwiper", {
     disableOnInteraction: true
    },
 
-   speed: 800
+   speed: 1500
  });

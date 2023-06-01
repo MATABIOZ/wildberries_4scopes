@@ -1,4 +1,4 @@
-class Api {
+class AuthenticationApi {
     static userUrl = 'https://646e07219c677e23218ae1e2.mockapi.io/users/user'
 
     static setApi(login, password) {
@@ -32,4 +32,4 @@ class Api {
     }
 }
 
-export { Api }
+export { AuthenticationApi }

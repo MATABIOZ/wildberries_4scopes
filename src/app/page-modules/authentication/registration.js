@@ -1,4 +1,4 @@
-import { Api } from '../../core/API/registrationApi.js'
+import { AuthenticationApi } from '../../core/API/authenticationApi.js'
 import { REGISTRATION_OPTIONS } from '../../core/consts/options.js'
 
 const registrationWrapper = document.querySelector('.user__registration')
@@ -88,7 +88,7 @@ async function addInputsValues() {
         password: values[1],
     }
 
-    let userData = await Api.getApi(person.login);
+    let userData = await AuthenticationApi.getApi(person.login);
     const minLogin = 3;
     const minPassword = 8;
     const maxSymbols = 20;
@@ -110,7 +110,7 @@ async function addInputsValues() {
     } else {
 
         successRegistration()
-        Api.setApi(person.login, person.password)
+        AuthenticationApi.setApi(person.login, person.password)
         setTimeout( function() {
             location.reload()
         }, 1000)
