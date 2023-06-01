@@ -14,9 +14,9 @@ const REGISTRATION_OPTIONS = [
         attributes: [{ required: true }, { placeholder: "Пароль" }, { type: "password" }, { 'data-input': '1' }]
     },
     {
-        tag: 'a',
+        tag: 'button',
         class: 'btn-show-password',
-        attributes: [{ href: '#' }, { 'data-btn': '1' }],
+        attributes: [{ href: '#' }, { 'data-btn': '1' },  {type: "button"}],
         text: 'показать пароль'
     },
     {
@@ -29,9 +29,9 @@ const REGISTRATION_OPTIONS = [
         attributes: [{ required: true }, { placeholder: "Повторите пароль" }, { type: "password" }, { 'data-input': '2' }]
     },
     {
-        tag: 'a',
+        tag: 'button',
         class: 'btn-show-password',
-        attributes: [{ href: '#' }, { 'data-btn': '2' }],
+        attributes: [{ href: '#' }, { 'data-btn': '2' }, { type: "button" }],
         text: 'показать пароль'
     },
     {
@@ -62,9 +62,9 @@ const LOGIN_OPTIONS = [
         attributes: [{ required: true }, { placeholder: "Введите пароль" }, { type: "password" }, { 'data-input': 'input' }]
     },
     {
-        tag: 'a',
+        tag: 'button',
         class: 'btn-show-password',
-        attributes: [{ href: '#' }, { 'data-btn': 'password' }],
+        attributes: [{ href: '#' }, { 'data-btn': 'password' }, { type: "button" }],
         text: 'показать пароль'
     },
     {

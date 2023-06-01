@@ -153,8 +153,8 @@ function showPassword() {
             let neededType = input.type === 'password' ? 'text' : 'password'
             input.type = neededType
             let btn = event.target.getAttribute('data-btn') === '1' ? btnShow1 : btnShow2
-            let neededText = btn.text === 'показать пароль' ? 'скрыть пароль' : 'показать пароль'
-            btn.text = neededText
+            let neededText = btn.textContent === 'показать пароль' ? 'скрыть пароль' : 'показать пароль'
+            btn.textContent = neededText
         });
     });
 }
@@ -181,8 +181,8 @@ function resetForm() {
     document.querySelector('.user__registration-form').reset()
     document.querySelector('[data-input="1"]').type = 'password'
     document.querySelector('[data-input="2"]').type = 'password'
-    const btnShow1 = document.querySelector('[data-btn="1"]').text = 'показать пароль'
-    const btnShow2 = document.querySelector('[data-btn="2"]').text = 'показать пароль'
+    const btnShow1 = document.querySelector('[data-btn="1"]').textContent = 'показать пароль'
+    const btnShow2 = document.querySelector('[data-btn="2"]').textContent = 'показать пароль'
     resetErrorMessage()
 }
 

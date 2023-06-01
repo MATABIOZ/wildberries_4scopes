@@ -61,7 +61,7 @@ function createLoginFormElements(form) {
         }
 
         if (option.text) {
-            element.text = option.text
+            element.textContent = option.text
         }
 
         if (option.content) {
@@ -123,8 +123,8 @@ function showLoginPassword() {
     btn.addEventListener('click', function () {
         neededType = input.type === 'password' ? 'text' : 'password'
         input.type = neededType
-        neededText = btn.text === 'показать пароль' ? 'скрыть пароль' : 'показать пароль'
-        btn.text = neededText
+        neededText = btn.textContent === 'показать пароль' ? 'скрыть пароль' : 'показать пароль'
+        btn.textContent = neededText
     })
 }
 
@@ -137,7 +137,7 @@ function resetErrorMessage() {
 
 function resetLoginForm() {
     document.querySelector('.user__login-form').reset()
-    const btn = document.querySelector('[data-btn="password"]').text = 'показать пароль'
+    const btn = document.querySelector('[data-btn="password"]').textContent = 'показать пароль'
     const input = document.querySelector('[data-input="input"]').type = 'password'
     resetErrorMessage()
 }

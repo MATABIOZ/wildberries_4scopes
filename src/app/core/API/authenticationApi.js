@@ -12,24 +12,19 @@ class AuthenticationApi {
                 password: password,           
             })
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Пользователь создан:', data);
-            })
             .catch(error => {
-                console.error('Ошибка при создании пользователя:', error);
-            });
+                console.error('Ошибка при создании пользователя:', error)
+            })
     }
 
-    static async getApi(usdata) {
-        try {
-            const response = await fetch(this.userUrl);
-            const data = await response.json();
-            return data.find(element => usdata === element.login);
-        } catch (error) {
-            throw error;
-        }
+    static getApi(userData) {
+          return  fetch(this.userUrl)
+            .then(response => response.json())
+            .then(data => {
+                return data.find(element => userData === element.login)
+            })
+            .catch(error => console.log(error))
+        } 
     }
-}
 
 export { AuthenticationApi }
