@@ -1,14 +1,6 @@
-const imageContainer = document.querySelectorAll('.swiper-slide')
-const imagesUrlApi = 'https://646e07219c677e23218ae1e2.mockapi.io/users/images'
+import { getImages } from "../../core/API/sliderApi.js";
 
-async function getImages() {
-    fetch(imagesUrlApi)
-        .then(response => response.json())
-        .then(data => data.forEach((el, index) => {
-            createImage(el.url, index);
-        }))
-        .catch(error => console.error(`Произошла ошибка при загрузке изображения: ${error}`))
-}
+const imageContainer = document.querySelectorAll('.swiper-slide')
 
 function createImage(url, index) {
     const container = imageContainer[index];
@@ -19,3 +11,5 @@ function createImage(url, index) {
 }
 
 document.addEventListener('DOMContentLoaded', getImages())
+
+export { createImage }
