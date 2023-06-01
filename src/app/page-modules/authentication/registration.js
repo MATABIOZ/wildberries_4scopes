@@ -37,7 +37,7 @@ function createForm() {
 
 function createFormElements(form) {
     REGISTRATION_OPTIONS.forEach(option => {
-        const element = document.createElement(option.type)
+        const element = document.createElement(option.tag)
 
         if (Array.isArray(option.class) && option.class.length > 0) {
             option.class.forEach(className => element.classList.add(className));
@@ -61,8 +61,8 @@ function createFormElements(form) {
 
         if (option.attributes && option.attributes.length > 0) {
             option.attributes.forEach(attribute => {
-                const [firstClass, secondClass] = Object.entries(attribute)[0]
-                element.setAttribute(firstClass, secondClass)
+                const [key, value] = Object.entries(attribute)[0]
+                element.setAttribute(key, value)
             });
         }
 

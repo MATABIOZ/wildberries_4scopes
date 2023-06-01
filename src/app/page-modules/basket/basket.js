@@ -1,181 +1,181 @@
-import { setBodyStyles } from '../burger/burger.js'
-import { alyaStore ,getCards } from "../../core/API/cardsApi.js"
+// import { setBodyStyles } from '../burger/burger.js'
+// import { alyaStore ,getCards } from "../../core/API/cardsApi.js"
 
-const basketBtn = document.querySelector('.basket-btn')
-const basketModal = document.querySelector('.basket__modal')
-const basketModalBtnClose = document.querySelector('.basket__modal-btn-close')
-const basketList = document.querySelector('.basket__list')
-const basketListItem = document.querySelector('.basket__list-item')
-const basketItemBtnRemove = document.querySelector('.basket__list-item-btn-remove')
-const basketTrash = document.querySelector('.icon-trash')
-const basketBtnDeleteAll = document.querySelector('.basket__btn-delete-all')
-const basketBLock = document.querySelector('.basket-block')
-const basketFooter = document.querySelector('.basket__footer')
-const basketTotalPriceValue = document.querySelector('.basket__total-price-value')
+// const basketBtn = document.querySelector('.basket-btn')
+// const basketModal = document.querySelector('.basket__modal')
+// const basketModalBtnClose = document.querySelector('.basket__modal-btn-close')
+// const basketList = document.querySelector('.basket__list')
+// const basketListItem = document.querySelector('.basket__list-item')
+// const basketItemBtnRemove = document.querySelector('.basket__list-item-btn-remove')
+// const basketTrash = document.querySelector('.icon-trash')
+// const basketBtnDeleteAll = document.querySelector('.basket__btn-delete-all')
+// const basketBLock = document.querySelector('.basket-block')
+// const basketFooter = document.querySelector('.basket__footer')
+// const basketTotalPriceValue = document.querySelector('.basket__total-price-value')
 
-const footerBarBasketBtn = document.querySelector('.footer-bar__basket-btn')
-
-
+// const footerBarBasketBtn = document.querySelector('.footer-bar__basket-btn')
 
 
-footerBarBasketBtn.addEventListener('click', function() {
-    if (!basketModal.classList.contains('basket__modal_active')) {
-        basketModal.classList.add('basket__modal_active')
-        setBodyStyles('fixed', '100%', 'scroll')
-    } else {
-        basketModal.classList.remove('basket__modal_active')
-        setBodyStyles('', '', '')
-    }
-})
 
-basketBtn.addEventListener('click', function () {
-    basketModal.classList.toggle('basket__modal_active')
-    // checkBasketModalClass()
-})
 
-// function checkBasketModalClass() {
-
-//     if (basketModal.classList.contains('basket__modal_active')) {
-//         basketBtn.classList.add('basket-btn_active')
-//         document.addEventListener('click', removeBasketModalClassList)
+// footerBarBasketBtn.addEventListener('click', function() {
+//     if (!basketModal.classList.contains('basket__modal_active')) {
+//         basketModal.classList.add('basket__modal_active')
+//         setBodyStyles('fixed', '100%', 'scroll')
 //     } else {
-//         basketBtn.classList.remove('basket-btn_active')
-//         document.removeEventListener('click', removeBasketModalClassList);
+//         basketModal.classList.remove('basket__modal_active')
+//         setBodyStyles('', '', '')
+//     }
+// })
+
+// basketBtn.addEventListener('click', function () {
+//     basketModal.classList.toggle('basket__modal_active')
+//     // checkBasketModalClass()
+// })
+
+// // function checkBasketModalClass() {
+
+// //     if (basketModal.classList.contains('basket__modal_active')) {
+// //         basketBtn.classList.add('basket-btn_active')
+// //         document.addEventListener('click', removeBasketModalClassList)
+// //     } else {
+// //         basketBtn.classList.remove('basket-btn_active')
+// //         document.removeEventListener('click', removeBasketModalClassList);
+// //     }
+// // }
+// /*
+// function removeBasketModalClassList(event) {
+
+//     if (!basketModal.contains(event.target) && !basketBtn.contains(event.target)) {
+//         basketModal.classList.remove('basket__modal_active')
+//         checkBasketModalClass()
 //     }
 // }
-/*
-function removeBasketModalClassList(event) {
+// */
+// basketModalBtnClose.addEventListener('click', function () {
+//     basketModal.classList.remove('basket__modal_active')
+//     checkBasketModalClass()
+// });
 
-    if (!basketModal.contains(event.target) && !basketBtn.contains(event.target)) {
-        basketModal.classList.remove('basket__modal_active')
-        checkBasketModalClass()
-    }
-}
-*/
-basketModalBtnClose.addEventListener('click', function () {
-    basketModal.classList.remove('basket__modal_active')
-    checkBasketModalClass()
-});
+// // const cardList = [
+// //     { id: 0, title: "Кепка", price: "123"},
+// //     { id: 1, title: "Футболка", price: "234"},
+// //     { id: 2, title: "Худи", price: "456"},
+// //     { id: 3, title: "Джинсы", price: "567"},
+// // ]
 
-// const cardList = [
-//     { id: 0, title: "Кепка", price: "123"},
-//     { id: 1, title: "Футболка", price: "234"},
-//     { id: 2, title: "Худи", price: "456"},
-//     { id: 3, title: "Джинсы", price: "567"},
-// ]
+// const basketStr = localStorage.getItem("basketStore")
+// const cardList = JSON.parse(basketStr)
+// // console.log(basketArr)
 
-const basketStr = localStorage.getItem("basketStore")
-const cardList = JSON.parse(basketStr)
-// console.log(basketArr)
+// // for (let element of basketArr) {
+// // 	console.log(element)
+// // }
 
-// for (let element of basketArr) {
-// 	console.log(element)
+// function init() {
+//     createBasketList();
+// }
+// init()
+
+// function createBasketList() {
+//     const basketList = document.createElement("ul");
+//     basketList.classList.add("basket__list");
+
+//     if (cardList.length === 0) {
+//         basketList.innerText = `Корзина пуста`;
+//         basketBtnDeleteAll.remove();
+//         basketFooter.remove();
+
+//     } else {
+//         cardList.forEach((element) => {
+//             basketList.append(createBasketListItem(element));
+//         });
+//     }
+
+//     // basketList.addEventListener('click', function(event) {
+//     //     if (event.target.className === "icon-trash") {
+//     //         event.target.parentNode.parentNode.parentNode.remove();
+//     //     }
+//     // })
+//     basketBLock.appendChild(basketList);
+// 	basketList.addEventListener("click", removeFromBasketClick)
+
 // }
 
-function init() {
-    createBasketList();
-}
-init()
-
-function createBasketList() {
-    const basketList = document.createElement("ul");
-    basketList.classList.add("basket__list");
-
-    if (cardList.length === 0) {
-        basketList.innerText = `Корзина пуста`;
-        basketBtnDeleteAll.remove();
-        basketFooter.remove();
-
-    } else {
-        cardList.forEach((element) => {
-            basketList.append(createBasketListItem(element));
-        });
-    }
-
-    // basketList.addEventListener('click', function(event) {
-    //     if (event.target.className === "icon-trash") {
-    //         event.target.parentNode.parentNode.parentNode.remove();
-    //     }
-    // })
-    basketBLock.appendChild(basketList);
-	basketList.addEventListener("click", removeFromBasketClick)
-
-}
 
 
+// function createBasketListItem(element) {
+//     const basketListItem = document.createElement("li");
+//     basketListItem.classList.add("basket__list-item");
 
-function createBasketListItem(element) {
-    const basketListItem = document.createElement("li");
-    basketListItem.classList.add("basket__list-item");
+//     basketListItem.innerHTML = `
 
-    basketListItem.innerHTML = `
-
-            <div class="basket__list-item-title">
-                <h5>${element.title}</h5>
-            </div>
-            <div class="basket__list-item-wrapper">
-                <div class="basket__list-item-price">
-                    <h5>${element.price}</h5>
-                </div>
-                <div class="basket__list-item-btn-remove">
-                    <button class="icon-trash" type="button" data-id="${element.id}"></button>
-                </div>
-            </div>
-    `;
-    return basketListItem;
-}
+//             <div class="basket__list-item-title">
+//                 <h5>${element.title}</h5>
+//             </div>
+//             <div class="basket__list-item-wrapper">
+//                 <div class="basket__list-item-price">
+//                     <h5>${element.price}</h5>
+//                 </div>
+//                 <div class="basket__list-item-btn-remove">
+//                     <button class="icon-trash" type="button" data-id="${element.id}"></button>
+//                 </div>
+//             </div>
+//     `;
+//     return basketListItem;
+// }
 
 
 
 
-function removeFromBasket(cardId) {
-	let basketStore = localStorage.getItem("basketStore")
-	if (basketStore) {
-		let basketArray = JSON.parse(basketStore)
-		const cardIndex = basketArray.findIndex((card) => card.id === cardId)
-		if (cardIndex !== -1) {
-			console.log(cardIndex)
-			basketArray.splice(cardIndex, 1)
-			localStorage.setItem("basketStore", JSON.stringify(basketArray))
-		}
-	}
-}
+// function removeFromBasket(cardId) {
+// 	let basketStore = localStorage.getItem("basketStore")
+// 	if (basketStore) {
+// 		let basketArray = JSON.parse(basketStore)
+// 		const cardIndex = basketArray.findIndex((card) => card.id === cardId)
+// 		if (cardIndex !== -1) {
+// 			console.log(cardIndex)
+// 			basketArray.splice(cardIndex, 1)
+// 			localStorage.setItem("basketStore", JSON.stringify(basketArray))
+// 		}
+// 	}
+// }
 
-function removeFromBasketClick(event) {
-	if (event.target.classList.contains("icon-trash")) {
-		const cardId = event.target.dataset.id
-		removeFromBasket(cardId)
-		event.target.closest(".basket__list-item").remove()
-		getBasketTotalPrice()
-	}
-}
+// function removeFromBasketClick(event) {
+// 	if (event.target.classList.contains("icon-trash")) {
+// 		const cardId = event.target.dataset.id
+// 		removeFromBasket(cardId)
+// 		event.target.closest(".basket__list-item").remove()
+// 		getBasketTotalPrice()
+// 	}
+// }
 
 
 
 
 
-basketModal.addEventListener("click", function (event) {
+// basketModal.addEventListener("click", function (event) {
 
-    if (event.target.className === "basket__btn-delete-all") {
-        document.querySelectorAll(".basket__list-item").forEach(function (element) {
-            element.remove();    
-        });
-        basketBtnDeleteAll.remove() || basketFooter.remove();
-    }
-})
+//     if (event.target.className === "basket__btn-delete-all") {
+//         document.querySelectorAll(".basket__list-item").forEach(function (element) {
+//             element.remove();    
+//         });
+//         basketBtnDeleteAll.remove() || basketFooter.remove();
+//     }
+// })
 
-function getBasketTotalPrice () {
+// function getBasketTotalPrice () {
 
-    // localStorage.setItem("basketStore", JSON.stringify(cardList));
-    const newCardList = JSON.parse(localStorage.getItem("basketStore"));
-    let basketTotalPrice = 0;
+//     // localStorage.setItem("basketStore", JSON.stringify(cardList));
+//     const newCardList = JSON.parse(localStorage.getItem("basketStore"));
+//     let basketTotalPrice = 0;
 
-    newCardList.forEach(element => {
-        basketTotalPrice += element.price;
-    });
+//     newCardList.forEach(element => {
+//         basketTotalPrice += element.price;
+//     });
 
-    return basketTotalPrice;
-}
+//     return basketTotalPrice;
+// }
 
-let totalPrice = getBasketTotalPrice ();
-basketTotalPriceValue.innerText = `${totalPrice}`
+// let totalPrice = getBasketTotalPrice ();
+// basketTotalPriceValue.innerText = `${totalPrice}`

@@ -2,7 +2,7 @@ class Api {
     static userUrl = 'https://646e07219c677e23218ae1e2.mockapi.io/users/user'
 
     static setApi(login, password) {
-        fetch(Api.userUrl, {
+        fetch(this.userUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -23,7 +23,7 @@ class Api {
 
     static async getApi(usdata) {
         try {
-            const response = await fetch(Api.userUrl);
+            const response = await fetch(this.userUrl);
             const data = await response.json();
             return data.find(element => usdata === element.login);
         } catch (error) {

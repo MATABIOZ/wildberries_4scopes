@@ -52,7 +52,7 @@ function createLoginForm() {
 
 function createLoginFormElements(form) {
     LOGIN_OPTIONS.forEach(option => {
-        const element = document.createElement(option.type)
+        const element = document.createElement(option.tag)
 
         if (Array.isArray(option.class) && option.class.length > 0) {
             option.class.forEach(className => element.classList.add(className))

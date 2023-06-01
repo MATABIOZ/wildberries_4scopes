@@ -1,4 +1,4 @@
-import { getImages } from "../../core/API/sliderApi.js";
+import { sliderApi } from "../../core/API/sliderApi.js";
 
 const imageContainer = document.querySelectorAll('.swiper-slide')
 
@@ -10,6 +10,6 @@ function createImage(url, index) {
     container.appendChild(elementImage);
 }
 
-document.addEventListener('DOMContentLoaded', getImages())
+document.addEventListener('DOMContentLoaded', sliderApi.getImages())
 
 export { createImage }
