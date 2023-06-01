@@ -1,5 +1,5 @@
-import { getApi } from '../../core/API/registrationApi.js'
 import { LOGIN_OPTIONS } from '../../core/consts/options.js'
+import { Api } from '../../core/API/registrationApi.js'
 
 const loginWrapper = document.querySelector('.user__login')
 const btnClose = document.querySelector('.user__login-btn-close')
@@ -89,7 +89,7 @@ async function singIn() {
         inputsValue.push(el.value)
     })
 
-    let userData = await getApi(inputsValue[0])
+    let userData = await Api.getApi(inputsValue[0])
 
     if (!userData || userData.password !== inputsValue[1]) {
         errorMessageLogin.textContent = 'Неверный логин или пароль'
