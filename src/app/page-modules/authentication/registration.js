@@ -6,6 +6,8 @@ const btnClose = document.querySelector('.user__registration-btn-close')
 const btnRegistration = document.querySelector('.user__submenu-btn-registration')
 const userBtn = document.querySelector('.user-btn')
 
+
+
 function registrationWrapperAddClassActive() {
     registrationWrapper.classList.add('user__registration_active')
     checkRegistrationClass()
@@ -22,11 +24,23 @@ function checkRegistrationClass() {
 
 }
 
-function submitForm(event) {
-    event.preventDefault()
-    addInputsValues()
-    resetErrorMessage()
+function removeRegistrationClassList(event) {
+
+    if (!registrationWrapper.contains(event.target) && !btnRegistration.contains(event.target)) {
+        registrationWrapper.classList.remove('user__registration_active')
+    }
+
+    if (!registrationWrapper.classList.contains('user__registration_active')) {
+        document.removeEventListener('click', removeRegistrationClassList)
+        userBtn.classList.remove('user-btn_active')
+        resetForm()
+    }
+
 }
+
+btnClose.addEventListener('click', function () {
+    registrationWrapper.classList.remove('user__registration_active')
+})
 
 function createForm() {
     const form = document.createElement('form')
@@ -159,30 +173,18 @@ function showPassword() {
     });
 }
 
-btnClose.addEventListener('click', function () {
-    registrationWrapper.classList.remove('user__registration_active')
-})
-
-function removeRegistrationClassList(event) {
-
-    if (!registrationWrapper.contains(event.target) && !btnRegistration.contains(event.target)) {
-        registrationWrapper.classList.remove('user__registration_active')
-    }
-
-    if (!registrationWrapper.classList.contains('user__registration_active')) {
-        document.removeEventListener('click', removeRegistrationClassList)
-        userBtn.classList.remove('user-btn_active')
-        resetForm()
-    }
-
-}
-
 function resetForm() {
     document.querySelector('.user__registration-form').reset()
     document.querySelector('[data-input="1"]').type = 'password'
     document.querySelector('[data-input="2"]').type = 'password'
     const btnShow1 = document.querySelector('[data-btn="1"]').textContent = 'показать пароль'
     const btnShow2 = document.querySelector('[data-btn="2"]').textContent = 'показать пароль'
+    resetErrorMessage()
+}
+
+function submitForm(event) {
+    event.preventDefault()
+    addInputsValues()
     resetErrorMessage()
 }
 

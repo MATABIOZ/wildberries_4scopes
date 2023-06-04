@@ -72,11 +72,11 @@ function createLoginFormElements(form) {
             option.attributes.forEach(attribute => {
                 const [firstClass, secondClass] = Object.entries(attribute)[0]
                 element.setAttribute(firstClass, secondClass)
-            });
+            })
         }
 
         form.appendChild(element)
-    });
+    })
 }
 
 async function singIn() {

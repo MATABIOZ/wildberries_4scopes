@@ -12,9 +12,7 @@ class AuthenticationApi {
                 password: password,           
             })
         })
-            .catch(error => {
-                console.error('Ошибка при создании пользователя:', error)
-            })
+            .catch(error => { throw error })
     }
 
     static getApi(userData) {
@@ -23,7 +21,7 @@ class AuthenticationApi {
             .then(data => {
                 return data.find(element => userData === element.login)
             })
-            .catch(error => console.log(error))
+            .catch(error => {throw error})
         } 
     }
 
