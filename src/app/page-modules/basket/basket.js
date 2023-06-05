@@ -135,7 +135,6 @@ function removeAllElemFromBasket() {
 		//let basketArray = JSON.parse(basketStore);
 		localStorage.clear(basketStore);
 		//localStorage.setItem("basketStore", JSON.stringify(basketArray))
-		//console.log("OK")
 		return basketStore
 	}
 }
