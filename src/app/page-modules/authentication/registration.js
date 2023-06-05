@@ -1,10 +1,12 @@
-import { Api } from '../../core/API/registrationApi.js'
+import { AuthenticationApi } from '../../core/API/authenticationApi.js'
 import { REGISTRATION_OPTIONS } from '../../core/consts/options.js'
 
 const registrationWrapper = document.querySelector('.user__registration')
 const btnClose = document.querySelector('.user__registration-btn-close')
 const btnRegistration = document.querySelector('.user__submenu-btn-registration')
 const userBtn = document.querySelector('.user-btn')
+
+
 
 function registrationWrapperAddClassActive() {
     registrationWrapper.classList.add('user__registration_active')
@@ -22,11 +24,23 @@ function checkRegistrationClass() {
 
 }
 
-function submitForm(event) {
-    event.preventDefault()
-    addInputsValues()
-    resetErrorMessage()
+function removeRegistrationClassList(event) {
+
+    if (!registrationWrapper.contains(event.target) && !btnRegistration.contains(event.target)) {
+        registrationWrapper.classList.remove('user__registration_active')
+    }
+
+    if (!registrationWrapper.classList.contains('user__registration_active')) {
+        document.removeEventListener('click', removeRegistrationClassList)
+        userBtn.classList.remove('user-btn_active')
+        resetForm()
+    }
+
 }
+
+btnClose.addEventListener('click', function () {
+    registrationWrapper.classList.remove('user__registration_active')
+})
 
 function createForm() {
     const form = document.createElement('form')
@@ -88,7 +102,7 @@ async function addInputsValues() {
         password: values[1],
     }
 
-    let userData = await Api.getApi(person.login);
+    let userData = await AuthenticationApi.getApi(person.login);
     const minLogin = 3;
     const minPassword = 8;
     const maxSymbols = 20;
@@ -110,7 +124,7 @@ async function addInputsValues() {
     } else {
 
         successRegistration()
-        Api.setApi(person.login, person.password)
+        AuthenticationApi.setApi(person.login, person.password)
         setTimeout( function() {
             location.reload()
         }, 1000)
@@ -153,36 +167,24 @@ function showPassword() {
             let neededType = input.type === 'password' ? 'text' : 'password'
             input.type = neededType
             let btn = event.target.getAttribute('data-btn') === '1' ? btnShow1 : btnShow2
-            let neededText = btn.text === 'показать пароль' ? 'скрыть пароль' : 'показать пароль'
-            btn.text = neededText
+            let neededText = btn.textContent === 'показать пароль' ? 'скрыть пароль' : 'показать пароль'
+            btn.textContent = neededText
         });
     });
-}
-
-btnClose.addEventListener('click', function () {
-    registrationWrapper.classList.remove('user__registration_active')
-})
-
-function removeRegistrationClassList(event) {
-
-    if (!registrationWrapper.contains(event.target) && !btnRegistration.contains(event.target)) {
-        registrationWrapper.classList.remove('user__registration_active')
-    }
-
-    if (!registrationWrapper.classList.contains('user__registration_active')) {
-        document.removeEventListener('click', removeRegistrationClassList)
-        userBtn.classList.remove('user-btn_active')
-        resetForm()
-    }
-
 }
 
 function resetForm() {
     document.querySelector('.user__registration-form').reset()
     document.querySelector('[data-input="1"]').type = 'password'
     document.querySelector('[data-input="2"]').type = 'password'
-    const btnShow1 = document.querySelector('[data-btn="1"]').text = 'показать пароль'
-    const btnShow2 = document.querySelector('[data-btn="2"]').text = 'показать пароль'
+    const btnShow1 = document.querySelector('[data-btn="1"]').textContent = 'показать пароль'
+    const btnShow2 = document.querySelector('[data-btn="2"]').textContent = 'показать пароль'
+    resetErrorMessage()
+}
+
+function submitForm(event) {
+    event.preventDefault()
+    addInputsValues()
     resetErrorMessage()
 }
 
