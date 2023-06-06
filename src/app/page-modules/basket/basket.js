@@ -8,9 +8,7 @@ const basketList = document.querySelector(".basket__list")
 const basketBtnDeleteAll = document.querySelector(".basket__btn-delete-all")
 const basketBLock = document.querySelector(".basket-block")
 const basketFooter = document.querySelector(".basket__footer")
-const basketTotalPriceValue = document.querySelector(
-	".basket__total-price-value"
-)
+const basketTotalPriceValue = document.querySelector(".basket__total-price-value")
 const footerBarBasketBtn = document.querySelector(".footer-bar__basket-btn")
 
 footerBarBasketBtn.addEventListener("click", function () {
@@ -30,6 +28,7 @@ basketBtn.addEventListener("click", function () {
 basketModalBtnClose.addEventListener("click", function () {
 	basketModal.classList.remove("basket__modal_active")
 })
+
 
 const basketStr = localStorage.getItem("basketStore")
 const cardList = JSON.parse(basketStr) || []
@@ -72,6 +71,28 @@ function createBasketListItem(element) {
 	return basketListItem
 }
 
+function createBtnEmptyBasket() {
+	const btnEmptyBasket = document.createElement('button');
+	btnEmptyBasket.classList.add('basket__btn-delete-all');
+	btnEmptyBasket.innerText = `Очистить корзину`;
+	basketModal.appendChild(btnEmptyBasket);
+}
+
+function createFooterBasket() {
+	const footerBasket = document.createElement('div');
+	footerBasket.classList.add('basket__footer');
+
+	footerBasket.innerHTML = `
+		<button type="button" class="btn basket__btn-order">Заказать</button>
+			<div class="basket__total-price">
+				<h4 class="basket__total-price-title">Итого:</h4>
+				<h4 class="basket__total-price-value">${ getBasketTotalPrice() + "$"}</h4>
+			</div>
+		`
+	basketModal.appendChild(footerBasket);
+	//return footerBasket
+}
+
 export function removeFromBasket(cardId) {
 	let basketStore = localStorage.getItem("basketStore")
 
@@ -105,6 +126,34 @@ basketModal.addEventListener("click", function (event) {
 	}
 })
 
+function removeAllElemFromBasket() {
+	let basketStore = localStorage.getItem("basketStore");
+
+	if (basketStore) {
+		//let basketArray = JSON.parse(basketStore);
+		localStorage.clear(basketStore);
+		//localStorage.setItem("basketStore", JSON.stringify(basketArray))
+		return basketStore
+	}
+}
+
+function onClickRemoveAllElemFromBasket(event) {
+	
+	if (event.target.contains(".basket__btn-delete-all")) {
+		document
+			.querySelectorAll(".basket__list-item")
+			.forEach(function (element) {
+				element.remove()
+			})
+			
+		basketBtnDeleteAll.remove() || basketFooter.remove()
+	}
+
+	removeAllElemFromBasket();
+}
+
+basketModal.addEventListener("click", onClickRemoveAllElemFromBasket)
+
 function getBasketTotalPrice() {
 	const newCardList = JSON.parse(localStorage.getItem("basketStore"))
 	let basketTotalPrice = 0
@@ -112,7 +161,6 @@ function getBasketTotalPrice() {
 	newCardList.forEach((element) => {
 		basketTotalPrice += element.price
 	})
-
 	return basketTotalPrice
 }
 
@@ -122,8 +170,13 @@ function updateBasketTotalPrice() {
 }
 
 function init() {
-	createBasketList()
-	updateBasketTotalPrice()
+	createBasketList();
+	createBtnEmptyBasket();
+	createFooterBasket();
+	updateBasketTotalPrice();
 }
 
 init()
+
+/*
+document.addEventListener('DOMContentLoaded', init);*/
