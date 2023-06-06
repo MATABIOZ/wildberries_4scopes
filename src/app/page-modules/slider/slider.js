@@ -1,5 +1,6 @@
 import { SliderApi } from "../../core/API/sliderApi.js"
 
+
 const swiperWrapper = document.querySelector('.swiper-wrapper')
 
 function createSlider(imageInner) {
