@@ -45,39 +45,30 @@ btnClose.addEventListener('click', function () {
 function createForm() {
     const form = document.createElement('form')
     form.classList.add('user__registration-form')
-    createFormElements(form)
+    createFormElements(form, REGISTRATION_OPTIONS)
     registrationWrapper.appendChild(form)
 }
 
-function createFormElements(form) {
-    REGISTRATION_OPTIONS.forEach(option => {
+function createFormElements(form, options) {
+    options.forEach(option => {
         const element = document.createElement(option.tag)
 
         if (Array.isArray(option.class) && option.class.length > 0) {
-            option.class.forEach(className => element.classList.add(className));
+            option.class.forEach(className => element.classList.add(className))
         } else {
-            element.classList.add(option.class);
+            element.classList.add(option.class)
         }
 
-        if (option.id) {
-            element.id = option.id
-        }
-        if (option.text) {
-            element.textContent = option.text
-        }
-
-        if (option.content) {
-            element.textContent = option.content
-        }
-        if (option.dataset) {
-            element.dataset.data = option.dataset.data;
-        }
-
+        option.id && (element.id = option.id)
+        option.text && (element.textContent = option.text)
+        option.content && (element.textContent = option.content)
+        option.dataset && (element.dataset.data = option.dataset.data)
+        
         if (option.attributes && option.attributes.length > 0) {
             option.attributes.forEach(attribute => {
                 const [key, value] = Object.entries(attribute)[0]
                 element.setAttribute(key, value)
-            });
+            })
         }
 
         form.appendChild(element)
@@ -102,7 +93,7 @@ async function addInputsValues() {
         password: values[1],
     }
 
-    let userData = await AuthenticationApi.getApi(person.login);
+    let userData = await AuthenticationApi.getUser(person.login);
     const minLogin = 3;
     const minPassword = 8;
     const maxSymbols = 20;
@@ -124,7 +115,7 @@ async function addInputsValues() {
     } else {
 
         successRegistration()
-        AuthenticationApi.setApi(person.login, person.password)
+        AuthenticationApi.setUser(person.login, person.password)
         setTimeout( function() {
             location.reload()
         }, 1000)
@@ -196,3 +187,11 @@ function init() {
 document.addEventListener('DOMContentLoaded', init)
 
 export { registrationWrapperAddClassActive }
+
+
+
+const array = [1, 2, 3, 4, 5]
+
+array.forEach(element => {
+    console.log(element)
+});

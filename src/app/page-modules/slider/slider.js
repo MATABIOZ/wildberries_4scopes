@@ -1,15 +1,30 @@
 import { SliderApi } from "../../core/API/sliderApi.js"
 
-const imageContainer = document.querySelectorAll('.swiper-slide')
 
-function createImage(url, index) {
-    const container = imageContainer[index]
-    const elementImage = document.createElement('img')
-    elementImage.alt = 'image'
-    elementImage.src = url
-    container.appendChild(elementImage)
+const swiperWrapper = document.querySelector('.swiper-wrapper')
+
+function createSlider(imageInner) {
+    swiperWrapper.appendChild(imageInner)
 }
 
-document.addEventListener('DOMContentLoaded', SliderApi.getImages())
+function createImageInner(url, alt) {
+    const imageInner = document.createElement('div')
+    imageInner.classList.add('swiper-slide')
+    const image = document.createElement('img')
+    image.alt = alt
+    image.src = url
+    imageInner.append(image)
+    createSlider(imageInner)
+}
 
-export { createImage }
+async function createImage() {
+      await SliderApi.getImages()
+      .then(data => {
+        data.forEach(element => {
+            createImageInner(element.url, element.alt)
+      })
+    })
+    .catch(error => {throw error})
+}
+
+document.addEventListener('DOMContentLoaded', createImage)
