@@ -1,5 +1,5 @@
 import { LOGIN_OPTIONS } from '../../core/consts/options.js'
-import { Api } from '../../core/API/registrationApi.js'
+import { AuthenticationApi } from '../../core/API/authenticationApi.js'
 
 const loginWrapper = document.querySelector('.user__login')
 const btnClose = document.querySelector('.user__login-btn-close')
@@ -61,7 +61,7 @@ function createLoginFormElements(form) {
         }
 
         if (option.text) {
-            element.text = option.text
+            element.textContent = option.text
         }
 
         if (option.content) {
@@ -72,11 +72,11 @@ function createLoginFormElements(form) {
             option.attributes.forEach(attribute => {
                 const [firstClass, secondClass] = Object.entries(attribute)[0]
                 element.setAttribute(firstClass, secondClass)
-            });
+            })
         }
 
         form.appendChild(element)
-    });
+    })
 }
 
 async function singIn() {
@@ -89,7 +89,7 @@ async function singIn() {
         inputsValue.push(el.value)
     })
 
-    let userData = await Api.getApi(inputsValue[0])
+    let userData = await AuthenticationApi.getApi(inputsValue[0])
 
     if (!userData || userData.password !== inputsValue[1]) {
         errorMessageLogin.textContent = 'Неверный логин или пароль'
@@ -105,15 +105,15 @@ async function singIn() {
 }
 
 function successRegistration() {
-    const form = document.querySelector('.user__login-form');
-    const successContainer = document.createElement('div');
-    const successMessage = document.createElement('span');
-    successContainer.classList.add('success-container');
-    successMessage.classList.add('success-message');
-    successMessage.textContent = 'Вы вошли \u{1F60A}';
-    successContainer.appendChild(successMessage);
-    const parent = form.parentNode;
-    parent.replaceChild(successContainer, form);
+    const form = document.querySelector('.user__login-form')
+    const successContainer = document.createElement('div')
+    const successMessage = document.createElement('span')
+    successContainer.classList.add('success-container')
+    successMessage.classList.add('success-message')
+    successMessage.textContent = 'Вы вошли \u{1F60A}'
+    successContainer.appendChild(successMessage)
+    const parent = form.parentNode
+    parent.replaceChild(successContainer, form)
 }
 
 function showLoginPassword() {
@@ -121,10 +121,10 @@ function showLoginPassword() {
     const input = document.querySelector('[data-input="input"]')
 
     btn.addEventListener('click', function () {
-        neededType = input.type === 'password' ? 'text' : 'password';
+        neededType = input.type === 'password' ? 'text' : 'password'
         input.type = neededType
-        neededText = btn.text === 'показать пароль' ? 'скрыть пароль' : 'показать пароль'
-        btn.text = neededText
+        neededText = btn.textContent === 'показать пароль' ? 'скрыть пароль' : 'показать пароль'
+        btn.textContent = neededText
     })
 }
 
@@ -137,7 +137,7 @@ function resetErrorMessage() {
 
 function resetLoginForm() {
     document.querySelector('.user__login-form').reset()
-    const btn = document.querySelector('[data-btn="password"]').text = 'показать пароль'
+    const btn = document.querySelector('[data-btn="password"]').textContent = 'показать пароль'
     const input = document.querySelector('[data-input="input"]').type = 'password'
     resetErrorMessage()
 }
