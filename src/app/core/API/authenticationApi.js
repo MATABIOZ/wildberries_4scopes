@@ -1,7 +1,7 @@
 class AuthenticationApi {
     static userUrl = 'https://646e07219c677e23218ae1e2.mockapi.io/users/user'
 
-    static setApi(login, password) {
+    static setUser(login, password) {
         fetch(this.userUrl, {
             method: 'POST',
             headers: {
@@ -15,7 +15,7 @@ class AuthenticationApi {
             .catch(error => { throw error })
     }
 
-    static getApi(userData) {
+    static getUser(userData) {
           return  fetch(this.userUrl)
             .then(response => response.json())
             .then(data => {
