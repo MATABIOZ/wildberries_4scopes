@@ -4,11 +4,9 @@ import { alyaStore, getCards } from "../../core/API/cardsApi.js"
 const basketBtn = document.querySelector(".basket-btn")
 const basketModal = document.querySelector(".basket__modal")
 const basketModalBtnClose = document.querySelector(".basket__modal-btn-close")
-const basketList = document.querySelector(".basket__list")
 const basketBtnDeleteAll = document.querySelector(".basket__btn-delete-all")
 const basketBLock = document.querySelector(".basket-block")
 const basketFooter = document.querySelector(".basket__footer")
-const basketTotalPriceValue = document.querySelector(".basket__total-price-value")
 const footerBarBasketBtn = document.querySelector(".footer-bar__basket-btn")
 
 footerBarBasketBtn.addEventListener("click", function () {
@@ -111,48 +109,18 @@ function removeFromBasketClick(event) {
 		const cardId = event.target.dataset.id
 		removeFromBasket(cardId)
 		event.target.closest(".basket__list-item").remove()
-		updateBasketTotalPrice()
+		getBasketTotalPrice()
 	}
 }
 
 basketModal.addEventListener("click", function (event) {
 	if (event.target.className === "basket__btn-delete-all") {
-		document
-			.querySelectorAll(".basket__list-item")
-			.forEach(function (element) {
-				element.remove()
-			})
+		document.querySelectorAll(".basket__list-item").forEach(function (element) {
+			element.remove()
+		})
 		basketBtnDeleteAll.remove() || basketFooter.remove()
 	}
 })
-
-function removeAllElemFromBasket() {
-	let basketStore = localStorage.getItem("basketStore");
-
-	if (basketStore) {
-		//let basketArray = JSON.parse(basketStore);
-		localStorage.clear(basketStore);
-		//localStorage.setItem("basketStore", JSON.stringify(basketArray))
-		return basketStore
-	}
-}
-
-function onClickRemoveAllElemFromBasket(event) {
-	
-	if (event.target.contains(".basket__btn-delete-all")) {
-		document
-			.querySelectorAll(".basket__list-item")
-			.forEach(function (element) {
-				element.remove()
-			})
-			
-		basketBtnDeleteAll.remove() || basketFooter.remove()
-	}
-
-	removeAllElemFromBasket();
-}
-
-basketModal.addEventListener("click", onClickRemoveAllElemFromBasket)
 
 function getBasketTotalPrice() {
 	const newCardList = JSON.parse(localStorage.getItem("basketStore"))
@@ -164,19 +132,10 @@ function getBasketTotalPrice() {
 	return basketTotalPrice
 }
 
-function updateBasketTotalPrice() {
-	let totalPrice = getBasketTotalPrice()
-	basketTotalPriceValue.innerText = `${totalPrice}`
-}
-
 function init() {
 	createBasketList();
 	createBtnEmptyBasket();
 	createFooterBasket();
-	updateBasketTotalPrice();
 }
 
-init()
-
-/*
-document.addEventListener('DOMContentLoaded', init);*/
+document.addEventListener('DOMContentLoaded', init);
