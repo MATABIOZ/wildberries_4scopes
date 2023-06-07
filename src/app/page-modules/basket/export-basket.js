@@ -1,1 +1,1 @@
-export * as basket from "../basket/basket.js"
+export * as basket from "./basket.js"
