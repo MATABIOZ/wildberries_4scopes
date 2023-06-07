@@ -36,6 +36,10 @@
         &_active::before {
             color: @color-transparent-black;
         }
+
+        &_authorized::before {
+            color: #7c4e4e;
+        }
     }
 
     &__submenu {
@@ -79,15 +83,22 @@
             }
         }
 
-        &-btn-registration {
-            max-width: 188px;
-            margin-top: 20px;
-            background-color: transparent;
-            border: 1px solid @color-translucent-black;
-            .transition (@prop, @time, @ease);
+        &-btn {
+            &-registration {
+                max-width: 188px;
+                margin-top: 20px;
+                background-color: transparent;
+                border: 1px solid @color-translucent-black;
+                .transition (@prop, @time, @ease);
+    
+                &:hover {
+                    border: 1px solid @color-black;
+                }
+            }
 
-            &:hover {
-                border: 1px solid @color-black;
+            &-exit {
+                max-width: 188px;
+                margin-top: 20px;
             }
         }
     }

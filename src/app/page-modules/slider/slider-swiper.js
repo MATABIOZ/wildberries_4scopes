@@ -1,4 +1,4 @@
-setTimeout(function addSwiper() {
+export function loadContent() {
   const swiper = new Swiper(".mySwiper", {
     slidesPerView: 1,
     spaceBetween: 0,
@@ -11,12 +11,12 @@ setTimeout(function addSwiper() {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
     },
- 
+  
     autoplay: {
      delay: 2000,
      disableOnInteraction: true
     },
- 
+  
     speed: 1500
   });
-}, 3000)
+}

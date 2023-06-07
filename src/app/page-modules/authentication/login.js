@@ -1,6 +1,8 @@
 import { LOGIN_OPTIONS } from '../../core/consts/options.js'
 import { AuthenticationApi } from '../../core/API/authenticationApi.js'
-import { options } from 'less'
+
+
+const submenu = document.querySelector('.user__submenu')
 
 const loginWrapper = document.querySelector('.user__login')
 const btnClose = document.querySelector('.user__login-btn-close')
@@ -61,13 +63,8 @@ function createLoginFormElements(form, options) {
             element.classList.add(option.class)
         }
 
-        if (option.text) {
-            element.textContent = option.text
-        }
-
-        if (option.content) {
-            element.textContent = option.content
-        }
+        option.text && (element.textContent = option.text)
+        option.content && (element.textContent = option.content)
 
         if (option.attributes && option.attributes.length > 0) {
             option.attributes.forEach(attribute => {
@@ -90,31 +87,55 @@ async function singIn() {
         inputsValue.push(el.value)
     })
 
-    let userData = await AuthenticationApi.getUser(inputsValue[0])
+    let userData = await AuthenticationApi.getUserByLogin(inputsValue[0])
 
     if (!userData || userData.password !== inputsValue[1]) {
         errorMessageLogin.textContent = 'Неверный логин или пароль'
         errorMessagePassword.textContent = 'Неверный логин или пароль'
     } else {
-        successRegistration()
-        setTimeout(function () {
-
-            removeLoginWrapperClassList()
-            location.reload()
-        }, 1000)
+        successLogin()
+        sessionStorage.setItem('token', `${userData.token}`)
+        userAuthorized() 
     }
 }
 
-function successRegistration() {
+
+async function userAuthorized() {
+    const token = sessionStorage.getItem('token')
+    const userData = await AuthenticationApi.getUserByToken(token)
+    if (userData) {
+        const allSubmenuChildren = submenu.children
+        submenu.removeChild(allSubmenuChildren[1])
+        submenu.removeChild(allSubmenuChildren[1])
+        allSubmenuChildren[0].querySelector('.modal-header__title > h2').textContent = `Здравствуйте, ${userData.login}!`
+        const btnExit = document.createElement('button')
+        btnExit.type = 'button'
+        btnExit.classList.add('btn', 'user__submenu-btn-exit')
+        btnExit.textContent = 'Выйти из аккаунта'
+        submenu.appendChild(btnExit)
+        btnExit.addEventListener('click', singOut)
+    }
+}
+
+function singOut() {
+    sessionStorage.removeItem('token')
+    location.reload()
+}
+
+function successLogin() {
     const form = document.querySelector('.user__login-form')
+    const parent = form.parentNode
+    parent.innerHTML = null
     const successContainer = document.createElement('div')
     const successMessage = document.createElement('span')
     successContainer.classList.add('success-container')
     successMessage.classList.add('success-message')
     successMessage.textContent = 'Вы вошли \u{1F60A}'
     successContainer.appendChild(successMessage)
-    const parent = form.parentNode
-    parent.replaceChild(successContainer, form)
+    parent.append(successContainer)
+    setTimeout(function () {
+        parent.remove()
+    }, 3000)
 }
 
 function showLoginPassword() {
@@ -132,15 +153,18 @@ function showLoginPassword() {
 function resetErrorMessage() {
     const errorMessageLogin = document.querySelector('.error-message_login')
     const errorMessagePassword = document.querySelector('.error-message_password')
-    errorMessageLogin.textContent = ''
-    errorMessagePassword.textContent = ''
+    errorMessageLogin.textContent = null
+    errorMessagePassword.textContent = null
 }
 
 function resetLoginForm() {
-    document.querySelector('.user__login-form').reset()
+    const loginForm = document.querySelector('.user__login-form')
+   if(loginForm) {
+    loginForm.reset()
     const btn = document.querySelector('[data-btn="password"]').textContent = 'показать пароль'
     const input = document.querySelector('[data-input="input"]').type = 'password'
     resetErrorMessage()
+   }
 }
 
 function submitLoginForm(event) {
