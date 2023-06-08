@@ -1,10 +1,11 @@
 import { SliderApi } from "../../core/API/sliderApi.js"
-
+import { loadContent } from "./slider-swiper.js"
 
 const swiperWrapper = document.querySelector('.swiper-wrapper')
 
-function createSlider(imageInner) {
+export function createSlider(imageInner) {
     swiperWrapper.appendChild(imageInner)
+    loadContent()
 }
 
 function createImageInner(url, alt) {
