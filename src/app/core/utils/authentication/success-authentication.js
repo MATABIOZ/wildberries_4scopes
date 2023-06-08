@@ -1,5 +1,5 @@
-export function successAuthentication(formClass) {
-    const form = document.querySelector(formClass, message)
+export function successAuthentication(formClass, message) {
+    const form = document.querySelector(formClass)
     const parent = form.parentNode
     parent.innerHTML = null
     const successContainer = document.createElement('div')
