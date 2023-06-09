@@ -1,11 +1,14 @@
 import { AuthenticationApi } from '../../core/API/authenticationApi.js'
 import { REGISTRATION_OPTIONS } from '../../core/consts/options.js'
+import { setTokenStore } from '../../stores/users-store/users-store.js'
+import { createForm } from '../../core/utils/authentication/create-form.js'
+import { changeToken } from '../../core/utils/authentication/change-token.js'
+import { successAuthentication } from '../../core/utils/authentication/success-authentication.js'
 
 const registrationWrapper = document.querySelector('.user__registration')
 const btnClose = document.querySelector('.user__registration-btn-close')
 const btnRegistration = document.querySelector('.user__submenu-btn-registration')
 const userBtn = document.querySelector('.user-btn')
-const submenu = document.querySelector('.user__submenu')
 
 function registrationWrapperAddClassActive() {
     registrationWrapper.classList.add('user__registration_active')
@@ -18,7 +21,6 @@ function checkRegistrationClass() {
         document.addEventListener('click', removeRegistrationClassList)
         userBtn.classList.add('user-btn_active')
         document.querySelector('.registration__btn').addEventListener('click', submitForm)
-
     }
 
 }
@@ -40,39 +42,6 @@ function removeRegistrationClassList(event) {
 btnClose.addEventListener('click', function () {
     registrationWrapper.classList.remove('user__registration_active')
 })
-
-function createForm() {
-    const form = document.createElement('form')
-    form.classList.add('user__registration-form')
-    createFormElements(form, REGISTRATION_OPTIONS)
-    registrationWrapper.appendChild(form)
-}
-
-function createFormElements(form, options) {
-    options.forEach(option => {
-        const element = document.createElement(option.tag)
-
-        if (Array.isArray(option.class) && option.class.length > 0) {
-            option.class.forEach(className => element.classList.add(className))
-        } else {
-            element.classList.add(option.class)
-        }
-
-        option.id && (element.id = option.id)
-        option.text && (element.textContent = option.text)
-        option.content && (element.textContent = option.content)
-        option.dataset && (element.dataset.data = option.dataset.data)
-
-        if (option.attributes && option.attributes.length > 0) {
-            option.attributes.forEach(attribute => {
-                const [key, value] = Object.entries(attribute)[0]
-                element.setAttribute(key, value)
-            })
-        }
-
-        form.appendChild(element)
-    })
-}
 
 async function addInputsValues() {
     let inputs = document.querySelectorAll('.user__input')
@@ -113,70 +82,11 @@ async function addInputsValues() {
     } else if (userData !== undefined) {
         errorMessageRegistrationLogin.textContent = `Пользователь с логином "${person.login}" уже зарегистрирован`
     } else {
-        AuthenticationApi.setUser(person.login, person.password, person.token).then(() => successRegistration())
-        sessionStorage.setItem("token", person.token)
-        setTimeout(() => chengeToken(), 3000)
+        AuthenticationApi.setUser(person.login, person.password, person.token)
+        .then(() => successAuthentication('.user__registration-form', 'Регистрация прошла успешно \u2705'))
+        setTokenStore(person.token)
+        setTimeout(() => changeToken(), 3000)
     }
-}
-
-function chengeToken() {
-    const token = sessionStorage.getItem('token')
-
-    if (token) {
-        userAuthorized()
-        userBtn.classList.add('user-btn_authorized')
-    } else {
-        userBtn.classList.remove('user-btn_authorized')
-        return null
-    }
-}
-
-async function userAuthorized() {
-    const token = sessionStorage.getItem('token')
-    const userData = await AuthenticationApi.getUserByToken(token)
-    if (userData) {
-        const allSubmenuChildren = submenu.children
-        submenu.removeChild(allSubmenuChildren[1])
-        submenu.removeChild(allSubmenuChildren[1])
-        allSubmenuChildren[0].querySelector('.modal-header__title > h2').textContent = `Здравствуйте, ${userData.login}!`
-        const btnExit = document.createElement('button')
-        btnExit.type = 'button'
-        btnExit.classList.add('btn', 'user__submenu-btn-exit')
-        btnExit.textContent = 'Выйти из аккаунта'
-        submenu.appendChild(btnExit)
-        btnExit.addEventListener('click', singOut)
-    }
-}
-
-function singOut() {
-    sessionStorage.removeItem('token')
-    location.reload()
-}
-
-function successRegistration() {
-    const form = document.querySelector('.user__registration-form')
-    const parent = form.parentNode
-    parent.innerHTML = null
-    const successContainer = document.createElement('div')
-    const successMessage = document.createElement('span')
-    successContainer.classList.add('success-container')
-    successMessage.classList.add('success-message')
-    successMessage.textContent = 'Регистрация прошла успешно \u2705'
-    successContainer.appendChild(successMessage)
-    parent.append(successContainer)
-    setTimeout(function () {
-        parent.remove()
-    }, 3000)
-}
-
-function resetErrorMessage() {
-    const errorMessageRegistrationLogin = document.querySelector('.error-message_registration-login')
-    const errorMessageRegistrationPasswordFirst = document.querySelector('.error-message_registration-password-first')
-    const errorMessageRegistrationPasswordSecond = document.querySelector('.error-message_registration-password-second')
-    errorMessageRegistrationLogin.textContent = null
-    errorMessageRegistrationPasswordFirst.textContent = null
-    errorMessageRegistrationPasswordSecond.textContent = null
-
 }
 
 function showPassword() {
@@ -210,6 +120,15 @@ function resetForm() {
     }
 }
 
+function resetErrorMessage() {
+    const errorMessageRegistrationLogin = document.querySelector('.error-message_registration-login')
+    const errorMessageRegistrationPasswordFirst = document.querySelector('.error-message_registration-password-first')
+    const errorMessageRegistrationPasswordSecond = document.querySelector('.error-message_registration-password-second')
+    errorMessageRegistrationLogin.textContent = null
+    errorMessageRegistrationPasswordFirst.textContent = null
+    errorMessageRegistrationPasswordSecond.textContent = null
+}
+
 function submitForm(event) {
     event.preventDefault()
     addInputsValues()
@@ -217,9 +136,9 @@ function submitForm(event) {
 }
 
 function init() {
-    createForm()
+    createForm('user__registration-form',  REGISTRATION_OPTIONS, registrationWrapper)
     showPassword()
-    chengeToken()
+    changeToken()
 }
 
 document.addEventListener('DOMContentLoaded', init)

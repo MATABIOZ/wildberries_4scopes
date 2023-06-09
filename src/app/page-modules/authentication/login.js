@@ -1,8 +1,9 @@
 import { LOGIN_OPTIONS } from '../../core/consts/options.js'
 import { AuthenticationApi } from '../../core/API/authenticationApi.js'
-
-
-const submenu = document.querySelector('.user__submenu')
+import { setTokenStore } from '../../stores/users-store/users-store.js'
+import { createForm } from '../../core/utils/authentication/create-form.js'
+import { changeToken } from '../../core/utils/authentication/change-token.js'
+import { successAuthentication } from '../../core/utils/authentication/success-authentication.js'
 
 const loginWrapper = document.querySelector('.user__login')
 const btnClose = document.querySelector('.user__login-btn-close')
@@ -46,37 +47,6 @@ function checkLoginWrapperClass(event) {
     }
 }
 
-function createLoginForm() {
-    const form = document.createElement('form')
-    form.classList.add('user__login-form')
-    createLoginFormElements(form, LOGIN_OPTIONS)
-    loginWrapper.appendChild(form)
-}
-
-function createLoginFormElements(form, options) {
-    options.forEach(option => {
-        const element = document.createElement(option.tag)
-
-        if (Array.isArray(option.class) && option.class.length > 0) {
-            option.class.forEach(className => element.classList.add(className))
-        } else {
-            element.classList.add(option.class)
-        }
-
-        option.text && (element.textContent = option.text)
-        option.content && (element.textContent = option.content)
-
-        if (option.attributes && option.attributes.length > 0) {
-            option.attributes.forEach(attribute => {
-                const [firstClass, secondClass] = Object.entries(attribute)[0]
-                element.setAttribute(firstClass, secondClass)
-            })
-        }
-
-        form.appendChild(element)
-    })
-}
-
 async function singIn() {
     let inputs = document.querySelectorAll('.user__login-input')
     let inputsValue = []
@@ -93,49 +63,10 @@ async function singIn() {
         errorMessageLogin.textContent = 'Неверный логин или пароль'
         errorMessagePassword.textContent = 'Неверный логин или пароль'
     } else {
-        successLogin()
-        sessionStorage.setItem('token', `${userData.token}`)
-        userAuthorized() 
+        successAuthentication('.user__login-form', 'Вы вошли \u{1F60A}')
+        setTokenStore(userData.token)
+        changeToken()
     }
-}
-
-
-async function userAuthorized() {
-    const token = sessionStorage.getItem('token')
-    const userData = await AuthenticationApi.getUserByToken(token)
-    if (userData) {
-        const allSubmenuChildren = submenu.children
-        submenu.removeChild(allSubmenuChildren[1])
-        submenu.removeChild(allSubmenuChildren[1])
-        allSubmenuChildren[0].querySelector('.modal-header__title > h2').textContent = `Здравствуйте, ${userData.login}!`
-        const btnExit = document.createElement('button')
-        btnExit.type = 'button'
-        btnExit.classList.add('btn', 'user__submenu-btn-exit')
-        btnExit.textContent = 'Выйти из аккаунта'
-        submenu.appendChild(btnExit)
-        btnExit.addEventListener('click', singOut)
-    }
-}
-
-function singOut() {
-    sessionStorage.removeItem('token')
-    location.reload()
-}
-
-function successLogin() {
-    const form = document.querySelector('.user__login-form')
-    const parent = form.parentNode
-    parent.innerHTML = null
-    const successContainer = document.createElement('div')
-    const successMessage = document.createElement('span')
-    successContainer.classList.add('success-container')
-    successMessage.classList.add('success-message')
-    successMessage.textContent = 'Вы вошли \u{1F60A}'
-    successContainer.appendChild(successMessage)
-    parent.append(successContainer)
-    setTimeout(function () {
-        parent.remove()
-    }, 3000)
 }
 
 function showLoginPassword() {
@@ -174,7 +105,7 @@ function submitLoginForm(event) {
 }
 
 function init() {
-    createLoginForm()
+    createForm('user__login-form', LOGIN_OPTIONS, loginWrapper)
     showLoginPassword()
 }
 
