@@ -1,99 +1,142 @@
-import { setBodyStyles } from "../burger/burger.js"
 import { alyaStore, getCards } from "../../core/API/cardsApi.js"
 
 const basketBtn = document.querySelector(".basket-btn")
-const basketModal = document.querySelector(".basket__modal")
-const basketModalBtnClose = document.querySelector(".basket__modal-btn-close")
-const basketBtnDeleteAll = document.querySelector(".basket__btn-delete-all")
-const basketBLock = document.querySelector(".basket-block")
-const basketFooter = document.querySelector(".basket__footer")
-const footerBarBasketBtn = document.querySelector(".footer-bar__basket-btn")
-
-footerBarBasketBtn.addEventListener("click", function () {
-	if (!basketModal.classList.contains("basket__modal_active")) {
-		basketModal.classList.add("basket__modal_active")
-		setBodyStyles("fixed", "100%", "scroll")
-	} else {
-		basketModal.classList.remove("basket__modal_active")
-		setBodyStyles("", "", "")
-	}
-})
+const basketModal = document.querySelector('.basket__modal');
 
 basketBtn.addEventListener("click", function () {
-	basketModal.classList.toggle("basket__modal_active")
+	const cardList = tarara()
+
+	if (!basketModal.classList.contains('basket__modal_active')) {
+		if (cardList.length > 0) {
+			createBasketList()
+			deleteBtns('block', 'flex')
+			blabla()
+			
+		} else {
+			createBasketList()
+		}
+
+		basketModal.classList.add("basket__modal_active")
+
+	} else {
+		basketModal.classList.remove("basket__modal_active")
+	}
+
 })
 
-basketModalBtnClose.addEventListener("click", function () {
+function init() {
+	createModalHeader()
+	createBasketBlock()
+	createBtnBasketDltAll()
+	createFooterBasket()
+}
+
+function createModalHeader() {
+
+	const modalHeader = document.createElement('div');
+	modalHeader.classList.add('modal-header');
+	modalHeader.innerHTML = `
+  <div class="modal-header__title">
+   <h2>Корзина</h2>
+  </div>
+  <button class="btn-close basket__modal-btn-close"></button>
+ `
+	basketModal.appendChild(modalHeader)
+	const btnClose = document.querySelector('.basket__modal-btn-close')
+	btnClose.addEventListener('click', onCloseModalByBtnClose)
+}
+
+function onCloseModalByBtnClose() {
+	const basketBlock = document.querySelector('.basket-block')
 	basketModal.classList.remove("basket__modal_active")
-})
+	console.log(basketBlock)
+	basketBlock.innerHTML = null
+}
 
+function createBasketBlock() {
+	const basketBlock = document.createElement('div');
+	basketBlock.classList.add('basket-block');
+	return basketModal.appendChild(basketBlock);
+}
 
-const basketStr = localStorage.getItem("basketStore")
-const cardList = JSON.parse(basketStr) || []
+function tarara() {
+	const basketStr = localStorage.getItem("basketStore")
+	const cardList = JSON.parse(basketStr) || []
+	return cardList
+}
 
 function createBasketList() {
-	const basketList = document.createElement("ul")
-	basketList.classList.add("basket__list")
+	const basketBlock = document.querySelector('.basket-block')
+	const basketList = document.createElement('ul')
+	basketList.classList.add('basket__list')
+	basketBlock.appendChild(basketList)
+	addContentBasketList()
+}
+
+function addContentBasketList() {
+	const cardList = tarara()
+	const basketList = document.querySelector('.basket__list')
 
 	if (cardList.length === 0) {
-		basketList.innerText = `Корзина пуста`
-		basketBtnDeleteAll.remove()
-		basketFooter.remove()
+		basketList.textContent = 'Корзина пуста'
 	} else {
+		basketList.textContent = null
 		cardList.forEach((element) => {
 			basketList.append(createBasketListItem(element))
 		})
 	}
 
-	basketBLock.appendChild(basketList)
-	basketList.addEventListener("click", removeFromBasketClick)
 }
 
 function createBasketListItem(element) {
 	const basketListItem = document.createElement("li")
 	basketListItem.classList.add("basket__list-item")
 
-	basketListItem.innerHTML = `
-	<div class="basket__list-item-title">
-		<h5>${element.title}</h5>
-	</div>
-	<div class="basket__list-item-wrapper">
-		<div class="basket__list-item-price">
-			<h5>${element.price}</h5>
-		</div>
-		<div class="basket__list-item-btn-remove">
-			<button class="icon-trash" type="button" data-id="${element.id}"></button>
-		</div>
-	</div>`
+	const basketListTitle = document.createElement('div')
+	basketListTitle.classList.add('basket__list-item-title')
 
+	const basketListTitleh5 = document.createElement('h5')
+	basketListTitleh5.textContent = `${element.title}`
+
+	const basketListItemWrapper = document.createElement('div')
+	basketListItemWrapper.classList.add('basket__list-item-wrapper')
+
+	const basketListItemPrice = document.createElement('div')
+	basketListItemPrice.classList.add('basket__list-item-price')
+
+	const basketListItemPriceh5 = document.createElement('h5')
+	basketListItemPriceh5.textContent = `${element.price}`
+
+	const basketListItemBtnRemove = document.createElement('button')
+	basketListItemBtnRemove.classList.add('icon-trash', 'basket__list-item-btn-remove')
+	basketListItemBtnRemove.setAttribute('data-id', `${element.id}`)
+	basketListItemBtnRemove.addEventListener('click', removeBasketItemOnClick)
+	basketListItemPrice.append(basketListItemPriceh5)
+	basketListTitle.append(basketListTitleh5)
+	basketListItemWrapper.append(basketListItemPrice, basketListItemBtnRemove)
+	basketListItem.append(basketListTitle, basketListItemWrapper)
 	return basketListItem
 }
 
-function createBtnEmptyBasket() {
-	const btnEmptyBasket = document.createElement('button');
-	btnEmptyBasket.classList.add('basket__btn-delete-all');
-	btnEmptyBasket.innerText = `Очистить корзину`;
-	basketModal.appendChild(btnEmptyBasket);
+function removeBasketItemOnClick(event) {
+	const basketList = document.querySelector('.basket__list')
+
+	if (event.target.classList.contains("basket__list-item-btn-remove")) {
+		const cardId = event.target.dataset.id
+		removeFromBasketStorage(cardId)
+		event.target.closest(".basket__list-item").remove()
+		getBasketTotalPrice()
+		blabla()
+	}
+	if (basketList.children.length === 0) {
+		addContentBasketList()
+		deleteBtns('none', 'none')
+	}
+
 }
 
-function createFooterBasket() {
-	const footerBasket = document.createElement('div');
-	footerBasket.classList.add('basket__footer');
-
-	footerBasket.innerHTML = `
-		<button type="button" class="btn basket__btn-order">Заказать</button>
-			<div class="basket__total-price">
-				<h4 class="basket__total-price-title">Итого:</h4>
-				<h4 class="basket__total-price-value">${ getBasketTotalPrice() + "$"}</h4>
-			</div>
-		`
-	basketModal.appendChild(footerBasket);
-	//return footerBasket
-}
-
-export function removeFromBasket(cardId) {
+export function removeFromBasketStorage(cardId) {
 	let basketStore = localStorage.getItem("basketStore")
-
 	if (basketStore) {
 		let basketArray = JSON.parse(basketStore)
 		const cardIndex = basketArray.findIndex((card) => card.id === cardId)
@@ -104,23 +147,53 @@ export function removeFromBasket(cardId) {
 	}
 }
 
-function removeFromBasketClick(event) {
-	if (event.target.classList.contains("icon-trash")) {
-		const cardId = event.target.dataset.id
-		removeFromBasket(cardId)
-		event.target.closest(".basket__list-item").remove()
-		getBasketTotalPrice()
-	}
+function createBtnBasketDltAll() {
+	const basketBtnDltAll = document.createElement('button');
+	basketBtnDltAll.classList.add('basket__btn-delete-all');
+	basketBtnDltAll.innerText = 'Очистить корзину';
+	basketBtnDltAll.addEventListener('click', onClearBasket)
+	basketModal.appendChild(basketBtnDltAll)
 }
 
-basketModal.addEventListener("click", function (event) {
-	if (event.target.className === "basket__btn-delete-all") {
-		document.querySelectorAll(".basket__list-item").forEach(function (element) {
-			element.remove()
-		})
-		basketBtnDeleteAll.remove() || basketFooter.remove()
+function onClearBasket() {
+	const basketListItems = document.querySelectorAll(".basket__list-item")
+	localStorage.removeItem("basketStore")
+	basketListItems.forEach(element => element.remove())
+	addContentBasketList()
+	deleteBtns('none', 'none')
+}
+
+function deleteBtns(valueBtnAll, valueFooter) {
+	const basketBtnDltAll = document.querySelector('.basket__btn-delete-all')
+	const basketFooter = document.querySelector('.basket__footer')
+	basketBtnDltAll.style.display = valueBtnAll
+	basketFooter.style.display = valueFooter
+}
+
+function createFooterBasket() {
+	const cardList = tarara()
+	const footerBasket = document.createElement('div');
+	footerBasket.classList.add('basket__footer');
+	footerBasket.innerHTML = `
+	<button type="button" class="btn basket__btn-order">Заказать</button>
+	 <div class="basket__total-price">
+	  <h4 class="basket__total-price-title">Итого:</h4>
+	  <h4 class="basket__total-price-value"></h4>
+	 </div>
+	`
+	basketModal.appendChild(footerBasket)
+
+	if(cardList.length === 0) {
+		deleteBtns('none', 'none')
 	}
-})
+
+}
+
+function blabla() {
+	const price = document.querySelector('.basket__total-price-value')
+	const num = getBasketTotalPrice()
+	price.innerText = ` ${num} $`
+}
 
 function getBasketTotalPrice() {
 	const newCardList = JSON.parse(localStorage.getItem("basketStore"))
@@ -129,13 +202,8 @@ function getBasketTotalPrice() {
 	newCardList.forEach((element) => {
 		basketTotalPrice += element.price
 	})
+	
 	return basketTotalPrice
-}
-
-function init() {
-	createBasketList();
-	createBtnEmptyBasket();
-	createFooterBasket();
 }
 
 document.addEventListener('DOMContentLoaded', init);
