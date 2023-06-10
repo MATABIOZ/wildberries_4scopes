@@ -1,16 +1,21 @@
 import { alyaStore, getCards } from "../../core/API/cardsApi.js"
 
-const basketBtn = document.querySelector(".basket-btn")
 const basketModal = document.querySelector('.basket__modal');
 
-basketBtn.addEventListener("click", function () {
-	const cardList = tarara()
+function basketBtn() {
+	const basketBtn = document.querySelector(".basket-btn")
+	basketBtn.addEventListener("click", onBasketBtn)
+}
+basketBtn()
+
+function onBasketBtn() {
+	const cardList = createCardListFromBasketStore()
 
 	if (!basketModal.classList.contains('basket__modal_active')) {
 		if (cardList.length > 0) {
 			createBasketList()
 			deleteBtns('block', 'flex')
-			blabla()
+			outputTotalPrice()
 			
 		} else {
 			createBasketList()
@@ -21,8 +26,7 @@ basketBtn.addEventListener("click", function () {
 	} else {
 		basketModal.classList.remove("basket__modal_active")
 	}
-
-})
+}
 
 function init() {
 	createModalHeader()
@@ -32,18 +36,18 @@ function init() {
 }
 
 function createModalHeader() {
-
+	
 	const modalHeader = document.createElement('div');
 	modalHeader.classList.add('modal-header');
 	modalHeader.innerHTML = `
-  <div class="modal-header__title">
-   <h2>Корзина</h2>
-  </div>
-  <button class="btn-close basket__modal-btn-close"></button>
- `
+		<div class="modal-header__title">
+		<h2>Корзина</h2>
+		</div>
+		<button class="btn-close basket__modal-btn-close"></button>
+		`
 	basketModal.appendChild(modalHeader)
-	const btnClose = document.querySelector('.basket__modal-btn-close')
-	btnClose.addEventListener('click', onCloseModalByBtnClose)
+	const btnCloseBasketModal = document.querySelector('.basket__modal-btn-close')
+	btnCloseBasketModal.addEventListener('click', onCloseModalByBtnClose)
 }
 
 function onCloseModalByBtnClose() {
@@ -59,7 +63,7 @@ function createBasketBlock() {
 	return basketModal.appendChild(basketBlock);
 }
 
-function tarara() {
+function createCardListFromBasketStore() {
 	const basketStr = localStorage.getItem("basketStore")
 	const cardList = JSON.parse(basketStr) || []
 	return cardList
@@ -74,7 +78,7 @@ function createBasketList() {
 }
 
 function addContentBasketList() {
-	const cardList = tarara()
+	const cardList = createCardListFromBasketStore()
 	const basketList = document.querySelector('.basket__list')
 
 	if (cardList.length === 0) {
@@ -85,40 +89,61 @@ function addContentBasketList() {
 			basketList.append(createBasketListItem(element))
 		})
 	}
-
 }
 
 function createBasketListItem(element) {
+	
 	const basketListItem = document.createElement("li")
 	basketListItem.classList.add("basket__list-item")
 
+	const wrapperPriceAndRemove = createListItemWrapper()
+
+	wrapperPriceAndRemove.append(createListItemPrice(element), createBtnRemoveListItem(element))
+	basketListItem.append(createListItemTitle(element), wrapperPriceAndRemove)
+	return basketListItem
+}
+
+function createListItemTitle(element) {
 	const basketListTitle = document.createElement('div')
 	basketListTitle.classList.add('basket__list-item-title')
 
 	const basketListTitleh5 = document.createElement('h5')
 	basketListTitleh5.textContent = `${element.title}`
 
-	const basketListItemWrapper = document.createElement('div')
-	basketListItemWrapper.classList.add('basket__list-item-wrapper')
+	basketListTitle.append(basketListTitleh5)
 
+	return basketListTitle
+}
+
+function createListItemPrice(element) {
 	const basketListItemPrice = document.createElement('div')
 	basketListItemPrice.classList.add('basket__list-item-price')
 
 	const basketListItemPriceh5 = document.createElement('h5')
 	basketListItemPriceh5.textContent = `${element.price}`
+	
+	basketListItemPrice.append(basketListItemPriceh5)
 
+	return basketListItemPrice
+}
+
+function createListItemWrapper() {
+	const basketListItemWrapper = document.createElement('div')
+	basketListItemWrapper.classList.add('basket__list-item-wrapper')
+
+	return basketListItemWrapper
+}
+
+function createBtnRemoveListItem(element) {
 	const basketListItemBtnRemove = document.createElement('button')
 	basketListItemBtnRemove.classList.add('icon-trash', 'basket__list-item-btn-remove')
 	basketListItemBtnRemove.setAttribute('data-id', `${element.id}`)
-	basketListItemBtnRemove.addEventListener('click', removeBasketItemOnClick)
-	basketListItemPrice.append(basketListItemPriceh5)
-	basketListTitle.append(basketListTitleh5)
-	basketListItemWrapper.append(basketListItemPrice, basketListItemBtnRemove)
-	basketListItem.append(basketListTitle, basketListItemWrapper)
-	return basketListItem
+	
+	basketListItemBtnRemove.addEventListener('click', onRemoveBasketListItem)
+	return basketListItemBtnRemove
 }
 
-function removeBasketItemOnClick(event) {
+function onRemoveBasketListItem(event) {
 	const basketList = document.querySelector('.basket__list')
 
 	if (event.target.classList.contains("basket__list-item-btn-remove")) {
@@ -126,13 +151,12 @@ function removeBasketItemOnClick(event) {
 		removeFromBasketStorage(cardId)
 		event.target.closest(".basket__list-item").remove()
 		getBasketTotalPrice()
-		blabla()
+		outputTotalPrice()
 	}
 	if (basketList.children.length === 0) {
 		addContentBasketList()
 		deleteBtns('none', 'none')
 	}
-
 }
 
 export function removeFromBasketStorage(cardId) {
@@ -151,11 +175,11 @@ function createBtnBasketDltAll() {
 	const basketBtnDltAll = document.createElement('button');
 	basketBtnDltAll.classList.add('basket__btn-delete-all');
 	basketBtnDltAll.innerText = 'Очистить корзину';
-	basketBtnDltAll.addEventListener('click', onClearBasket)
+	basketBtnDltAll.addEventListener('click', onClearAllBasket)
 	basketModal.appendChild(basketBtnDltAll)
 }
 
-function onClearBasket() {
+function onClearAllBasket() {
 	const basketListItems = document.querySelectorAll(".basket__list-item")
 	localStorage.removeItem("basketStore")
 	basketListItems.forEach(element => element.remove())
@@ -171,7 +195,7 @@ function deleteBtns(valueBtnAll, valueFooter) {
 }
 
 function createFooterBasket() {
-	const cardList = tarara()
+	const cardList = createCardListFromBasketStore()
 	const footerBasket = document.createElement('div');
 	footerBasket.classList.add('basket__footer');
 	footerBasket.innerHTML = `
@@ -186,13 +210,12 @@ function createFooterBasket() {
 	if(cardList.length === 0) {
 		deleteBtns('none', 'none')
 	}
-
 }
 
-function blabla() {
-	const price = document.querySelector('.basket__total-price-value')
+function outputTotalPrice() {
+	const totalPrice = document.querySelector('.basket__total-price-value')
 	const num = getBasketTotalPrice()
-	price.innerText = ` ${num} $`
+	totalPrice.innerText = ` ${num} $`
 }
 
 function getBasketTotalPrice() {
@@ -202,7 +225,6 @@ function getBasketTotalPrice() {
 	newCardList.forEach((element) => {
 		basketTotalPrice += element.price
 	})
-	
 	return basketTotalPrice
 }
 
