@@ -65,6 +65,7 @@ async function singIn() {
     } else {
         successAuthentication('.user__login-form', 'Вы вошли \u{1F60A}')
         setTokenStore(userData.token)
+        localStorage.setItem('basketStore', JSON.stringify(userData.orders))
         changeToken()
     }
 }

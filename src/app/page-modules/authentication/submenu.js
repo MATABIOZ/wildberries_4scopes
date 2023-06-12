@@ -14,7 +14,6 @@ userBtn.addEventListener('click', function () {
 })
 
 function checkSubmenuClass() {
-
     if (submenu.classList.contains('user__submenu_active')) {
         userBtn.classList.add('user-btn_active')
         document.addEventListener('click', removeSubmenuClassList)
@@ -22,22 +21,19 @@ function checkSubmenuClass() {
         userBtn.classList.remove('user-btn_active')
         document.removeEventListener('click', removeSubmenuClassList);
     }
-
 }
 
 function removeSubmenuClassList(event) {
-
     if (!submenu.contains(event.target) && !userBtn.contains(event.target) && !userFooterBarBtn.contains(event.target)) {
         submenu.classList.remove('user__submenu_active')
         checkSubmenuClass()
     }
-
 }
 
 submenuBtnClose.addEventListener('click', function () {
     submenu.classList.remove('user__submenu_active')
     checkSubmenuClass()
-});
+})
 
 btnRegistration.addEventListener('click', function () {
     submenu.classList.remove('user__submenu_active')

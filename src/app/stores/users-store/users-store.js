@@ -1,11 +1,11 @@
 import { USER_TOKEN } from "../../core/consts/keys"
 
 function getTokenStore() {
-    return sessionStorage.getItem(`${USER_TOKEN}`)
+    return sessionStorage.getItem(USER_TOKEN)
 }
 
 function removeTokenStore() {
-   return sessionStorage.removeItem(`${USER_TOKEN}`)
+   return sessionStorage.removeItem(USER_TOKEN)
 }
 
 function setTokenStore(value) {

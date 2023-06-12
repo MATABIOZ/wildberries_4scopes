@@ -11,20 +11,20 @@ class AuthenticationApi {
                 body: JSON.stringify({
                     login: login,
                     password: password,
-                    token: token
+                    token: token,
+                    orders: []
                 })
             })
                 .then(response => {
                     if (response.ok) {
                         resolve()
                     } else {
-                        reject(new Error('Failed to set user.'));
+                        reject(new Error('Failed to set user'))
                     }
                 })
                 .catch(error => reject(error))
         })
     }
-
 
     static getUserByLogin(userData) {
         return fetch(this.userUrl)
@@ -40,8 +40,32 @@ class AuthenticationApi {
             .then(response => response.json())
             .then(data => {
                 return data.find(element => userToken === element.token.toString())
+
             })
             .catch(error => { throw error })
+    }
+
+    static async changeUserOrders(userToken, orders) {
+        const userData = await AuthenticationApi.getUserByToken(userToken)       
+        const userId = userData.id
+
+        return fetch(`${this.userUrl}/${userId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                orders: orders
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json()
+            } else {
+                throw new Error('Failed to change user data')
+            }
+        })
+        .catch(error => { throw error })
     }
 }
 
