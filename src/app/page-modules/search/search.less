@@ -1,6 +1,5 @@
 .search {
     position: relative;
-    display: flex;
     align-items: center;
     width: 100%;
     height: 50px;
@@ -13,6 +12,7 @@
     &-btn {
         position: absolute;
         left: 15px;
+        top: 32%;
         .transition(@prop, @time, @ease);
         padding: 3px;
 
@@ -30,11 +30,12 @@
     }
 
     &-btn-close {
-        position: absolute;
-        right: 35px;
         width: 11px;
         height: 11px;
+        top: 40%;
         display: none;
+        position: absolute;
+        right: 32px;
 
         &::before,
         &::after {
@@ -45,6 +46,12 @@
             display: block;
             transform: scale(1, 1);
         }
+    }
+
+    &__list {
+        background-color: @color-white;
+        z-index: 3;
+        position: relative;
     }
 
     input {
