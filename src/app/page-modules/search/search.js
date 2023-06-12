@@ -100,12 +100,3 @@ function selectCardsProduct() {
 }
 
 window.addEventListener('DOMContentLoaded', getCardsForSerch())
-
-// cardsInner.innerHTML = null
-// let filterSearchCards = []
-// dataCards.forEach(element => {
-//   if(element.title.toLowerCase().startsWith(inputValue.toLowerCase())) {
-//    filterSearchCards.push(element)
-//   }
-// })
-// addCards(filterSearchCards)
