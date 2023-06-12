@@ -4,6 +4,7 @@ import { setTokenStore } from '../../stores/users-store/users-store.js'
 import { createForm } from '../../core/utils/authentication/create-form.js'
 import { changeToken } from '../../core/utils/authentication/change-token.js'
 import { successAuthentication } from '../../core/utils/authentication/success-authentication.js'
+import { linkStoreToUserData } from "../../core/utils/order/order.js"
 
 const registrationWrapper = document.querySelector('.user__registration')
 const btnClose = document.querySelector('.user__registration-btn-close')
@@ -16,17 +17,14 @@ function registrationWrapperAddClassActive() {
 }
 
 function checkRegistrationClass() {
-
     if (registrationWrapper.classList.contains('user__registration_active')) {
         document.addEventListener('click', removeRegistrationClassList)
         userBtn.classList.add('user-btn_active')
         document.querySelector('.registration__btn').addEventListener('click', submitForm)
     }
-
 }
 
 function removeRegistrationClassList(event) {
-
     if (!registrationWrapper.contains(event.target) && !btnRegistration.contains(event.target)) {
         registrationWrapper.classList.remove('user__registration_active')
     }
@@ -36,7 +34,6 @@ function removeRegistrationClassList(event) {
         userBtn.classList.remove('user-btn_active')
         resetForm()
     }
-
 }
 
 btnClose.addEventListener('click', function () {
@@ -52,9 +49,7 @@ async function addInputsValues() {
     const errorMessageRegistrationPasswordFirst = document.querySelector('.error-message_registration-password-first')
     const errorMessageRegistrationPasswordSecond = document.querySelector('.error-message_registration-password-second')
 
-    inputs.forEach(element => {
-        values.push(element.value)
-    })
+    inputs.forEach(element => values.push(element.value))
 
     const person = {
         login: values[0],
@@ -85,7 +80,11 @@ async function addInputsValues() {
         AuthenticationApi.setUser(person.login, person.password, person.token)
         .then(() => successAuthentication('.user__registration-form', 'Регистрация прошла успешно \u2705'))
         setTokenStore(person.token)
-        setTimeout(() => changeToken(), 3000)
+
+        setTimeout(() => {
+            changeToken()
+            linkStoreToUserData()
+        } , 3000)
     }
 }
 
@@ -114,8 +113,8 @@ function resetForm() {
         registrationForm.reset()
         document.querySelector('[data-input="1"]').type = 'password'
         document.querySelector('[data-input="2"]').type = 'password'
-        const btnShow1 = document.querySelector('[data-btn="1"]').textContent = 'показать пароль'
-        const btnShow2 = document.querySelector('[data-btn="2"]').textContent = 'показать пароль'
+        document.querySelector('[data-btn="1"]').textContent = 'показать пароль'
+        document.querySelector('[data-btn="2"]').textContent = 'показать пароль'
         resetErrorMessage()
     }
 }

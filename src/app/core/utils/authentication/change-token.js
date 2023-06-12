@@ -11,6 +11,5 @@ export function changeToken() {
         userBtn.classList.add('user-btn_authorized')
     } else {
         userBtn.classList.remove('user-btn_authorized')
-        return null
     }
 }

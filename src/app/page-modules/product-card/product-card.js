@@ -1,4 +1,5 @@
 import { alyaStore, getCards } from "../../core/API/cardsApi.js"
+import { linkStoreToUserData } from "../../core/utils/order/order.js"
 
 // import { updateBasketTotalPrice } from "../basket/basket.js"
 
@@ -102,10 +103,10 @@ function addToBasketClick(event) {
 			if (basketStore) {
 				basketArray = JSON.parse(basketStore)
 			}
-
+			
 			basketArray.push(selectedCard)
-
 			localStorage.setItem("basketStore", JSON.stringify(basketArray))
+			linkStoreToUserData()
 		}
 	}
 }
