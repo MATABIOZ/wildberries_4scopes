@@ -78,7 +78,7 @@ async function addInputsValues() {
         errorMessageRegistrationLogin.textContent = `Пользователь с логином "${person.login}" уже зарегистрирован`
     } else {
         AuthenticationApi.setUser(person.login, person.password, person.token)
-        .then(() => successAuthentication('.user__registration-form', 'Регистрация прошла успешно \u2705'))
+        .then(() => successAuthentication('.user__registration-form', 'Регистрация прошла успешно \u2611'))
         setTokenStore(person.token)
 
         setTimeout(() => {

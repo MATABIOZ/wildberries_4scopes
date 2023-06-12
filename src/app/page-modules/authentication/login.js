@@ -63,7 +63,7 @@ async function singIn() {
         errorMessageLogin.textContent = 'Неверный логин или пароль'
         errorMessagePassword.textContent = 'Неверный логин или пароль'
     } else {
-        successAuthentication('.user__login-form', 'Вы вошли \u{1F60A}')
+        successAuthentication('.user__login-form', 'Вы вошли \u2713')
         setTokenStore(userData.token)
         localStorage.setItem('basketStore', JSON.stringify(userData.orders))
         changeToken()

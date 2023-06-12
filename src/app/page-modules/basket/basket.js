@@ -107,7 +107,7 @@ function createBasketList() {
 	const basketList = document.createElement('ul')
 	basketList.classList.add('basket__list')
 	basketBlock.appendChild(basketList)
-	addContentBasketList('Корзина пуста')
+	addContentBasketList(`\u{2639}<br>Корзина пуста`)
 }
 
 function addContentBasketList(text) {
@@ -115,7 +115,7 @@ function addContentBasketList(text) {
 	const basketList = document.querySelector('.basket__list')
 
 	if (cardList.length === 0) {
-		basketList.textContent = text
+		basketList.innerHTML = text
 	} else {
 		basketList.textContent = null
 		cardList.forEach((element) => {
@@ -182,7 +182,7 @@ function onRemoveBasketListItem(event) {
 	}
 
 	if (basketList.children.length === 0) {
-		addContentBasketList('Корзина пуста')
+		addContentBasketList(`\u{2639}<br>Корзина пуста`)
 		deleteBtns('none', 'none')
 	}
 }
@@ -215,7 +215,7 @@ function onClearAllBasket() {
 	const basketListItems = document.querySelectorAll(".basket__list-item")
 	localStorage.setItem("basketStore", JSON.stringify([]))
 	basketListItems.forEach(element => element.remove())
-	addContentBasketList('Корзина пуста')
+	addContentBasketList(`\u{2639}<br>Корзина пуста`)
 	linkStoreToUserData()
 	deleteBtns('none', 'none')
 }
