@@ -20,4 +20,13 @@ function getCards() {
 		})
 }
 
-export { alyaStore, getCards }
+async function getDataCards() {
+	return await fetch("https://646f451109ff19b12086e48a.mockapi.io/wildberries/cards")
+		.then(response => response.json())
+		.then((arrayElements) => {
+			return arrayElements
+			})
+		.catch(error => { throw error })
+}
+
+export { alyaStore, getCards, getDataCards }

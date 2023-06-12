@@ -6,3 +6,4 @@ import { login } from "./page-modules/authentication/export-authentication";
 import { basket } from "./page-modules/basket/export-basket";
 import { slider } from "./page-modules/slider/export-slider";
 import { sliderSwiper } from "./page-modules/slider/export-slider";
+import { search } from "./page-modules/search/export-search";
