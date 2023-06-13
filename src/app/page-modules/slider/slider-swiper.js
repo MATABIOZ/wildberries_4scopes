@@ -18,5 +18,7 @@ export function loadContent() {
     },
   
     speed: 1500
+
+    
   });
 }
