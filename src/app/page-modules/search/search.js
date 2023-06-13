@@ -1,5 +1,5 @@
-import { alyaStore, getCards, getDataCards } from "../../core/API/cardsApi";
-import { addCards } from "../product-card/product-card";
+import { getDataCards } from "../../core/API/cardsApi.js";
+import { addCards } from "../product-card/product-card.js";
 
 const searchWrapper = document.querySelector(".search");
 const inputBox = document.querySelector(".search__input");
@@ -8,7 +8,25 @@ const cardsInner = document.querySelector('.cards__inner')
 let dataCards
 let titleData = []
 
+inputBox.addEventListener('input', onEnter)
 
+function checkSearchListItems() {
+   let searchList = document.querySelector('.search__list')
+
+   if (searchList) {
+      document.addEventListener('click', removeSearchList)
+   } 
+}
+
+function removeSearchList(event) {
+   if (event.target !== inputBox) {
+      let searchList = document.querySelector('.search__list');
+      if (searchList) {
+         searchList.remove();
+      }
+      document.removeEventListener('click', removeSearchList);
+   }
+}
 
 async function getCardsForSerch() {
    dataCards = await getDataCards()
@@ -20,9 +38,6 @@ async function getCardsForSerch() {
    })
 }
 
-
-inputBox.addEventListener('input', onEnter)
-
 function onEnter(event) {
    let inputValue = event.target.value
    let sameArray = titleData.filter(data => {
@@ -33,6 +48,7 @@ function onEnter(event) {
    if (!inputValue) {
       if (searchList) {
          searchList.remove()
+         checkSearchListItems()
       }
       return
    }
@@ -41,45 +57,14 @@ function onEnter(event) {
       searchList = document.createElement('ul')
       searchList.classList.add('search__list')
       searchWrapper.appendChild(searchList)
+      checkSearchListItems()
    } else {
-      searchList.innerHTML = ""
+      searchList.innerHTML = null
    }
-
-
-
-   searchBtn.addEventListener('click', onSearchElements)
-   inputBox.addEventListener('keyup', event => {
-      if (event.code === 'Enter') {
-         onSearchElements()
-      }
-   })
-   function onSearchElements() {
-      cardsInner.innerHTML = null
-      let filterSearchCards = []
-      dataCards.forEach(element => {
-         if (element.title.toLowerCase().startsWith(inputValue.toLowerCase())) {
-            filterSearchCards.push(element)
-         }
-      })
-      addCards(filterSearchCards)
-   }
-
-
-
-
-   createSearchList(sameArray, searchList)
-}
-
-
-
-function createSearchList(suggestions, searchList) {
-   suggestions.forEach(text => {
-      const searchListItem = document.createElement('li')
-      searchListItem.classList.add('search__list-item')
-      searchListItem.textContent = text
-      searchList.appendChild(searchListItem)
-      selectCardsProduct()
-   })
+   
+   onCklickEventEnter(inputValue)
+   searchBtn.addEventListener('click', () => onSearchElements(inputValue))
+   createElemnetsSearchList(sameArray, searchList)
 }
 
 function selectCardsProduct() {
@@ -89,14 +74,48 @@ function selectCardsProduct() {
          cardsInner.innerHTML = null
          const category = event.target.textContent
          let filterSearchCards = []
+
          dataCards.forEach(element => {
             if (element.title.toLowerCase() === category.toLowerCase()) {
                filterSearchCards.push(element)
             }
          })
+
          addCards(filterSearchCards)
       })
    })
 }
 
-window.addEventListener('DOMContentLoaded', getCardsForSerch())
+function onCklickEventEnter(value) {
+   inputBox.addEventListener('keyup', event => {
+      if (event.code === 'Enter') {
+         onSearchElements(value)
+         removeSearchList({ target: document })
+      }
+   })
+}
+
+
+function onSearchElements(value) {
+   cardsInner.innerHTML = null
+   let filterSearchCards = []
+   dataCards.forEach(element => {
+
+      if (element.title.toLowerCase().startsWith(value.toLowerCase())) {
+         filterSearchCards.push(element)
+      }
+   })
+   addCards(filterSearchCards)
+}
+
+function createElemnetsSearchList(suggestions, searchList) {
+   suggestions.forEach(text => {
+      const searchListItem = document.createElement('li')
+      searchListItem.classList.add('search__list-item')
+      searchListItem.textContent = text
+      searchList.appendChild(searchListItem)
+      selectCardsProduct()
+   })
+}
+
+window.addEventListener('DOMContentLoaded', getCardsForSerch)
