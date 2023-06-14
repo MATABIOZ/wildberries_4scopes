@@ -1,5 +1,4 @@
 .cards {
-	background-color: @color-parchment;
 	padding: 70px 15px 0;
 	display: flex;
 	
@@ -28,17 +27,18 @@
 		font-weight: 600;
 		font-size: 18px;
 		line-height: 25px;
-		border: 3px solid rgba(137, 125, 63, 0.2);
+		border: 3px solid @color-translucent-black;
 		border-radius: 5px;
 		color: @color-translucent-black;
+		.transition (@prop, @time, @ease); 
 
 		&:hover {
 			color: @color-black;
-			border: 3px solid @color-pale-oyster;
+			border: 3px solid @color-mine-shaft;
 		}
 
 		&:active {
-			border: 3px solid rgba(137, 125, 63, 0.2);
+			border: 3px solid @color-translucent-black;
 			color: @color-transparent-black;
 		}
 	}
@@ -80,7 +80,7 @@
 		opacity: 0;
 		border: none;
 		background: @color-nobel;
-		transition: all ease-in-out .2s;
+		.transition (@prop, 0.5s, ease-in-out); 
 		font-weight: 400;
 		font-size: 14px;
 		line-height: 16px;
@@ -158,7 +158,7 @@
 		line-height: 22px;
 		color: @color-white;
 		cursor: pointer;
-		transition: all ease-in-out .2s;
+		.transition (@prop, @time, ease-in-out); 
 
 		&:hover {
 			background-color: transparent;

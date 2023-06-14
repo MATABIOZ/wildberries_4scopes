@@ -205,7 +205,7 @@ export function removeFromBasketStorage(cardId) {
 
 function createBtnBasketDltAll() {
 	const basketBtnDltAll = document.createElement('button');
-	basketBtnDltAll.classList.add('basket__btn-delete-all');
+	basketBtnDltAll.classList.add('btn', 'basket__btn-delete-all');
 	basketBtnDltAll.innerText = 'Очистить корзину';
 	basketBtnDltAll.addEventListener('click', onClearAllBasket)
 	basketModal.appendChild(basketBtnDltAll)
