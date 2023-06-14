@@ -1,6 +1,7 @@
 
 .footer {
-    background-color: @color-transparent-sycamore;
+    background-color: @color-alto-transparent;
+    border-top: 1px solid @color-more-translucent-black;
 
   .container {
     padding: 0 15px;
@@ -35,24 +36,43 @@
       }
     }  
   }
+  
+  &__content-wrapper-cust,
+  &__content-wrapper-comp {
+    display: flex;
+  }
 
   &__content-title {
     margin-bottom: 15px;
 
-    h4 {
-      font-family: 'Roboto';
-      font-weight: 600;
-      font-size: 18px;
-      line-height: 21px;
-    }
+    font-family: 'Roboto';
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 21px;
   }
 
-  &__content-list-item {
-    text-decoration: none;
-    color: @color-black;
+  .icon-arrow-down-cust,
+  .icon-arrow-down-comp {
+    display: none;
+    background-image: url('../../../assets/icons/arrow_down.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 36px;
+    height: 36px;
+  }
 
-    h5 {
+  &__content-list {
+
+    li {
       margin-bottom: 15px;
+    }
+
+    &-item {
+      text-decoration: none;
+      color: @color-black;
+
+      //margin-bottom: 15px;
       font-family: 'Roboto';
       font-weight: 400;
       font-size: 16px;
@@ -66,30 +86,32 @@
         color: @color-link-aktive;
       }
     }
-  }
- 
+  }  
+
   &__btn-up {
     margin-top: 12px;
-
+    width: 50px;
+    height: 50px;
+    border: 1px solid @color-translucent-black;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .transition (@prop, @time, @ease); 
+    cursor: pointer;
+  
+    &:hover {
+      border: 1px solid @color-black;
+    }
+  
     .icon-arrow-up {
       text-decoration: none;
       color: @color-black;
       font-size: 26px;
-      padding: 12px 15px;
-      border: 1px solid @color-black;
-      border-radius: 5px;
-
+      
       &::before {
         width: 20px;
         height: 26px;
-      }
-
-      &:hover {
-        background-color: @color-tapa;
-      }
-
-      &:active {
-        background-color: @color-link-aktive;
       }
     }
   }
@@ -170,8 +192,25 @@
       padding: 0 15px 0 80px;
     }
 
+    .icon-arrow-down-cust,
+    .icon-arrow-down-comp {
+      display: block;
+      /*&_active {
+        background-image: url();
+      }*/
+    }
+   
     &__content.company {
       padding: 0 45px 0 0;
+    }
+
+    .order-list,
+    .company-list {
+      display: none;
+
+      &_active {
+        display: block;
+      }
     }
 
     &__btn-up {
