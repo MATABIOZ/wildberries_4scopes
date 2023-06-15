@@ -7,3 +7,4 @@ import { basket } from "./page-modules/basket/export-basket";
 import { slider } from "./page-modules/slider/export-slider";
 import { sliderSwiper } from "./page-modules/slider/export-slider";
 import { search } from "./page-modules/search/export-search";
+import { footer } from "./page-modules/footer/export-footer";

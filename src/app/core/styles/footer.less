@@ -36,24 +36,40 @@
       }
     }  
   }
-
-  &__content-title {
-    margin-bottom: 15px;
-
-    h4 {
-      font-family: 'Roboto';
-      font-weight: 600;
-      font-size: 18px;
-      line-height: 21px;
-    }
+  
+  &__content-wrapper-cust,
+  &__content-wrapper-comp {
+    display: flex;
   }
 
-  &__content-list-item {
-    text-decoration: none;
-    color: @color-black;
+  &__content-title {
+    margin: 12px 0;
+    font-family: 'Roboto';
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 21px;
+  }
 
-    h5 {
+  .icon-arrow-down-cust,
+  .icon-arrow-down-comp {
+    display: none;
+    background-image: url('../../../assets/icons/arrow_down.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 36px;
+    height: 36px;
+  }
+
+  &__content-list {
+
+    li {
       margin-bottom: 15px;
+    }
+
+    &-item {
+      text-decoration: none;
+      color: @color-black;
       font-family: 'Roboto';
       font-weight: 400;
       font-size: 16px;
@@ -67,8 +83,8 @@
         color: @color-link-aktive;
       }
     }
-  }
- 
+  }  
+
   &__btn-up {
     margin-top: 12px;
     width: 50px;
@@ -80,11 +96,11 @@
     justify-content: center;
     .transition (@prop, @time, @ease); 
     cursor: pointer;
-
+  
     &:hover {
       border: 1px solid @color-black;
     }
-
+  
     .icon-arrow-up {
       text-decoration: none;
       color: @color-black;
@@ -171,10 +187,33 @@
 
     &__content {
       padding: 0 15px 0 80px;
+
+      &-wrapper-cust,
+      &-wrapper-comp {
+        width: 270px;
+        display: flex;
+        justify-content: space-between;
+      }
     }
 
-    &__content.company {
-      padding: 0 45px 0 0;
+    .icon-arrow-down-cust,
+    .icon-arrow-down-comp {
+      display: block;
+      margin-top: 8px;
+
+      &_active {
+        background-image: url(../../../assets/icons/arrow_up.svg);
+      }
+    }
+  
+    .order-list,
+    .company-list {
+      display: none;
+
+      &_active {
+        width: 250px;
+        display: block;
+      }
     }
 
     &__btn-up {
