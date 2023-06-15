@@ -14,6 +14,7 @@ function createImageInner(url, alt) {
     const image = document.createElement('img')
     image.alt = alt
     image.src = url
+    image.loading = 'eager';
     imageInner.append(image)
     createSlider(imageInner)
 }
