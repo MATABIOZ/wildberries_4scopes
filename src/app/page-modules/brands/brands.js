@@ -3,7 +3,7 @@ import {BrandApi} from '../../core/API/brandsApi.js'
 const brandWrapper = document.querySelector('.brand__wrapper')
 
 function crtImg(url, altValue) {
-    const imagesInner = document.createElement('div');
+    const imagesInner = document.createElement('a');
     imagesInner.classList.add('brand__inner');
     const img = document.createElement('img');
     img.src = url
