@@ -3,10 +3,25 @@
         padding: 40px 0;
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 40px;
+        row-gap: 40px;
+        column-gap: 20px;
+        justify-content: space-between;
         margin: 0;
+        
+        @media screen and(@max768) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        @media screen and(@max576) {
+            grid-template-columns: repeat(2, 1fr);
+        }
 
         .brand__inner {
+            cursor: pointer;
+            .transition (@prop, @time, @ease);
+            
+            &:hover {
+                transform: scale(1.1, 1.1);
+            }
             img {
                 margin: 0 auto;
             }

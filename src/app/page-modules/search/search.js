@@ -95,7 +95,6 @@ function onCklickEventEnter(value) {
    })
 }
 
-
 function onSearchElements(value) {
    cardsInner.innerHTML = null
    let filterSearchCards = []
