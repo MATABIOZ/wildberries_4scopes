@@ -1,5 +1,6 @@
 import { alyaStore, getCards } from "../../core/API/cardsApi.js"
 import { linkStoreToUserData } from "../../core/utils/order/order.js"
+import { hiddenCards } from "../../core/utils/cards/show-more.js"
 
 // import { updateBasketTotalPrice } from "../basket/basket.js"
 
@@ -9,6 +10,8 @@ export function addCards(arrayElements) {
 	for (let element of arrayElements) {
 		cardsBox.appendChild(createCardElement(element))
 	}
+
+	hiddenCards()
 }
 
 function createCardElement(element) {

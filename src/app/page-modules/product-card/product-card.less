@@ -53,6 +53,13 @@
 	background-color: @color-white;
 	box-shadow: 3px 4px 4px 3px @color-translucent-black;
 	max-width: 260px;
+	display: none;
+	opacity: 0;
+	.transition (@prop, @time, @ease);
+
+	&_active {
+		display: block;
+	}
 
 	&__view {
 		display: flex;
