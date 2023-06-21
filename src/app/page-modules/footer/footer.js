@@ -1,13 +1,10 @@
 const footerOrderList = document.querySelector('.order-list')
-
 const footerCompanyList = document.querySelector('.company-list');
-
 const footerContentWrapCust = document.querySelector('.footer__content-wrapper-cust')
 const footerContentWrapComp = document.querySelector('.footer__content-wrapper-comp')
-
 const iconArrowCust = document.querySelector('.icon-arrow-down-cust')
 const iconArrowComp = document.querySelector('.icon-arrow-down-comp')
-
+const footerBtnUp = document.querySelector('.footer__btn-up')
 
 footerContentWrapCust.addEventListener('click', onOrderTitle);
 
@@ -36,10 +33,22 @@ function onCompanyTitle() {
     } 
 }
 
-function removeList(list, arrow, activeList, arrowActive) {
+function removeList(list, arrow, activeList, activeArrow) {
     if (list.classList.contains(activeList)) {
             
         list.classList.remove(activeList)
-        arrow.classList.remove(arrowActive);
+        arrow.classList.remove(activeArrow);
+    }
+}
+
+window.addEventListener('scroll', scrollDocument)
+
+function scrollDocument() {
+    const offset = window.scrollY;
+    const coords = document.documentElement.clientHeight;
+
+    if(offset > coords) {
+        footerBtnUp.classList.add('footer__btn-up_active')
+        setTimeout(()=> footerBtnUp.classList.remove('footer__btn-up_active'), 5000)
     }
 }
