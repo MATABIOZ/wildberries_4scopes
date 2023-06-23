@@ -1,7 +1,7 @@
 import { addCards } from "../product-card/product-card.js";
 import { getDataCards } from "../../core/API/cardsApi.js";
 import { checkSidebarClass } from "../burger/burger.js";
-import { setBodyStyles } from "../burger/burger.js";
+import { setBodyStyles } from "../../core/utils/hide-scroll.js";
 
 const sidebarList = document.querySelector('.sidebar__list')
 const sidebar = document.querySelector('.sidebar')

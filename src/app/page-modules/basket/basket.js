@@ -1,7 +1,7 @@
 import { linkStoreToUserData } from "../../core/utils/order/order.js"
 import { getTokenStore } from "../../stores/users-store/users-store.js"
-import { setBodyStyles } from "../burger/burger.js"
 import { checkSubmenuClass } from "../authentication/submenu.js"
+import { setBodyStyles } from "../../core/utils/hide-scroll.js"
 
 const basketModal = document.querySelector('.basket__modal')
 const footerBarBasketBtn = document.querySelector(".footer-bar__basket-btn")
