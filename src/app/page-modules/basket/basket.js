@@ -1,6 +1,7 @@
 import { linkStoreToUserData } from "../../core/utils/order/order.js"
 import { getTokenStore } from "../../stores/users-store/users-store.js"
 import { setBodyStyles } from "../burger/burger.js"
+import { checkSubmenuClass } from "../authentication/submenu.js"
 
 const basketModal = document.querySelector('.basket__modal')
 const footerBarBasketBtn = document.querySelector(".footer-bar__basket-btn")
@@ -255,12 +256,14 @@ function toDoOrder() {
 	if(!userStore) {
 		basketModal.classList.remove('basket__modal_active')
 		submenu.classList.add('user__submenu_active')
+		checkSubmenuClass()
 	} else {
 		localStorage.setItem('basketStore' , JSON.stringify([]))
 		linkStoreToUserData()
 		deleteBtns('none', 'none')
 		addContentBasketList('Заказ успешно создан \u{1F4E6}')
 	}
+	
 }
 
 function outputTotalPrice() {

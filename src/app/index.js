@@ -9,3 +9,4 @@ import { sliderSwiper } from "./page-modules/slider/export-slider";
 import { search } from "./page-modules/search/export-search";
 import { footer } from "./page-modules/footer/export-footer";
 import { brands } from "./page-modules/brands/export-brands";
+import { sidebar } from "./page-modules/sidebar/sidebar-export";
