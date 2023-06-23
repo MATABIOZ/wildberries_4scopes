@@ -7,6 +7,7 @@ const searchBtn = document.querySelector('.search-btn')
 const cardsInner = document.querySelector('.cards__inner')
 let dataCards
 let titleData = []
+let brandData = []
 
 inputBox.addEventListener('input', onEnter)
 
@@ -32,17 +33,28 @@ async function getCardsForSerch() {
    dataCards = await getDataCards()
 
    dataCards.forEach(element => {
+
       if (!titleData.includes(element.title)) {
          titleData.push(element.title)
+      }
+
+      if (!brandData.includes(element.brand)) {
+         brandData.push(element.brand)
       }
    })
 }
 
 function onEnter(event) {
    let inputValue = event.target.value
-   let sameArray = titleData.filter(data => {
-      return data.toLowerCase().startsWith(inputValue.toLowerCase())
+   let titleDataArray = titleData.filter(data => {
+      return data.toLowerCase().startsWith(inputValue.toLowerCase())   
+
    })
+
+   let brandDataArray = brandData.filter(data => {
+       return data.toLowerCase().startsWith(inputValue.toLowerCase())  
+   })
+
    let searchList = document.querySelector('.search__list')
 
    if (!inputValue) {
@@ -64,7 +76,8 @@ function onEnter(event) {
    
    onCklickEventEnter(inputValue)
    searchBtn.addEventListener('click', () => onSearchElements(inputValue))
-   createElemnetsSearchList(sameArray, searchList)
+   createElemnetsSearchList(titleDataArray, searchList)
+   createElemnetsSearchList(brandDataArray, searchList)
 }
 
 function selectCardsProduct() {
@@ -76,7 +89,12 @@ function selectCardsProduct() {
          let filterSearchCards = []
 
          dataCards.forEach(element => {
+
             if (element.title.toLowerCase() === category.toLowerCase()) {
+               filterSearchCards.push(element)
+            }
+
+            if (element.brand.toLowerCase() === category.toLowerCase()) {
                filterSearchCards.push(element)
             }
          })

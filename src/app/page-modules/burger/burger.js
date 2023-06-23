@@ -59,4 +59,4 @@ closeBtn.addEventListener('click', function () {
     }
 })
 
-export { setBodyStyles }
+export { setBodyStyles, checkSidebarClass }

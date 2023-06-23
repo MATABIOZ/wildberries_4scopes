@@ -24,7 +24,10 @@ function checkSubmenuClass() {
 }
 
 function removeSubmenuClassList(event) {
-    if (!submenu.contains(event.target) && !userBtn.contains(event.target) && !userFooterBarBtn.contains(event.target)) {
+    if (!submenu.contains(event.target) 
+    && !userBtn.contains(event.target) 
+    && !userFooterBarBtn.contains(event.target)
+    && !event.target.classList.contains('basket__btn-order')) {
         submenu.classList.remove('user__submenu_active')
         checkSubmenuClass()
     }
@@ -47,4 +50,4 @@ btnLogin.addEventListener('click', function () {
     loginWrapperAddClassActive()
 })
 
-export { checkSubmenuClass } 
+export { checkSubmenuClass, removeSubmenuClassList } 
