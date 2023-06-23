@@ -28,6 +28,7 @@
 
         &:hover {
           color: @color-tapa;
+          .transition (@prop, @time, @ease);
         }
 
         &:active {
@@ -77,6 +78,7 @@
 
       &:hover {
         color: @color-tapa;
+        .transition (@prop, @time, @ease);
       }
 
       &:active {
@@ -89,7 +91,7 @@
     margin-top: 12px;
     width: 50px;
     height: 50px;
-    border: 1px solid @color-translucent-black;
+    background-color: @color-pink-swan;
     border-radius: 5px;
     display: flex;
     align-items: center;
@@ -98,7 +100,11 @@
     cursor: pointer;
   
     &:hover {
-      border: 1px solid @color-black;
+      background-color: @color-natural-gray;
+      
+      @media screen and (@max576) {
+        background-color: @color-pink-swan;
+      }
     }
   
     .icon-arrow-up {
@@ -124,7 +130,12 @@
     }
 
     &__social-list {
+      display: flex;
+      flex-direction: column;
+
       &-item {
+        margin: 7px 0;
+
         .icon-facebook,
         .icon-instagram,
         .icon-twitter,
@@ -135,28 +146,25 @@
     }
 
     &__content {
-      padding: 0 15px;
+      margin-left: 20px;
     }
   } 
 }
 
-@media screen and (@max768) {
-
+ @media screen and (@max680) {
   .footer {
-    &__social-list {
-      display: flex;
-      flex-direction: column;
+    &__btn-up {
+      position: fixed;
+      bottom: 75px;
+      right: 20px;
+      opacity: 0;
 
-      &-item {
-        margin: 7px 0;
-      }    
-    }
-
-    &__content {
-      padding: 0 15px 0 30px;
+      &_active {
+        opacity: 1;
+      }
     }
   }
-}  
+}
 
 @media screen and (@max576) {
 
@@ -177,7 +185,7 @@
       flex-direction: row;
     }  
 
-    span {
+    .divider {
       margin: 20px 0;
       width: 100%;
       height: 3px;
@@ -215,10 +223,6 @@
         display: block;
       }
     }
-
-    &__btn-up {
-      display: none;
-    }
   }
 } 
 
@@ -234,7 +238,7 @@
     }
 
     &__content.company {
-      padding: 0 0 0 20px;
+      padding-left: 20px;
     }
   }
 }
