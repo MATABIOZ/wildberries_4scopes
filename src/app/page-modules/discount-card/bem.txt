@@ -1,2 +1,0 @@
-.discounts__link
-	.discounts__img

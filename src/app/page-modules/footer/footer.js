@@ -49,6 +49,6 @@ function scrollDocument() {
 
     if(offset > coords) {
         footerBtnUp.classList.add('footer__btn-up_active')
-        setTimeout(()=> footerBtnUp.classList.remove('footer__btn-up_active'), 5000)
+        setTimeout(()=> footerBtnUp.classList.remove('footer__btn-up_active'), 3000)
     }
 }
