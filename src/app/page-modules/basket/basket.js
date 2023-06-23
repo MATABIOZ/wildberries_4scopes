@@ -149,7 +149,7 @@ function createListItemPrice(element) {
 	const basketListItemPrice = document.createElement('div')
 	basketListItemPrice.classList.add('basket__list-item-price')
 	const basketListItemPriceh5 = document.createElement('h5')
-	basketListItemPriceh5.textContent = `${element.price}`
+	basketListItemPriceh5.textContent = `${element.price + "$"}`
 	basketListItemPrice.append(basketListItemPriceh5)
 
 	return basketListItemPrice
