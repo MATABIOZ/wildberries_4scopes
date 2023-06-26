@@ -1,11 +1,9 @@
-import { getTokenStore } from "../../../stores/users-store/users-store.js"
 import { AuthenticationApi } from "../../API/authenticationApi.js"
 import { singOut } from "./singOut.js"
 
 const submenu = document.querySelector('.user__submenu')
 
-export async function userAuthorized() {
-    const token = getTokenStore()
+export async function userAuthorized(token) {
     const userData = await AuthenticationApi.getUserByToken(token)
     if (userData) {
         const allSubmenuChildren = submenu.children

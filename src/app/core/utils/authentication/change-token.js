@@ -7,7 +7,7 @@ export function changeToken() {
     const token = getTokenStore()
 
     if (token) {
-        userAuthorized()
+        userAuthorized(token)
         userBtn.classList.add('user-btn_authorized')
     } else {
         userBtn.classList.remove('user-btn_authorized')

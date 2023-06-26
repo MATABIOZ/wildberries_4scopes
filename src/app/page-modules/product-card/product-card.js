@@ -1,6 +1,6 @@
-import { alyaStore, getCards } from "../../core/API/cardsApi.js"
 import { linkStoreToUserData } from "../../core/utils/order/order.js"
 import { hiddenCards } from "../../core/utils/cards/show-more.js"
+import { CardsStore } from "../../stores/cards-store/cards-store.js";
 
 const cardsBox = document.querySelector(".cards__inner")
 
@@ -71,7 +71,7 @@ function createCardModal(element) {
 function quickViewClick(event) {
 	if (event.target.classList.contains("card__btn-quick-view")) {
 		const cardId = event.target.dataset.id
-		const selectedCard = alyaStore.find((card) => card.id === cardId)
+		const selectedCard = CardsStore.getSelectedCard(cardId)
 		if (selectedCard) {
 			const clonedCard = createCardModal(selectedCard)
 			cardsBox.appendChild(clonedCard)
@@ -92,7 +92,7 @@ function addToBasketClick(event) {
 		event.target.classList.contains("card-modal__btn-add-basket")
 	) {
 		const cardId = event.target.dataset.id
-		const selectedCard = alyaStore.find((card) => card.id === cardId)
+		const selectedCard = CardsStore.getSelectedCard(cardId)
 		if (selectedCard) {
 			let basketStore = localStorage.getItem("basketStore")
 			let basketArray = []
@@ -148,7 +148,6 @@ function cardTitleClick(event) {
 	}
 }
 
-window.addEventListener("DOMContentLoaded", getCards)
 cardsBox.addEventListener("click", quickViewClick)
 cardsBox.addEventListener("click", addToBasketClick)
 cardsBox.addEventListener("click", cardTitleClick)

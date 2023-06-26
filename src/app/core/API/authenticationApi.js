@@ -46,17 +46,17 @@ class AuthenticationApi {
     }
 
     static async changeUserOrders(userToken, orders) {
-        const userData = await AuthenticationApi.getUserByToken(userToken)       
+        const userData = await this.getUserByToken(userToken)       
         const userId = userData.id
 
+        userData.orders = orders
+
         return fetch(`${this.userUrl}/${userId}`, {
-            method: 'PATCH',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                orders: orders
-            })
+            body: JSON.stringify(userData)
         })
         .then(response => {
             if (response.ok) {
