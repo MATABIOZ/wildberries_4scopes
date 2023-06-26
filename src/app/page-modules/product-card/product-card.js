@@ -1,6 +1,7 @@
 import { linkStoreToUserData } from "../../core/utils/order/order.js"
 import { hiddenCards } from "../../core/utils/cards/show-more.js"
 import { CardsStore } from "../../stores/cards-store/cards-store.js";
+import { AlertService } from "../../core/services/alert-service/alertService.js";
 
 const cardsBox = document.querySelector(".cards__inner")
 
@@ -104,6 +105,8 @@ function addToBasketClick(event) {
 			basketArray.push(selectedCard)
 			localStorage.setItem("basketStore", JSON.stringify(basketArray))
 			linkStoreToUserData()
+
+			AlertService.access("Товар добавлен в корзину")
 		}
 	}
 }

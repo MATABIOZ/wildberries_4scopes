@@ -2,6 +2,7 @@ import { linkStoreToUserData } from "../../core/utils/order/order.js"
 import { getTokenStore } from "../../stores/users-store/users-store.js"
 import { checkSubmenuClass } from "../authentication/submenu.js"
 import { setBodyStyles } from "../../core/utils/hide-scroll.js"
+import { AlertService } from "../../core/services/alert-service/alertService.js"
 
 const basketModal = document.querySelector('.basket__modal')
 const footerBarBasketBtn = document.querySelector(".footer-bar__basket-btn")
@@ -178,6 +179,7 @@ function onRemoveBasketListItem(event) {
 		const cardId = event.target.dataset.id
 		removeFromBasketStorage(cardId)
 		event.target.closest(".basket__list-item").remove()
+		AlertService.warning("Товар удалён из корзины")
 		getBasketTotalPrice()
 		outputTotalPrice()
 	}
@@ -218,6 +220,7 @@ function onClearAllBasket() {
 	basketListItems.forEach(element => element.remove())
 	addContentBasketList(`\u{2639}<br>Корзина пуста`)
 	linkStoreToUserData()
+	AlertService.warning("Корзина очищена!")
 	deleteBtns('none', 'none')
 }
 
