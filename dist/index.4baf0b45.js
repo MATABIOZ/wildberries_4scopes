@@ -678,7 +678,7 @@ cardsBox.addEventListener("click", cardTitleClick);
 cardsBox.addEventListener("click", removeAllFromBasketClick);
 cardsBox.addEventListener("click", removeCardModal);
 
-},{"../../core/utils/order/order.js":"j9F6e","../../core/utils/cards/show-more.js":"8qr3A","../../stores/cards-store/cards-store.js":"ksauc","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../core/services/alert-service/alertService.js":"cq7m8"}],"j9F6e":[function(require,module,exports) {
+},{"../../core/utils/order/order.js":"j9F6e","../../core/utils/cards/show-more.js":"8qr3A","../../stores/cards-store/cards-store.js":"ksauc","../../core/services/alert-service/alertService.js":"cq7m8","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"j9F6e":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "linkStoreToUserData", ()=>linkStoreToUserData);
