@@ -1469,7 +1469,7 @@ function getBasketTotalPrice() {
 }
 document.addEventListener("DOMContentLoaded", init);
 
-},{"../../core/utils/order/order.js":"j9F6e","../../stores/users-store/users-store.js":"5mRkp","../authentication/submenu.js":"9nm5y","../../core/utils/hide-scroll.js":"jl5TS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../core/services/alert-service/alertService.js":"cq7m8"}],"lPyde":[function(require,module,exports) {
+},{"../../core/utils/order/order.js":"j9F6e","../../stores/users-store/users-store.js":"5mRkp","../authentication/submenu.js":"9nm5y","../../core/utils/hide-scroll.js":"jl5TS","../../core/services/alert-service/alertService.js":"cq7m8","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lPyde":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "slider", ()=>_sliderJs);
