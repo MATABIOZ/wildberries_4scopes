@@ -1,10 +1,10 @@
-import { getTokenStore } from "../../../stores/users-store/users-store.js"
+import { UsersStore } from "../../../stores/users-store/users-store.js"
 import { userAuthorized } from "./authorized.js"
 
 const userBtn = document.querySelector('.user-btn')
 
 export function changeToken() {
-    const token = getTokenStore()
+    const token = UsersStore.getTokenStore()
 
     if (token) {
         userAuthorized(token)

@@ -32,7 +32,7 @@ function removeSearchList(event) {
 async function getCardsForSerch() {
     dataCards = await getDataCards();
 
-    addCards(dataCards);
+    addCards(dataCards)
 
     dataCards.forEach((element) => {
         if (!titleData.includes(element.title)) {
@@ -42,18 +42,18 @@ async function getCardsForSerch() {
         if (!brandData.includes(element.brand)) {
             brandData.push(element.brand);
         }
-    });
+    })
 }
 
 function onEnter(event) {
     let inputValue = event.target.value;
     let titleDataArray = titleData.filter((data) => {
         return data.toLowerCase().startsWith(inputValue.toLowerCase());
-    });
+    })
 
     let brandDataArray = brandData.filter((data) => {
         return data.toLowerCase().startsWith(inputValue.toLowerCase());
-    });
+    })
 
     let searchList = document.querySelector(".search__list");
 
@@ -96,41 +96,43 @@ function selectCardsProduct() {
                 if (element.brand.toLowerCase() === category.toLowerCase()) {
                     filterSearchCards.push(element);
                 }
-            });
+            })
 
             addCards(filterSearchCards);
-        });
-    });
+        })
+    })
 }
 
 function onCklickEventEnter(value) {
     inputBox.addEventListener("keyup", (event) => {
         if (event.code === "Enter") {
-            onSearchElements(value);
-            removeSearchList({ target: document });
+            onSearchElements(value)
+            removeSearchList({ target: document })
         }
-    });
+    })
 }
 
 function onSearchElements(value) {
-    cardsInner.innerHTML = null;
-    let filterSearchCards = [];
+    cardsInner.innerHTML = null
+    let filterSearchCards = []
+
     dataCards.forEach((element) => {
         if (element.title.toLowerCase().startsWith(value.toLowerCase())) {
-            filterSearchCards.push(element);
+            filterSearchCards.push(element)
         }
-    });
-    addCards(filterSearchCards);
+    })
+
+    addCards(filterSearchCards)
 }
 
 function createElemnetsSearchList(suggestions, searchList) {
     suggestions.forEach((text) => {
         const searchListItem = document.createElement("li");
         searchListItem.classList.add("search__list-item");
-        searchListItem.textContent = text;
-        searchList.appendChild(searchListItem);
+        searchListItem.textContent = text
+        searchList.appendChild(searchListItem)
         selectCardsProduct();
-    });
+    })
 }
 
 window.addEventListener("DOMContentLoaded", getCardsForSerch);

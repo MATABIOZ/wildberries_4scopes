@@ -6,7 +6,8 @@ const iconArrowCust = document.querySelector('.icon-arrow-down-cust')
 const iconArrowComp = document.querySelector('.icon-arrow-down-comp')
 const footerBtnUp = document.querySelector('.footer__btn-up')
 
-footerContentWrapCust.addEventListener('click', onOrderTitle);
+footerContentWrapCust.addEventListener('click', onOrderTitle)
+footerContentWrapComp.addEventListener('click', onCompanyTitle)
 
 function onOrderTitle() {
     if (!footerOrderList.classList.contains('order-list_active')) {
@@ -19,7 +20,6 @@ function onOrderTitle() {
         iconArrowCust.classList.remove('icon-arrow-down-cust_active')
     }
 }
-footerContentWrapComp.addEventListener('click', onCompanyTitle);
 
 function onCompanyTitle() {
     if (!footerCompanyList.classList.contains('company-list_active')) {
@@ -41,8 +41,6 @@ function removeList(list, arrow, activeList, activeArrow) {
     }
 }
 
-window.addEventListener('scroll', scrollDocument)
-
 function scrollDocument() {
     const offset = window.scrollY;
     const coords = document.documentElement.clientHeight;
@@ -52,3 +50,5 @@ function scrollDocument() {
         setTimeout(()=> footerBtnUp.classList.remove('footer__btn-up_active'), 3000)
     }
 }
+
+window.addEventListener('scroll', scrollDocument)

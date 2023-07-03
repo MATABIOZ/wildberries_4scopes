@@ -1,7 +1,0 @@
-.burger
-	.sidebar .sidebar_active
-		.modal-header
-			.modal-header__title
-			.btn-close
-		.sidebar__list
-			.sidebar__list-item

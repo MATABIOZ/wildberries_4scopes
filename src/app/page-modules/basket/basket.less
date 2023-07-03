@@ -52,6 +52,10 @@
       padding: 30px 55px;
     }
 
+    @media screen and (@max400) {
+      padding: 30px 20px;
+    }
+
     &_active {
       display: block;
     }
@@ -139,11 +143,6 @@
   &__footer {
     display: flex;
     justify-content: space-between;
-
-    @media screen and (@max576) {
-      flex-direction: column-reverse;
-      align-items: start;
-    }
   }
 
   &__total-price {
