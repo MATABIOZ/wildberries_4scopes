@@ -58,7 +58,7 @@ class AuthenticationApi {
             },
             body: JSON.stringify(userData)
         })
-        .then(response => {
+        .then(response => {       
             if (response.ok) {
                 return response.json()
             } else {

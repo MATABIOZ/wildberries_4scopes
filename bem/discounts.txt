@@ -1,5 +1,0 @@
-.discounts
-	.container
-		.discounts__wrapper
-			.discounts__link
-				.discounts__img

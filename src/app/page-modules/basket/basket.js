@@ -1,5 +1,5 @@
 import { linkStoreToUserData } from "../../core/utils/order/order.js"
-import { getTokenStore } from "../../stores/users-store/users-store.js"
+import { UsersStore } from "../../stores/users-store/users-store.js"
 import { checkSubmenuClass } from "../authentication/submenu.js"
 import { setBodyStyles } from "../../core/utils/hide-scroll.js"
 import { AlertService } from "../../core/services/alert-service/alertService.js"
@@ -21,7 +21,6 @@ function basketBtn() {
 	const basketBtn = document.querySelector(".basket-btn")
 	basketBtn.addEventListener("click", onBasketBtn)
 }
-basketBtn()
 
 function onBasketBtn() {
 	const cardList = createCardListFromBasketStore()
@@ -34,6 +33,7 @@ function onBasketBtn() {
 			outputTotalPrice()
 		} else {
 			createBasketList()
+			deleteBtns('none', 'none')
 		}
 
 		basketModal.classList.add("basket__modal_active")
@@ -48,6 +48,7 @@ function init() {
 	createBasketBlock()
 	createBtnBasketDltAll()
 	createFooterBasket()
+	basketBtn()
 }
 
 function createModalHeader() {
@@ -205,6 +206,13 @@ export function removeFromBasketStorage(cardId) {
 	}
 }
 
+function deleteBtns(valueBtnAll, valueFooter) {
+	const basketBtnDltAll = document.querySelector('.basket__btn-delete-all')
+	const basketFooter = document.querySelector('.basket__footer')
+	basketBtnDltAll.style.display = valueBtnAll
+	basketFooter.style.display = valueFooter
+}
+
 
 function createBtnBasketDltAll() {
 	const basketBtnDltAll = document.createElement('button');
@@ -222,13 +230,6 @@ function onClearAllBasket() {
 	linkStoreToUserData()
 	AlertService.warning("Корзина очищена!")
 	deleteBtns('none', 'none')
-}
-
-function deleteBtns(valueBtnAll, valueFooter) {
-	const basketBtnDltAll = document.querySelector('.basket__btn-delete-all')
-	const basketFooter = document.querySelector('.basket__footer')
-	basketBtnDltAll.style.display = valueBtnAll
-	basketFooter.style.display = valueFooter
 }
 
 function createFooterBasket() {
@@ -254,7 +255,7 @@ function createFooterBasket() {
 
 function toDoOrder() {
 	const submenu = document.querySelector('.user__submenu')
-	const userStore = getTokenStore()
+	const userStore = UsersStore.getTokenStore()
 
 	if(!userStore) {
 		basketModal.classList.remove('basket__modal_active')

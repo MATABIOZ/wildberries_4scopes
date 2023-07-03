@@ -4,7 +4,6 @@ const burgerBtn = document.querySelector('.burger')
 const burgerFooterBarBtn = document.querySelector('.footer-bar__sidebar-btn')
 const sidebar = document.querySelector('.sidebar')
 const closeBtn = document.querySelector('.sidebar .btn-close')
-const body = document.getElementById('body')
 
 burgerBtn.addEventListener('click', chengeSidebarClass)
 burgerFooterBarBtn.addEventListener('click', chengeSidebarClass)

@@ -1,6 +1,6 @@
 import { LOGIN_OPTIONS } from '../../core/consts/options.js'
 import { AuthenticationApi } from '../../core/API/authenticationApi.js'
-import { setTokenStore } from '../../stores/users-store/users-store.js'
+import { UsersStore } from '../../stores/users-store/users-store.js'
 import { createForm } from '../../core/utils/authentication/create-form.js'
 import { changeToken } from '../../core/utils/authentication/change-token.js'
 import { successAuthentication } from '../../core/utils/authentication/success-authentication.js'
@@ -66,7 +66,7 @@ async function singIn() {
     } else {
         successAuthentication('.user__login-form', 'Вы вошли \u2713')
         AlertService.access('Вы вошли \u2713')
-        setTokenStore(userData.token)
+        UsersStore.setTokenStore(userData.token)
         localStorage.setItem('basketStore', JSON.stringify(userData.orders))
         changeToken()
     }

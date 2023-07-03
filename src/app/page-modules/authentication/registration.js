@@ -1,6 +1,6 @@
 import { AuthenticationApi } from '../../core/API/authenticationApi.js'
 import { REGISTRATION_OPTIONS } from '../../core/consts/options.js'
-import { setTokenStore } from '../../stores/users-store/users-store.js'
+import { UsersStore } from '../../stores/users-store/users-store.js'
 import { createForm } from '../../core/utils/authentication/create-form.js'
 import { changeToken } from '../../core/utils/authentication/change-token.js'
 import { successAuthentication } from '../../core/utils/authentication/success-authentication.js'
@@ -79,7 +79,7 @@ async function addInputsValues() {
     } else {
         AuthenticationApi.setUser(person.login, person.password, person.token)
         .then(() => successAuthentication('.user__registration-form', 'Регистрация прошла успешно \u2611'))
-        setTokenStore(person.token)
+        UsersStore.setTokenStore(person.token)
 
         setTimeout(() => {
             changeToken()
